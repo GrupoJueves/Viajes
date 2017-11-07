@@ -24,14 +24,14 @@ public class ConsultaBD {
     public static Cursor listadoItinerarios(int id){
         SQLiteDatabase bdw = BaseDeDatos.getReadableDatabase();
         return bdw.rawQuery("SELECT route_id AS _id, * FROM route " +
-                "WHERE user_id = "+id, null);
+                "WHERE user = "+id, null);
     }
 
     //Cursor con la lista de los puntos de interes de un itinerario (route_id)
     public static Cursor listadoPOIItinerario(int id){
         SQLiteDatabase bdw = BaseDeDatos.getReadableDatabase();
-        return bdw.rawQuery("SELECT route_pois_id_id AS _id, * FROM route_pois, route " +
-                "WHERE route = route_id AND route_id = "+id, null);
+        return bdw.rawQuery("SELECT route_pois_id AS _id, * FROM route_pois, route, poi " +
+                "WHERE route = route_id AND poi_id = poi AND route_id = "+id, null);
     }
 
     //Cursor con la lista de los puntos de interes
@@ -41,7 +41,7 @@ public class ConsultaBD {
         return bdw.rawQuery("SELECT poi_id AS _id, * FROM poi ORDER BY title", null);
     }
 
-    
+
 
 
 
