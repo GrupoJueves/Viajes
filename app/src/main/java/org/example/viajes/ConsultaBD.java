@@ -3,6 +3,7 @@ package org.example.viajes;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * Created by Ivan on 07/11/2017.
@@ -64,9 +65,7 @@ public class ConsultaBD {
         return id;
     }
 
-
-
-
+    //Itinerarios
 
     //Cursor con la lista de itinerarios de un cliente, donde id es el identiticador unico del usuario
     public static Cursor listadoItinerarios(int id){
@@ -74,6 +73,35 @@ public class ConsultaBD {
         return bdw.rawQuery("SELECT route_id AS _id, * FROM route " +
                 "WHERE user = "+id, null);
     }
+
+    //Modidica el parametro checked de un itinerario
+    public static boolean changeCheck(int id, boolean valor){
+        boolean correcto = true;
+        int checked = (valor)?1:0;
+        try {
+            //SQLiteDatabase bdw = BaseDeDatos.getWritableDatabase();
+            bdw.execSQL("UPDATE route SET checked = "+checked+" WHERE route_id = "+id);
+        }
+        catch (Exception e){
+            correcto = false;
+        }
+        return correcto;
+    }
+
+    //Crea un nuevo itinerario con el valor de checked a false(0)(No tiene en cuenta el valor de date, ya que en este primer release no se utiliza)
+    public static boolean newRoute (int user_id, String title){
+        boolean correcto = true;
+        try {
+           bdw.execSQL("INSERT INTO route (user, title, checked) VALUES ("+user_id+" , '"+title+"' , 0)");
+            //bdw.rawQuery("INSERT INTO route  VALUES (null, "+user_id+" , '"+title+"' , 0, null)",null);
+        }
+        catch (Exception e){
+            correcto = false;
+            Log.e("error:", e.getMessage());
+        }
+        return correcto;
+    }
+
 
     //Cursor con la lista de los puntos de interes de un itinerario (route_id)
     public static Cursor listadoPOIItinerario(int id){

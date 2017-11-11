@@ -36,9 +36,10 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "date NUMERIC, " +
                 "FOREIGN KEY(user) REFERENCES user(user_id) ON DELETE CASCADE)");
 
-        db.execSQL("INSERT INTO route VALUES (null, 0, 'primera ruta', 1, null)");
-        db.execSQL("INSERT INTO route VALUES (null, 0, 'segunda ruta', 0, null)");
-        db.execSQL("INSERT INTO route VALUES (null, 0, 'tercera ruta', 0, null)");
+        db.execSQL("INSERT INTO route VALUES (null, 1, 'primera ruta', 0, null)");
+        db.execSQL("INSERT INTO route VALUES (null, 1, 'segunda ruta', 0, null)");
+        db.execSQL("INSERT INTO route VALUES (null, 1, 'tercera ruta', 1, null)");
+        db.execSQL("INSERT INTO route VALUES (null, 2, 'ruta segundo usuario', 0, null)");
 
 
         db.execSQL("CREATE TABLE poi ( " +
