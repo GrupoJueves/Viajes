@@ -1,10 +1,13 @@
 package org.example.viajes;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -22,9 +25,6 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
         //setContentView(R.layout.pruebaregistro);
 
 
-
-
-
         //referencio el reciclerview
         recyclerViewClientes = (RecyclerView) findViewById(R.id.prueba);
         recyclerViewClientes.setLayoutManager(new LinearLayoutManager(this));
@@ -40,6 +40,34 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
         surname = findViewById(R.id.surname);
 */
 
+    }
+
+    ///////MENU///////
+    // Infla el menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true; //true -> el menu ya esta visible
+    }
+
+    //Recibe los OnClicks de los items del menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.map_menu) {
+            showPointOnMap(-13.162932, -72.545326);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showPointOnMap(Double LatPoint,Double LngPoint){
+        Intent i = new Intent(MainActivity.this, MapActivity.class);
+        i.putExtra("LatPoint", LatPoint);
+        i.putExtra("LngPoint", LngPoint);
+        startActivity(i);
     }
 
     public void listaitinerarios(){

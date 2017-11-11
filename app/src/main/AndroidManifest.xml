@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.example.viajes">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-feature android:name="android.hardware.location.gps" />
+    <!--Se añade si se trabaja con un targetSDK igual o superior a la version 21-->
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".MapActivity"/>
+        <!--
         <activity android:name=".ruta"></activity>
+        -->
+
+        <!--Metadatos google maps-->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyD--isZdReEfPx9ZuRaNoixi5nyIKG6JiQ"/>
+
     </application>
 
 </manifest>
