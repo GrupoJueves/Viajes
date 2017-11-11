@@ -2,6 +2,8 @@ package org.example.viajes;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +26,9 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
         setContentView(R.layout.activity_main);
         //setContentView(R.layout.pruebaregistro);
 
+        //inicializo la base de datos, si no existe la crea
+        ConsultaBD.inicializaBD(this);
+
 
         //referencio el reciclerview
         recyclerViewClientes = (RecyclerView) findViewById(R.id.prueba);
@@ -31,6 +36,15 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
 
         //creo el recicler view
         listaitinerarios();
+
+        //fab
+        FloatingActionButton fab=(FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                crear();
+            }
+        });
 
         /* //refererencio los campos de pruebaregistro
 
@@ -71,11 +85,10 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
     }
 
     public void listaitinerarios(){
-        //inicializo la base de datos, si no existe la crea
-        ConsultaBD.inicializaBD(this);
+
 
         //Obtenemos el cursor con todas las rutas del usuario 0
-            Cursor c =ConsultaBD.listadoItinerarios(0);//el 0 se debe cambiar por el user_id
+            Cursor c =ConsultaBD.listadoItinerarios(1);//el 1 se debe cambiar por el user_id
         //creamos el adaptador
         adaptador = new AdaptadorItinerarios(this,c ,this);
         //Esto seria para el caso de que no existireran rutas para este usuario
@@ -92,14 +105,29 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
 
 
     }
+    //en el caso de crear o borrar un itinerario sera aconsejable volver a llamar la funcion listaitinerario()
+    // para que actualice la vista, tal como se ve en las funciones siguientes
 
     //accion de pulsar sobre un elemento de la lista
     @Override
     public void onClick(AdaptadorItinerarios.ViewHolder holder, long id) {
-        Toast.makeText(MainActivity.this, " elemento " + id, Toast.LENGTH_SHORT).show();
+
+        if(ConsultaBD.changeCheck((int) id,true)){
+            Toast.makeText(MainActivity.this, "Cambio realizado", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(MainActivity.this, "Error al intentar cambiar" + id, Toast.LENGTH_SHORT).show();
+        }
+        listaitinerarios();
+
     }
 
-    //en el caso de crear o borrar un itinerario sera aconsejable volver a llamar la funcion listaitinerario() para que actualice la vista
+    //crear un nuevo itinerario llamado prueba
+    public void crear(){
+        ConsultaBD.newRoute(1,"prueba");
+        listaitinerarios();
+    }
+
+
 /*
     public void registrar(View v){
         //inicializo la base de datos, si no existe la crea
@@ -138,6 +166,8 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
 
     }
     */
+
+
 
 
 }

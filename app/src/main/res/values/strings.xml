@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Viajes</string>
+    <string name="title_activity_prueba_itinerario">pruebaItinerario</string>
 </resources>

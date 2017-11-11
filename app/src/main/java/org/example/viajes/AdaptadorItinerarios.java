@@ -27,7 +27,7 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
 
     //lo utilizaremos desde la actividad
     interface OnItemClickListener {
-        public void onClick(ViewHolder holder, long idCliente);
+        public void onClick(ViewHolder holder, long id);
     }
 
 
@@ -104,7 +104,7 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
     private long obtenerId(int posicion) {
         if (c != null) {
             if (c.moveToPosition(posicion)) {
-                return c.getLong(c.getColumnIndex("_id")); //se puede especipifar el id, por ejemplo route_id
+                return c.getLong(c.getColumnIndex("_id")); //se puede especipicar el id, por ejemplo route_id, pero _id es general y funcionara siempre
             } else {
                 return -1;
             }
