@@ -103,18 +103,86 @@ public class ConsultaBD {
     }
 
 
-    //Cursor con la lista de los puntos de interes de un itinerario (route_id)
-    public static Cursor listadoPOIItinerario(int id){
-        SQLiteDatabase bdw = BaseDeDatos.getReadableDatabase();
-        return bdw.rawQuery("SELECT route_pois_id AS _id, * FROM route_pois, route, poi " +
-                "WHERE route = route_id AND poi_id = poi AND route_id = "+id, null);
-    }
+    //POI
 
     //Cursor con la lista de los puntos de interes
 
     public static Cursor listadoPOI(){
         SQLiteDatabase bdw = BaseDeDatos.getReadableDatabase();
         return bdw.rawQuery("SELECT poi_id AS _id, * FROM poi ORDER BY title", null);
+    }
+
+    //Crear un nuevo punto de interes (se le pasa el elemento POI a añadir a la BD)
+    public static boolean newPOI (POI poi){
+        boolean correcto = true;
+        try {
+            bdw.execSQL("INSERT INTO poi (title, description, lon, lat, img) VALUES ('"+poi.getTitle()+"' , '"+poi.getDescription()+"' , "+poi.getClass()+" , "+poi.lat+" , '"+poi.getImg()+"')");
+
+        }
+        catch (Exception e){
+            correcto = false;
+            Log.e("error:", e.getMessage());
+        }
+        return correcto;
+    }
+
+    //Informacion de un POI en concreto (devuelve un elemto POI con la informacion solicitada)
+    public static POI infoPoi (int id){
+        POI poi = null;
+
+        Cursor cursor = bdw.rawQuery("SELECT * FROM poi WHERE poi_id = " + id, null);
+        if (cursor.moveToNext()){
+            poi = new POI();
+            poi.setTitle(""+cursor.getString(cursor.getColumnIndex("title")));
+            poi.setDescription(""+cursor.getString(cursor.getColumnIndex("description")));
+            poi.setImg(""+cursor.getString(cursor.getColumnIndex("img")));
+            poi.setLat(0+cursor.getLong(cursor.getColumnIndex("lat")));
+            poi.setLon(0+cursor.getLong(cursor.getColumnIndex("lon")));
+
+        }
+        cursor.close();
+
+
+        return poi;
+    }
+
+
+    //Pois de un itinerario
+
+    //Cursor con la lista de los puntos de interes de un itinerario (route_id)
+    public static Cursor listadoPOIItinerario(int id){
+        SQLiteDatabase bdw = BaseDeDatos.getReadableDatabase();
+        return bdw.rawQuery("SELECT route_pois_id AS _id, * FROM route_pois, route, poi " +
+                "WHERE route = route_id AND poi_id = poi AND route_id = "+id+" ORDERED BY position", null);
+    }
+
+    //Añadir un nuevo Poi al itinerario (El dia siempre sera 1 de momento)
+    public static boolean addPoi(int route_id, int poi_id, int position, boolean checked){
+        boolean correcto = true;
+        int visto = (checked)?1:0;
+        try {
+            bdw.execSQL("INSERT INTO route_pois (route, poi, position, day, checked) VALUES ("+route_id+" , "+poi_id+" , "+position+" , 1 , "+visto+")");
+
+        }
+        catch (Exception e){
+            correcto = false;
+            Log.e("error:", e.getMessage());
+        }
+        return correcto;
+    }
+
+    //marcar un Poi como visto (id es el identificador del poi del itinerario que queremos modificar)
+    public static boolean changeCheckPoi(int id, boolean valor){
+        boolean correcto = true;
+        int checked = (valor)?1:0;
+        try {
+            //SQLiteDatabase bdw = BaseDeDatos.getWritableDatabase();
+            bdw.execSQL("UPDATE route_pois SET checked = "+checked+" WHERE route_pois_id = "+id);
+        }
+        catch (Exception e){
+            correcto = false;
+        }
+        return correcto;
     }
 
 

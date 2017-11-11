@@ -50,8 +50,12 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "lat REAL NOT NULL, " +
                 "img TEXT)");
 
-
-
+        db.execSQL("INSERT INTO poi VALUES (null, 'Santiago Bernabeu', 'El Estadio Santiago Bernabéu es un recinto deportivo propiedad del Real Madrid Club de Fútbol, situado en pleno Paseo de la Castellana, en el distrito de Chamartín de Madrid, España', -3.689452, 40.453113, null)");
+        db.execSQL("INSERT INTO poi VALUES (null, 'Puerta de Alcala', 'La Puerta de Alcalá es una de las cinco antiguas puertas reales que daban acceso a la ciudad de Madrid. Se encuentra situada en el centro de la rotonda de la Plaza de la Independencia', -3.688658, 40.419918, null)");
+        db.execSQL("INSERT INTO poi VALUES (null, 'Palacio Real', 'Palacio del s. XVIII con balaustrada que ofrece visitas guiadas por salones repletos de arte y antigüedades.', -3.713666, 40.418150, null)");
+        db.execSQL("INSERT INTO poi VALUES (null, 'Teatro Real', 'Detalles dorados, terciopelo rojo y obras de arte en un majestuoso teatro centenario de danza clásica y ópera.', -3.710555, 40.418127, null)");
+        db.execSQL("INSERT INTO poi VALUES (null, 'Parroquia de san gines', 'La iglesia de San Ginés es un templo católico bajo la advocación de San Ginés de Arlés, notario mártir, y sede de la parroquia de San Ginés de la Villa de Madrid', -3.707132, 40.416873, null)");
+        db.execSQL("INSERT INTO poi VALUES (null, 'Chocolateria San Gines', 'Casa fundada en 1894 y abierta las 24 horas conocida por su chocolate con churros y su concurrida terraza', -3.706907, 40.416675, null)");
 
 
         db.execSQL("CREATE TABLE poi_pic ( " +
