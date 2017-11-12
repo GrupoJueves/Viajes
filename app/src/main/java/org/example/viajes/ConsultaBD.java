@@ -116,7 +116,7 @@ public class ConsultaBD {
     public static boolean newPOI (POI poi){
         boolean correcto = true;
         try {
-            bdw.execSQL("INSERT INTO poi (title, description, lon, lat, img) VALUES ('"+poi.getTitle()+"' , '"+poi.getDescription()+"' , "+poi.getClass()+" , "+poi.lat+" , '"+poi.getImg()+"')");
+            bdw.execSQL("INSERT INTO poi (title, description, lon, lat, img) VALUES ('"+poi.getTitle()+"' , '"+poi.getDescription()+"' , "+poi.getLon()+" , "+poi.getLat()+" , '"+poi.getImg()+"')");
 
         }
         catch (Exception e){
@@ -136,8 +136,8 @@ public class ConsultaBD {
             poi.setTitle(""+cursor.getString(cursor.getColumnIndex("title")));
             poi.setDescription(""+cursor.getString(cursor.getColumnIndex("description")));
             poi.setImg(""+cursor.getString(cursor.getColumnIndex("img")));
-            poi.setLat(0+cursor.getLong(cursor.getColumnIndex("lat")));
-            poi.setLon(0+cursor.getLong(cursor.getColumnIndex("lon")));
+            poi.setLat(0+cursor.getFloat(cursor.getColumnIndex("lat")));
+            poi.setLon(0+cursor.getFloat(cursor.getColumnIndex("lon")));
 
         }
         cursor.close();
@@ -153,7 +153,7 @@ public class ConsultaBD {
     public static Cursor listadoPOIItinerario(int id){
         SQLiteDatabase bdw = BaseDeDatos.getReadableDatabase();
         return bdw.rawQuery("SELECT route_pois_id AS _id, * FROM route_pois, route, poi " +
-                "WHERE route = route_id AND poi_id = poi AND route_id = "+id+" ORDERED BY position", null);
+                "WHERE route = route_id AND poi_id = poi AND route_id = "+id+" ORDER BY position", null);
     }
 
     //Añadir un nuevo Poi al itinerario (El dia siempre sera 1 de momento)
@@ -161,7 +161,7 @@ public class ConsultaBD {
         boolean correcto = true;
         int visto = (checked)?1:0;
         try {
-            bdw.execSQL("INSERT INTO route_pois (route, poi, position, day, checked) VALUES ("+route_id+" , "+poi_id+" , "+position+" , 1 , "+visto+")");
+            bdw.execSQL("INSERT INTO route_pois (route, poi, position, day, visto) VALUES ("+route_id+" , "+poi_id+" , "+position+" , 1 , "+visto+")");
 
         }
         catch (Exception e){
@@ -177,7 +177,7 @@ public class ConsultaBD {
         int checked = (valor)?1:0;
         try {
             //SQLiteDatabase bdw = BaseDeDatos.getWritableDatabase();
-            bdw.execSQL("UPDATE route_pois SET checked = "+checked+" WHERE route_pois_id = "+id);
+            bdw.execSQL("UPDATE route_pois SET visto = "+checked+" WHERE route_pois_id = "+id);
         }
         catch (Exception e){
             correcto = false;

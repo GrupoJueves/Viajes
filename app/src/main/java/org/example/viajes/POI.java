@@ -6,7 +6,7 @@ package org.example.viajes;
 
 public class POI {
     String title, description, img;
-    long lon, lat;
+    Float lon, lat;
 
     public POI() {
         img = null;
@@ -40,19 +40,19 @@ public class POI {
         this.img = img;
     }
 
-    public long getLon() {
+    public float getLon() {
         return lon;
     }
 
-    public void setLon(long lon) {
+    public void setLon(float lon) {
         this.lon = lon;
     }
 
-    public long getLat() {
+    public float getLat() {
         return lat;
     }
 
-    public void setLat(long lat) {
+    public void setLat(float lat) {
         this.lat = lat;
     }
 }
