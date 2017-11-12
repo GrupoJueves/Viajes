@@ -86,7 +86,6 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
 
     public void listaitinerarios(){
 
-
         //Obtenemos el cursor con todas las rutas del usuario 0
             Cursor c =ConsultaBD.listadoItinerarios(1);//el 1 se debe cambiar por el user_id
         //creamos el adaptador
