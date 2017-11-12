@@ -112,12 +112,15 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
     @Override
     public void onClick(AdaptadorItinerarios.ViewHolder holder, long id) {
 
-        if(ConsultaBD.changeCheck((int) id,true)){
+        /*if(ConsultaBD.changeCheck((int) id,true)){
             Toast.makeText(MainActivity.this, "Cambio realizado", Toast.LENGTH_SHORT).show();
         }else{
             Toast.makeText(MainActivity.this, "Error al intentar cambiar" + id, Toast.LENGTH_SHORT).show();
         }
-        listaitinerarios();
+        listaitinerarios();*/
+
+        Intent intent = new Intent(this, PruebaPoi.class);
+        startActivity(intent);
 
     }
 
