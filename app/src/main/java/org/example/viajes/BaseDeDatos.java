@@ -74,9 +74,15 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "poi INTEGER NOT NULL, " +
                 "position INTEGER, " +
                 "day INTEGER, " +
-                "checked INTEGER, " +
+                "visto INTEGER, " +
                 "FOREIGN KEY(route) REFERENCES route(route_id) ON DELETE CASCADE, " +
                 "FOREIGN KEY(poi) REFERENCES poi(poi_id) ON DELETE CASCADE)");
+
+        db.execSQL("INSERT INTO route_pois VALUES (null,1,2,1,1,1)");
+        db.execSQL("INSERT INTO route_pois VALUES (null,1,1,2,1,0)");
+        db.execSQL("INSERT INTO route_pois VALUES (null,1,5,3,1,0)");
+        db.execSQL("INSERT INTO route_pois VALUES (null,1,4,4,1,0)");
+        db.execSQL("INSERT INTO route_pois VALUES (null,2,3,1,1,1)");
 
 
 

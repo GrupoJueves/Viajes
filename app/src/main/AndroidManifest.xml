@@ -29,10 +29,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD--isZdReEfPx9ZuRaNoixi5nyIKG6JiQ" />
 
-        <activity
-            android:name=".PruebaPoi"
-            android:label="@string/title_activity_prueba_poi"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
