@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
         int id = item.getItemId();
 
         if (id == R.id.map_menu) {
-            showPointOnMap(-13.162932, -72.545326);
+            showPointOnMap(40.418153, -3.684369);
             return true;
         }
 

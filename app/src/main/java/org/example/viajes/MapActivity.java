@@ -6,6 +6,7 @@ package org.example.viajes;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -42,6 +43,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     private double latAux;
     private double lngAux;
 
+    private Cursor c;
+
 
 
     ////CONSTRUCTOR////
@@ -51,6 +54,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         setContentView(R.layout.activity_map);
         SupportMapFragment mapFragment =(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        ConsultaBD.inicializaBD(this);
+        c = ConsultaBD.listadoPOI();
 
         try {
             Bundle extras = getIntent().getExtras();
@@ -106,8 +112,16 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     public void colocarMarcadores(){
 
         if(seeOnMap != 0){
-            map.addMarker(new MarkerOptions().position(new LatLng(latPoint, lngPoint))
-                    .title("Punto"));
+
+            for (int n=0; n<c.getCount(); n++) {
+                c.moveToPosition(n);
+                Double lat = c.getDouble(c.getColumnIndex("lat"));
+                Double lng = c.getDouble(c.getColumnIndex("lon"));
+                String name = c.getString(c.getColumnIndex("title"));
+
+                map.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
+                        .title(name));
+            }
         }
     }
 }
