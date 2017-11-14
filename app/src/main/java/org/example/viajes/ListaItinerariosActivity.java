@@ -142,6 +142,9 @@ public class ListaItinerariosActivity extends AppCompatActivity implements  Adap
         } else if (id == R.id.nav_preferencias) {
             lanzarPreferencias(null);
             return true;
+        } else if (id == R.id.nav_mapa) {
+            showPointOnMap(40.418153, -3.684369);
+            return true;
         } else if (id == R.id.nav_salir) {
             SharedPreferences.Editor editor = pref.edit();
             editor.putInt("id", 0);
@@ -162,6 +165,13 @@ public class ListaItinerariosActivity extends AppCompatActivity implements  Adap
         } else {
             super.onBackPressed();
         }
+    }
+
+    private void showPointOnMap(Double LatPoint,Double LngPoint){
+        Intent i = new Intent(ListaItinerariosActivity.this, MapActivity.class);
+        i.putExtra("LatPoint", LatPoint);
+        i.putExtra("LngPoint", LngPoint);
+        startActivity(i);
     }
 
     public void lanzarPreferencias(View view){
