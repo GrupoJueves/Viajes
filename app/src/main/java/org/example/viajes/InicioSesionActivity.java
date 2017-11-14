@@ -24,9 +24,9 @@ public class InicioSesionActivity extends AppCompatActivity {
         ConsultaBD.inicializaBD(this);
 
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        int id = pref.getInt("id",0);
-        if (id > 0){
-            Intent intent = new Intent(this, MainActivity.class);
+        Boolean rememberMe = pref.getBoolean("rememberMe",false);
+        if (rememberMe){
+            Intent intent = new Intent(this, ListaItinerariosActivity.class);
             startActivity(intent);
         }
 
@@ -59,15 +59,16 @@ public class InicioSesionActivity extends AppCompatActivity {
 
         int answer = ConsultaBD.identificar(email.getText().toString(),contraseña.getText().toString());
         if (answer > 0){
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = pref.edit();
             CheckBox recordarme= (CheckBox) findViewById(R.id.recordarme);
             //Recordar usuario mediante preferencias compartidas
             if (recordarme.isChecked()){
-                SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-                SharedPreferences.Editor editor = pref.edit();
-                editor.putInt("id", answer);
-                editor.commit();
+                editor.putBoolean("rememberMe", true);
             }
-            Intent intent = new Intent(this, MainActivity.class);
+            editor.putInt("id", answer);
+            editor.commit();
+            Intent intent = new Intent(this, ListaItinerariosActivity.class);
             startActivity(intent);
         }
         else if (answer == -1){

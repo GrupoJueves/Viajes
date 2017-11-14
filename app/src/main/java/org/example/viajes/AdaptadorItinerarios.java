@@ -69,7 +69,7 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //inflamos la vista
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.prueba, parent, false); //Cambiar elemnto lista por el nombre del layout del elemento del reciclerview
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_itinerario, parent, false); //Cambiar elemnto lista por el nombre del layout del elemento del reciclerview
 
         vista.setOnLongClickListener(onLongClickListener);//aplicamos escuchador long a cada vista
         return new ViewHolder(vista);

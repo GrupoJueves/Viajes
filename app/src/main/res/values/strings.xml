@@ -2,4 +2,8 @@
     <string name="app_name">Viajes</string>
     <string name="title_activity_prueba_itinerario">pruebaItinerario</string>
     <string name="title_activity_prueba_poi">PruebaPoi</string>
+    <string name="title_activity_lista_itinerarios">ListaItinerarios</string>
+
+    <string name="drawer_open">navigation drawer abierto</string>
+    <string name="drawer_close">navigation drawer cerrado</string>
 </resources>

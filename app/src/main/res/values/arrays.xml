@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tiposMapas">
+        <item>Rtas</item>
+        <item>Satélitep</item>
+        <item>Híbrido</item>
+        <item>Tierra</item>
+    </string-array>
+    <string-array name="tiposMapasValores">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>
