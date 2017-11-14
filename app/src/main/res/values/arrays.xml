@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="tiposMapas">
-        <item>Rtas</item>
-        <item>Satélitep</item>
+        <item>Rutas</item>
+        <item>Satélite</item>
         <item>Híbrido</item>
         <item>Tierra</item>
     </string-array>
@@ -10,5 +10,6 @@
         <item>0</item>
         <item>1</item>
         <item>2</item>
+        <item>3</item>
     </string-array>
 </resources>
