@@ -14,13 +14,11 @@ public class ConsultaBD {
     private static BaseDeDatos BaseDeDatos;
     private static SQLiteDatabase bdw;
 
-
     public static void inicializaBD(Context contexto){
 
         BaseDeDatos = new BaseDeDatos(contexto);
         bdw = BaseDeDatos.getWritableDatabase();
     }
-
 
     //Registro e Identificacion
 
@@ -102,6 +100,19 @@ public class ConsultaBD {
         return correcto;
     }
 
+    //Elimina un itinerario
+    public static boolean deleteRoute (int user_id, String title){
+        boolean correcto = true;
+        try {
+            bdw.execSQL("DELETE FROM route WHERE user = user_id & title = title");
+            //bdw.rawQuery("INSERT INTO route  VALUES (null, "+user_id+" , '"+title+"' , 0, null)",null);
+        }
+        catch (Exception e){
+            correcto = false;
+            Log.e("error:", e.getMessage());
+        }
+        return correcto;
+    }
 
     //POI
 
@@ -146,7 +157,6 @@ public class ConsultaBD {
         return poi;
     }
 
-
     //Pois de un itinerario
 
     //Cursor con la lista de los puntos de interes de un itinerario (route_id)
@@ -184,9 +194,4 @@ public class ConsultaBD {
         }
         return correcto;
     }
-
-
-
-
-
 }

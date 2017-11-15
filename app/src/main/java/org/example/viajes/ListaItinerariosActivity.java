@@ -23,7 +23,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class ListaItinerariosActivity extends AppCompatActivity implements  AdaptadorItinerarios.OnItemClickListener,NavigationView.OnNavigationItemSelectedListener{
+public class ListaItinerariosActivity extends AppCompatActivity implements AdaptadorItinerarios.OnItemClickListener, NavigationView.OnNavigationItemSelectedListener{
     private RecyclerView recyclerViewClientes;
     public AdaptadorItinerarios adaptador;
     private RecyclerView.LayoutManager lManager;
@@ -40,26 +40,18 @@ public class ListaItinerariosActivity extends AppCompatActivity implements  Adap
         int id = pref.getInt("id",0);
         if (id == 0){this.finish();}
 
-
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(this);
 
         recyclerViewClientes = (RecyclerView) findViewById(R.id.reciclador);
         recyclerViewClientes.setHasFixedSize(true);
 
-
         // Usar un administrador para LinearLayout
         lManager = new LinearLayoutManager(this);
         recyclerViewClientes.setLayoutManager(lManager);
 
-
-
         //Inicializar los elementos
         listaitinerarios();
-
-
-
-
 
         FloatingActionButton fab=(FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -132,10 +124,18 @@ public class ListaItinerariosActivity extends AppCompatActivity implements  Adap
     public void onClick(AdaptadorItinerarios.ViewHolder holder, long id) {
         if(ConsultaBD.changeCheck((int) id,true)){
             Toast.makeText(ListaItinerariosActivity.this, "Cambio realizado", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ListaPuntosInteresActivity.class);
+            intent.putExtra("","");
+            startActivity(intent);
         }else{
             Toast.makeText(ListaItinerariosActivity.this, "Error al intentar cambiar" + id, Toast.LENGTH_SHORT).show();
         }
         listaitinerarios();
+    }
+
+    @Override
+    public void onLongClick(AdaptadorItinerarios.ViewHolder holder, long id, String title) {
+        ConsultaBD.deleteRoute((int) id,title);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

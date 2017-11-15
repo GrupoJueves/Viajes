@@ -14,11 +14,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements  AdaptadorItinerarios.OnItemClickListener{
+public class MainActivity extends AppCompatActivity implements AdaptadorItinerarios.OnItemClickListener {
 
     public AdaptadorItinerarios adaptador;
     public RecyclerView recyclerViewClientes;
-    public EditText email, pass, nombre,surname;
+    public EditText email, pass, nombre, surname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(this);
 
-
         //referencio el reciclerview
         recyclerViewClientes = (RecyclerView) findViewById(R.id.prueba);
         recyclerViewClientes.setLayoutManager(new LinearLayoutManager(this));
@@ -38,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
         listaitinerarios();
 
         //fab
-        FloatingActionButton fab=(FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,31 +76,30 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
         return super.onOptionsItemSelected(item);
     }
 
-    private void showPointOnMap(Double LatPoint,Double LngPoint){
+    private void showPointOnMap(Double LatPoint, Double LngPoint) {
         Intent i = new Intent(MainActivity.this, MapActivity.class);
         i.putExtra("LatPoint", LatPoint);
         i.putExtra("LngPoint", LngPoint);
         startActivity(i);
     }
 
-    public void listaitinerarios(){
+    public void listaitinerarios() {
 
         //Obtenemos el cursor con todas las rutas del usuario 0
-            Cursor c =ConsultaBD.listadoItinerarios(1);//el 1 se debe cambiar por el user_id
+        Cursor c = ConsultaBD.listadoItinerarios(1);//el 1 se debe cambiar por el user_id
         //creamos el adaptador
-        adaptador = new AdaptadorItinerarios(this,c ,this);
+        adaptador = new AdaptadorItinerarios(this, c, this);
         //Esto seria para el caso de que no existireran rutas para este usuario
         // emptyview seria lo que se mostraria en una lista vacia
-            if(adaptador.getItemCount()==0){
-                //emptyview.setVisibility(View.VISIBLE);
-                recyclerViewClientes.setVisibility(View.GONE);
-            }else{
-                //emptyview.setVisibility(View.GONE);
-                recyclerViewClientes.setVisibility(View.VISIBLE);
-            }
-            //rellenamos el reciclerview
-            recyclerViewClientes.setAdapter(adaptador);
-
+        if (adaptador.getItemCount() == 0) {
+            //emptyview.setVisibility(View.VISIBLE);
+            recyclerViewClientes.setVisibility(View.GONE);
+        } else {
+            //emptyview.setVisibility(View.GONE);
+            recyclerViewClientes.setVisibility(View.VISIBLE);
+        }
+        //rellenamos el reciclerview
+        recyclerViewClientes.setAdapter(adaptador);
 
     }
     //en el caso de crear o borrar un itinerario sera aconsejable volver a llamar la funcion listaitinerario()
@@ -111,23 +109,24 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
     @Override
     public void onClick(AdaptadorItinerarios.ViewHolder holder, long id) {
 
-        if(ConsultaBD.changeCheck((int) id,true)){
+        if (ConsultaBD.changeCheck((int) id, true)) {
             Toast.makeText(MainActivity.this, "Cambio realizado", Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             Toast.makeText(MainActivity.this, "Error al intentar cambiar" + id, Toast.LENGTH_SHORT).show();
         }
         listaitinerarios();
-
-
     }
 
-    //crear un nuevo itinerario llamado prueba
-    public void crear(){
-        ConsultaBD.newRoute(1,"prueba");
+    @Override
+    public void onLongClick(AdaptadorItinerarios.ViewHolder holder, long id, String title) {
         listaitinerarios();
     }
 
-
+    //crear un nuevo itinerario llamado prueba
+    public void crear() {
+        ConsultaBD.newRoute(1, "prueba");
+        listaitinerarios();
+    }
 /*
     public void registrar(View v){
         //inicializo la base de datos, si no existe la crea
@@ -166,8 +165,4 @@ public class MainActivity extends AppCompatActivity implements  AdaptadorItinera
 
     }
     */
-
-
-
-
 }

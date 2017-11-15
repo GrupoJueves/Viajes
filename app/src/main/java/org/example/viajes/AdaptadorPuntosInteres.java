@@ -9,36 +9,33 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 /**
- * Created by Ivan on 07/11/2017.
+ * Created by rodriii on 15/11/17.
  */
 
-public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerarios.ViewHolder> {
+public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntosInteres.ViewHolder> {
 
-    private LayoutInflater inflador;//Crea Layouts a partir del XML
+    private LayoutInflater inflador; //Crea Layouts a partir del XML
     private long id;
 
     private Cursor c;
-    private OnItemClickListener escucha;
+    private AdaptadorPuntosInteres.OnItemClickListener escucha;
     private View.OnLongClickListener onLongClickListener; // escuchador long
     private Context contexto;
 
     //lo utilizaremos desde la actividad
     interface OnItemClickListener {
-        public void onClick(ViewHolder holder, long id);
-        public void onLongClick(ViewHolder holder, long id, String title);
+        public void onClick(AdaptadorPuntosInteres.ViewHolder holder, long id);
     }
 
-   // Constructor
-    public AdaptadorItinerarios(Context contexto, Cursor c, OnItemClickListener escucha) {
-        this.c=c;
-        this.escucha=escucha;
+    // Constructor
+    public AdaptadorPuntosInteres(Context contexto, Cursor c, AdaptadorPuntosInteres.OnItemClickListener escucha) {
+        this.c = c;
+        this.escucha = escucha;
     }
 
     //ViewHolder con los elementos a modificar
-    public class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView titulo;
         ImageView check;
 
@@ -49,41 +46,37 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
             check = (ImageView) vista.findViewById(R.id.visto);
 
             vista.setOnClickListener(this);
-            vista.setOnLongClickListener(this);
-        }
-        @Override
-        public void onClick(View view) {
-            escucha.onClick(this, obtenerId(getAdapterPosition()));
+            // vista.setOnLongClickListener(this);
         }
 
         @Override
-        public boolean onLongClick(View view){
-            return true;
+        public void onClick(View view) {
+            escucha.onClick(this, obtenerId(getAdapterPosition()));
         }
     }
 
     //Creamos el viewHolder con las vistas de los elementos sin personalizar
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AdaptadorPuntosInteres.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //inflamos la vista
         View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_itinerario, parent, false); //Cambiar elemnto lista por el nombre del layout del elemento del reciclerview
 
-        vista.setOnLongClickListener(onLongClickListener); //aplicamos escuchador long a cada vista
-        return new ViewHolder(vista);
+        vista.setOnLongClickListener(onLongClickListener);//aplicamos escuchador long a cada vista
+        return new AdaptadorPuntosInteres.ViewHolder(vista);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(AdaptadorPuntosInteres.ViewHolder holder, int position) {
         //siguiente elemento del cursor
         c.moveToPosition(position);
 
         //Modifico los elementos de la vista
         holder.titulo.setText(c.getString(c.getColumnIndex("title")));
         int tele = c.getInt(c.getColumnIndex("checked"));
-         if (tele == 0) {
-                holder.check.setVisibility(View.INVISIBLE);
-            }
+        if (tele == 0) {
+            holder.check.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -112,11 +105,7 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
     }
 
     public long getId(int position) {
-        id= obtenerId(position);
+        id = obtenerId(position);
         return id;
     }
 }
-
-
-
-
