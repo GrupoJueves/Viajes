@@ -46,12 +46,20 @@ public class ListaItinerariosActivity extends AppCompatActivity implements  Adap
 
         recyclerViewClientes = (RecyclerView) findViewById(R.id.reciclador);
         recyclerViewClientes.setHasFixedSize(true);
-        //Inicializar los elementos
-        listaitinerarios();
+
 
         // Usar un administrador para LinearLayout
         lManager = new LinearLayoutManager(this);
         recyclerViewClientes.setLayoutManager(lManager);
+
+
+
+        //Inicializar los elementos
+        listaitinerarios();
+
+
+
+
 
         FloatingActionButton fab=(FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -149,8 +157,10 @@ public class ListaItinerariosActivity extends AppCompatActivity implements  Adap
             SharedPreferences.Editor editor = pref.edit();
             editor.putInt("id", 0);
             editor.putBoolean("rememberMe", false);
+            editor.commit();
             Intent intent = new Intent(this, InicioSesionActivity.class);
             startActivity(intent);
+            finish();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(
                 R.id.drawer_layout);
