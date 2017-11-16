@@ -73,7 +73,7 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
 
         //Modifico los elementos de la vista
         holder.titulo.setText(c.getString(c.getColumnIndex("title")));
-        int tele = c.getInt(c.getColumnIndex("checked"));
+        int tele = c.getInt(c.getColumnIndex("visto"));
         if (tele == 0) {
             holder.check.setVisibility(View.INVISIBLE);
         }

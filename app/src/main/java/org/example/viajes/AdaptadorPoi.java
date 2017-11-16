@@ -68,7 +68,7 @@ public class AdaptadorPoi extends RecyclerView.Adapter<AdaptadorPoi.ViewHolder> 
     public AdaptadorPoi.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //inflamos la vista
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.prueba, parent, false); //Cambiar elemnto lista por el nombre del layout del elemento del reciclerview
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.elemento_select_poi, parent, false); //Cambiar elemnto lista por el nombre del layout del elemento del reciclerview
 
         vista.setOnLongClickListener(onLongClickListener);//aplicamos escuchador long a cada vista, aunque aun no lo usamos
         return new AdaptadorPoi.ViewHolder(vista);

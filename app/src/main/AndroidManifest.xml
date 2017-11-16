@@ -39,6 +39,12 @@
             android:name=".ListaPuntosInteresActivity"
             android:label="@string/title_activity_lista_itinerarios"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".SelectPOI"
+            android:label="@string/select_POI"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+
     </application>
 
 </manifest>

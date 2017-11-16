@@ -122,15 +122,11 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     //accion de pulsar sobre un elemento de la lista
     @Override
     public void onClick(AdaptadorItinerarios.ViewHolder holder, long id) {
-        if(ConsultaBD.changeCheck((int) id,true)){
-            Toast.makeText(ListaItinerariosActivity.this, "Cambio realizado", Toast.LENGTH_SHORT).show();
+
             Intent intent = new Intent(this, ListaPuntosInteresActivity.class);
-            intent.putExtra("","");
+            intent.putExtra("id", id);
             startActivity(intent);
-        }else{
-            Toast.makeText(ListaItinerariosActivity.this, "Error al intentar cambiar" + id, Toast.LENGTH_SHORT).show();
-        }
-        listaitinerarios();
+
     }
 
     @Override

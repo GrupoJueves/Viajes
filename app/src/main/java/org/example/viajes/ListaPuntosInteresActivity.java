@@ -18,9 +18,16 @@ import android.widget.Toast;
 
 public class ListaPuntosInteresActivity extends AppCompatActivity implements AdaptadorPuntosInteres.OnItemClickListener {
 
-    private RecyclerView recyclerViewClientes;
+    private RecyclerView recyclerViewitinerario;
     public AdaptadorPuntosInteres adaptador;
     private RecyclerView.LayoutManager lManager;
+
+    //Valor para la llamada a añadir poi
+    final static int RESULTADO_AÑADIR = 1;
+
+    //Variable donde almacenare el identificador de la ruta
+    private long id_ruta;
+
     private SharedPreferences pref;
 
     private String nombrePuntoInteres = "";
@@ -30,54 +37,33 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_puntos_interes);
 
-        pref = PreferenceManager.getDefaultSharedPreferences(this);
-        int id = pref.getInt("id", 0);
-        if (id == 0) {
-            this.finish();
-        }
+        //recojo el valor del identificador de la ruta
+        Bundle extras = getIntent().getExtras();
+        id_ruta = extras.getLong("id", -1);
+
+
+
 
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(this);
 
-        recyclerViewClientes = (RecyclerView) findViewById(R.id.recicladorPunto);
-        recyclerViewClientes.setHasFixedSize(true);
+        recyclerViewitinerario = (RecyclerView) findViewById(R.id.recicladorPunto);
+        recyclerViewitinerario.setHasFixedSize(true);
 
         // Usar un administrador para LinearLayout
         lManager = new LinearLayoutManager(this);
-        recyclerViewClientes.setLayoutManager(lManager);
+        recyclerViewitinerario.setLayoutManager(lManager);
 
         //Inicializar los elementos
-        //listaPuntosInteres();
+        listaPuntosInteres();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("Nombre de punto de interés");
-                // Set up the input
-                final EditText input = new EditText(view.getContext());
-                //input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                builder.setView(input);
-                // Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        nombrePuntoInteres = input.getText().toString();
-                        if (!nombrePuntoInteres.isEmpty()) {
-                            int id = pref.getInt("id", 0);
-                            //ConsultaBD.newPOI("","","",0.0,0.0);
-                            //listaPuntosInteres();
-                        }
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
+                Intent i = new Intent(ListaPuntosInteresActivity.this, SelectPOI.class);
+                i.putExtra("id", id_ruta);
+                startActivityForResult(i, RESULTADO_AÑADIR);
             }
         });
 
@@ -87,36 +73,50 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-    /*public void listaPuntosInteres(){
-        int id = pref.getInt("id", 0);
+    public void listaPuntosInteres(){
+
         //Obtenemos el cursor con todos los puntos del usuario
-        Cursor c = ConsultaBD.listadoPOI();
+        Cursor c = ConsultaBD.listadoPOIItinerario((int)id_ruta);
         //creamos el adaptador
         adaptador = new AdaptadorPuntosInteres(this, c, this);
         //Esto seria para el caso de que no existireran rutas para este usuario
         // emptyview seria lo que se mostraria en una lista vacia
         if (adaptador.getItemCount() == 0) {
             //emptyview.setVisibility(View.VISIBLE);
-            recyclerViewClientes.setVisibility(View.GONE);
+            recyclerViewitinerario.setVisibility(View.GONE);
         } else {
+
             //emptyview.setVisibility(View.GONE);
-            recyclerViewClientes.setVisibility(View.VISIBLE);
+            recyclerViewitinerario.setVisibility(View.VISIBLE);
         }
         //rellenamos el reciclerview
-        recyclerViewClientes.setAdapter(adaptador);
-    }*/
+        recyclerViewitinerario.setAdapter(adaptador);
+    }
 
     //accion de pulsar sobre un elemento de la lista
     @Override
     public void onClick(AdaptadorPuntosInteres.ViewHolder holder, long id) {
-        if (ConsultaBD.changeCheck((int) id, true)) {
-            Toast.makeText(ListaPuntosInteresActivity.this, "Cambio realizado", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, ListaPuntosInteresActivity.class);
-            intent.putExtra("", "");
-            startActivity(intent);
-        } else {
-            Toast.makeText(ListaPuntosInteresActivity.this, "Error al intentar cambiar" + id, Toast.LENGTH_SHORT).show();
-        }
-        //listaPuntosInteres();
+
     }
+
+
+    //Accion a realizar al volver del otra actividad
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
+        super.onActivityResult(requestCode,resultCode,data);
+        if (requestCode == RESULTADO_AÑADIR) {
+            if (resultCode == RESULT_OK) {
+                listaPuntosInteres();
+            } if(resultCode == 5){
+                Toast.makeText(ListaPuntosInteresActivity.this, "Error al añadir punto", Toast.LENGTH_SHORT).show();
+            }else {
+                Toast.makeText(ListaPuntosInteresActivity.this, "Cancelado por el usuario", Toast.LENGTH_SHORT).show();
+            }
+        }
+        }
+
+
+
 }
