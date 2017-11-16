@@ -37,14 +37,21 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".ListaPuntosInteresActivity"
-            android:label="@string/title_activity_lista_itinerarios"
+            android:label="@string/title_activity_lista_puntosdeinteres"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".SelectPOI"
             android:label="@string/select_POI"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".DetailPOI"
+            android:label="@string/title_activity_POIdetalle"
+            android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".CreatePOI"
+            android:label="@string/title_activity_POIcreate"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
-
 </manifest>

@@ -29,8 +29,6 @@ public class AdaptadorPoi extends RecyclerView.Adapter<AdaptadorPoi.ViewHolder> 
         public void onClick(AdaptadorPoi.ViewHolder holder, long id);
     }
 
-
-
     // Constructor
     public AdaptadorPoi(Context contexto, Cursor c, AdaptadorPoi.OnItemClickListener escucha) {
         this.c=c;

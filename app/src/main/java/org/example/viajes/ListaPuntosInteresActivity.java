@@ -1,19 +1,15 @@
 package org.example.viajes;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 public class ListaPuntosInteresActivity extends AppCompatActivity implements AdaptadorPuntosInteres.OnItemClickListener {
@@ -40,9 +36,6 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         //recojo el valor del identificador de la ruta
         Bundle extras = getIntent().getExtras();
         id_ruta = extras.getLong("id", -1);
-
-
-
 
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(this);
@@ -96,7 +89,9 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     //accion de pulsar sobre un elemento de la lista
     @Override
     public void onClick(AdaptadorPuntosInteres.ViewHolder holder, long id) {
-
+        Intent intent = new Intent(this, DetailPOI.class);
+        //intent.putExtra("id", id);
+        startActivity(intent);
     }
 
 

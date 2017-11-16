@@ -126,7 +126,6 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
             Intent intent = new Intent(this, ListaPuntosInteresActivity.class);
             intent.putExtra("id", id);
             startActivity(intent);
-
     }
 
     @Override
