@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:hint="Correo"
             android:imeOptions="actionNext"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:textSize="14dp" />
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout

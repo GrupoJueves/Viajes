@@ -48,9 +48,11 @@ public class Registro extends AppCompatActivity {
                Intent intent = new Intent(this, InicioSesionActivity.class);
                intent.putExtra("email", email.getText().toString());
                startActivity(intent);
+               finish();
            }
            else{
                Toast.makeText(this, "Ha habido un error, intentelo de nuevo más tarde", Toast.LENGTH_LONG).show();
+               finish();
            }
         }
         else{

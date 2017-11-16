@@ -30,7 +30,7 @@ public class DetailPOI extends AppCompatActivity {
     }
 
     public void rellenarPOI(){
-        POI = ConsultaBD.infoPoi(4);
+        POI = ConsultaBD.infoPoi(2);
         titulo.setText(POI.getTitle());
         detalle.setText(POI.getDescription());
         longitud.setText(String.valueOf(POI.getLon()));
