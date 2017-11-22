@@ -117,10 +117,7 @@ public class MainActivity extends AppCompatActivity implements AdaptadorItinerar
         listaitinerarios();
     }
 
-    @Override
-    public void onLongClick(AdaptadorItinerarios.ViewHolder holder, long id, String title) {
-        listaitinerarios();
-    }
+
 
     //crear un nuevo itinerario llamado prueba
     public void crear() {

@@ -101,11 +101,11 @@ public class ConsultaBD {
     }
 
     //Elimina un itinerario
-    public static boolean deleteRoute (int user_id, String title){
+    public static boolean deleteRoute (int id){
         boolean correcto = true;
         try {
-            bdw.execSQL("DELETE FROM route WHERE user = user_id & title = title");
-            //bdw.rawQuery("INSERT INTO route  VALUES (null, "+user_id+" , '"+title+"' , 0, null)",null);
+            bdw.execSQL("DELETE FROM route WHERE route_id = "+id);
+
         }
         catch (Exception e){
             correcto = false;
@@ -194,4 +194,21 @@ public class ConsultaBD {
         }
         return correcto;
     }
+
+    //Elimina un itinerario
+    public static boolean deletePoiRoute (int id){
+        boolean correcto = true;
+        try {
+            bdw.execSQL("DELETE FROM route_pois WHERE route_pois_id = "+id);
+
+        }
+        catch (Exception e){
+            correcto = false;
+            Log.e("error:", e.getMessage());
+        }
+        return correcto;
+    }
+
+
+
 }

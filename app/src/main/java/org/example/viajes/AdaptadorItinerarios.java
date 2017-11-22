@@ -22,12 +22,12 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
     private Cursor c;
     private OnItemClickListener escucha;
     private View.OnLongClickListener onLongClickListener; // escuchador long
-    private Context contexto;
+
 
     //lo utilizaremos desde la actividad
     interface OnItemClickListener {
         public void onClick(ViewHolder holder, long id);
-        public void onLongClick(ViewHolder holder, long id, String title);
+
     }
 
    // Constructor
@@ -38,7 +38,7 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
 
     //ViewHolder con los elementos a modificar
     public class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener, View.OnLongClickListener {
+            implements View.OnClickListener{
         TextView titulo;
         ImageView check;
 
@@ -49,17 +49,14 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
             check = (ImageView) vista.findViewById(R.id.visto);
 
             vista.setOnClickListener(this);
-            vista.setOnLongClickListener(this);
+
         }
         @Override
         public void onClick(View view) {
             escucha.onClick(this, obtenerId(getAdapterPosition()));
         }
 
-        @Override
-        public boolean onLongClick(View view){
-            return true;
-        }
+
     }
 
     //Creamos el viewHolder con las vistas de los elementos sin personalizar

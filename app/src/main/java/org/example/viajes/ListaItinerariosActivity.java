@@ -115,6 +115,52 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
             //emptyview.setVisibility(View.GONE);
             recyclerViewClientes.setVisibility(View.VISIBLE);
         }
+
+        //Implementamos la funcionalidad del longClick
+        adaptador.setOnItemLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(final View v) {
+                final int posicion = recyclerViewClientes.getChildAdapterPosition(v);
+                final long id = adaptador.getId(posicion);
+                AlertDialog.Builder menu = new AlertDialog.Builder(ListaItinerariosActivity.this);
+                CharSequence[] opciones = { "Abrir", "Eliminar", "Visitado"};
+                menu.setItems(opciones, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int opcion) {
+                        switch (opcion) {
+                            case 0: //Abrir
+                                Intent intent = new Intent(ListaItinerariosActivity.this, ListaPuntosInteresActivity.class);
+                                intent.putExtra("id", id);
+                                startActivity(intent);
+                                break;
+                            case 1: //Borrar
+
+                                new AlertDialog.Builder(ListaItinerariosActivity.this)
+                                        .setTitle("Borrar Itinerario")
+                                        .setMessage("¿Seguro que quiere borrar este itinerario?")
+                                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                                ConsultaBD.deleteRoute((int)id);
+                                                listaitinerarios();
+
+                                            }
+                                        })
+                                        .setNegativeButton("Cancelar", null)
+                                        .show();
+
+                                break;
+                            case 2: //Marcar como visto
+                                ConsultaBD.changeCheck((int) id, true);
+                                listaitinerarios();
+                                break;
+
+                        }
+                    }
+                });
+                menu.create().show();
+                return true;
+            }
+        });
+
+
         //rellenamos el reciclerview
         recyclerViewClientes.setAdapter(adaptador);
     }
@@ -128,10 +174,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
             startActivity(intent);
     }
 
-    @Override
-    public void onLongClick(AdaptadorItinerarios.ViewHolder holder, long id, String title) {
-        ConsultaBD.deleteRoute((int) id,title);
-    }
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

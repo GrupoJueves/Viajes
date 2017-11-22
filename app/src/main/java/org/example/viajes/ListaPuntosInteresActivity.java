@@ -1,9 +1,11 @@
 package org.example.viajes;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -82,6 +84,51 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
             //emptyview.setVisibility(View.GONE);
             recyclerViewitinerario.setVisibility(View.VISIBLE);
         }
+        //Implementamos la funcionalidad del longClick
+        adaptador.setOnItemLongClickListener(new View.OnLongClickListener() {
+            public boolean onLongClick(final View v) {
+                final int posicion = recyclerViewitinerario.getChildAdapterPosition(v);
+                final long id = adaptador.getId(posicion);
+                AlertDialog.Builder menu = new AlertDialog.Builder(ListaPuntosInteresActivity.this);
+                CharSequence[] opciones = { "Abrir", "Eliminar", "Visitado"};
+                menu.setItems(opciones, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int opcion) {
+                        switch (opcion) {
+                            case 0: //Abrir
+                                Intent intent = new Intent(ListaPuntosInteresActivity.this, DetailPOI.class);
+                                //intent.putExtra("id", id);
+                                startActivity(intent);
+                                break;
+                            case 1: //Borrar
+
+                                new AlertDialog.Builder(ListaPuntosInteresActivity.this)
+                                        .setTitle("Borrar Punto de Interes")
+                                        .setMessage("¿Seguro que quiere borrar este punto de interes?")
+                                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int whichButton) {
+                                                ConsultaBD.deletePoiRoute((int)id);
+                                                listaPuntosInteres();
+
+                                            }
+                                        })
+                                        .setNegativeButton("Cancelar", null)
+                                        .show();
+
+                                break;
+                            case 2: //Marcar como visto
+                                ConsultaBD.changeCheckPoi((int) id, true);
+                                listaPuntosInteres();
+                                break;
+
+
+                        }
+                    }
+                });
+                menu.create().show();
+                return true;
+            }
+        });
+
         //rellenamos el reciclerview
         recyclerViewitinerario.setAdapter(adaptador);
     }
