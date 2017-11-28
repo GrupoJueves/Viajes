@@ -92,7 +92,8 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "poi INTEGER NOT NULL, " +
                 "user INTEGER NOT NULL, " +
                 "comment TEXT NOT NULL, " +
-                "rating REAL, date NUMERIC, " +
+                "rating REAL, " +
+                "date NUMERIC, " +
                 "FOREIGN KEY(user) REFERENCES user(user_id) ON DELETE CASCADE, " +
                 "FOREIGN KEY(poi) REFERENCES poi(poi_id) ON DELETE CASCADE)");
 

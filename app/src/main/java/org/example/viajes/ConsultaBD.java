@@ -210,5 +210,80 @@ public class ConsultaBD {
     }
 
 
+    ///Funciones comentarios
+
+    //Añadir comentario en un poi (El valor de rating debe ser entre 1 y 5, se debe de comprobar antes de pasarlos)
+    public static boolean addComment(int user_id, int poi_id, String comment, int val, long date){
+        boolean correcto = true;
+
+        try {
+            bdw.execSQL("INSERT INTO poi_comment (poi, user, comment, rating, date) VALUES ("+poi_id+" , "+user_id+" , '"+comment+"' , "+val+" , "+date+")");
+
+        }
+        catch (Exception e){
+            correcto = false;
+            Log.e("error:", e.getMessage());
+        }
+        return correcto;
+    }
+
+    //Añadir comentario en un poi, en este caso se le pasa un objeto Comentario(El valor de rating debe ser entre 1 y 5, se debe de comprobar antes de pasarlos)
+    public static boolean addComment(Comentario commentario){
+        boolean correcto = true;
+
+        try {
+            bdw.execSQL("INSERT INTO poi_comment (poi, user, comment, rating, date) VALUES ("+commentario.getPoi()+" , "+commentario.getUser()+" , '"+commentario.getUser()+"' , "+commentario.getRating()+" , "+commentario.getDate()+")");
+
+        }
+        catch (Exception e){
+            correcto = false;
+            Log.e("error:", e.getMessage());
+        }
+        return correcto;
+    }
+
+    //Obtener cursor con todos los comentarios de un poi
+    public static Cursor listadoComentarios(int poi_id){
+        SQLiteDatabase bdw = BaseDeDatos.getReadableDatabase();
+        return bdw.rawQuery("SELECT poi_comment_id AS _id, * FROM poi_comment " +
+                "WHERE poi = "+poi_id, null);
+    }
+
+    //Obtener el comentario de un usuario para un poi
+    public static Comentario comentUser (int user_id, int poi_id){
+       Comentario comentario = null;
+
+        Cursor cursor = bdw.rawQuery("SELECT * FROM poi_comment WHERE poi = " + poi_id+" AND user = "+user_id, null);
+        if (cursor.moveToNext()){
+            comentario = new Comentario();
+            comentario.setId(0+cursor.getInt(cursor.getColumnIndex("poi_comment_id")));
+            comentario.setPoi(0+cursor.getInt(cursor.getColumnIndex("poi")));
+            comentario.setUser(0+cursor.getInt(cursor.getColumnIndex("user")));
+            comentario.setRating(0+cursor.getInt(cursor.getColumnIndex("rating")));
+            comentario.setComment(""+cursor.getString(cursor.getColumnIndex("comment")));
+            comentario.setDate(0+cursor.getLong(cursor.getColumnIndex("date")));
+
+        }
+        cursor.close();
+
+
+        return comentario;
+    }
+
+    //eliminar un comentario (Solo debe ser el del usuario)
+
+    public static boolean deleteComentario (int id){
+        boolean correcto = true;
+        try {
+            bdw.execSQL("DELETE FROM poi_comment WHERE poi_comment_id = "+id);
+
+        }
+        catch (Exception e){
+            correcto = false;
+            Log.e("error:", e.getMessage());
+        }
+        return correcto;
+    }
+
 
 }
