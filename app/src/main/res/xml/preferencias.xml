@@ -8,5 +8,5 @@
         android:summary="Se escoge el tipo de mapa"
         android:entries="@array/tiposMapas"
         android:entryValues="@array/tiposMapasValores"
-        android:defaultValue="1"/>
+        android:defaultValue="0"/>
 </PreferenceScreen>

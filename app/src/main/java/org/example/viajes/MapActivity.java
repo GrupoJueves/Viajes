@@ -5,9 +5,11 @@ package org.example.viajes;
  */
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
@@ -77,15 +79,25 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
         map.getUiSettings().setCompassEnabled(true);
         map.setOnMapLongClickListener(this);
 
-        map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        /*
-        //Decidir el tipo de mapa, editable en preferencias
-        if (pref.getString("tipo_mapa", "0").equals("0")) {
-            mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        }else{
-            mapa.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+        SharedPreferences pref = PreferenceManager.
+                getDefaultSharedPreferences(this);
+        switch (Integer.parseInt(pref.getString("mapa","0"))){
+            case 1:
+                map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                //Toast.makeText(this,"Map type: Satellite", Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+                map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                //Toast.makeText(this,"Map type: Hybrid", Toast.LENGTH_SHORT).show();
+                break;
+            case 3:
+                map.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                //Toast.makeText(this,"Map type: Terrain", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+                map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                //Toast.makeText(this,"Map type: Normal", Toast.LENGTH_SHORT).show();
         }
-        */
 
         if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             map.setMyLocationEnabled(true);
