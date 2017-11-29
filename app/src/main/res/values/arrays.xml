@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="tiposMapas">
-        <item>Rutas</item>
-        <item>Satélite</item>
-        <item>Híbrido</item>
-        <item>Tierra</item>
+        <item>@string/rutas</item>
+        <item>@string/satelite</item>
+        <item>@string/hibrido</item>
+        <item>@string/tierra</item>
     </string-array>
     <string-array name="tiposMapasValores">
         <item>0</item>

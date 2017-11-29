@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="¡Tu gestor de rutas!"
+        android:text="@string/logo_subtitulo"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/cardview_dark_background" />
 </LinearLayout>

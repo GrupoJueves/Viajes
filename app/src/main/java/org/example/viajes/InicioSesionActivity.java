@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -36,7 +37,7 @@ public class InicioSesionActivity extends AppCompatActivity {
         if (getIntent().hasExtra("email")){
             Bundle extras = getIntent().getExtras();
             String email_s = extras.getString("email");
-            Toast.makeText(this, "Usuario creado. Inicie sesión con sus credenciales", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.usuario_creado_toast, Toast.LENGTH_LONG).show();
             email.setText(email_s);
         }
     }
@@ -54,8 +55,8 @@ public class InicioSesionActivity extends AppCompatActivity {
     }
 
     public void acceder (View view){
-        if (Registro.checkEmpty(email)) return;
-        if (Registro.checkEmpty(contraseña)) return;
+        if (checkEmpty(email)) return;
+        if (checkEmpty(contraseña)) return;
 
         int answer = ConsultaBD.identificar(email.getText().toString(),contraseña.getText().toString());
         if (answer > 0){
@@ -72,10 +73,10 @@ public class InicioSesionActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if (answer == -1){
-            Snackbar.make(view, "Correo o contraseña incorrectos", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(view, R.string.login_incorrecto, Snackbar.LENGTH_SHORT).show();
         }
         else{
-            Toast.makeText(this, "Ha habido un error, intentelo de nuevo más tarde", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.login_error, Toast.LENGTH_LONG).show();
         }
     }
     public void borrarCampos (View view){
@@ -97,5 +98,17 @@ public class InicioSesionActivity extends AppCompatActivity {
     @Override protected void onRestart() {
         super.onRestart();
         this.finish();
+    }
+
+    /*
+* Comprueba si un campo está vacio, en caso de estarlo le asigna un mensaje de error
+* */
+    public boolean checkEmpty(EditText input){
+        if(TextUtils.isEmpty(input.getText().toString())){
+            input.setError(getString(R.string.campo_vacio_error));
+            input.requestFocus();
+            return true;
+        }
+        return false;
     }
 }

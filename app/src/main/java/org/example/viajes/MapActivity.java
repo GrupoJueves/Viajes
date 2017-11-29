@@ -81,7 +81,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
         SharedPreferences pref = PreferenceManager.
                 getDefaultSharedPreferences(this);
-        switch (Integer.parseInt(pref.getString("mapa","0"))){
+        switch (Integer.parseInt(pref.getString(getString(R.string.mapa),"0"))){
             case 1:
                 map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
                 //Toast.makeText(this,"Map type: Satellite", Toast.LENGTH_SHORT).show();
@@ -117,7 +117,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     /**Escuchador de longClik*/
     @Override
     public void onMapLongClick(LatLng latLng) {
-        Toast.makeText(this, "Coordenadas: "+latLng, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.coordenadas)+":"+latLng, Toast.LENGTH_SHORT).show();
     }
 
     /**Coloca sobre el mapa los marcadores de los puntos*/
