@@ -56,7 +56,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 .build();
 
 
-        titulo = findViewById(R.id.titulo);
+        titulo = findViewById(R.id.tituloPOI);
         detalle = findViewById(R.id.detalle);
         longitud = findViewById(R.id.longitud);
         latitud = findViewById(R.id.latitud);

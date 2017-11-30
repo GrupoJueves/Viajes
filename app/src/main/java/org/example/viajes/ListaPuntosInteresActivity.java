@@ -58,7 +58,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(ListaPuntosInteresActivity.this, SelectPOI.class);
+                Intent i = new Intent(ListaPuntosInteresActivity.this, SelectPOIGrafic.class);
                 i.putExtra("id", id_ruta);
                 startActivityForResult(i, RESULTADO_AÑADIR);
             }
@@ -142,7 +142,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     @Override
     public void onClick(AdaptadorPuntosInteres.ViewHolder holder, long id) {
         Intent intent = new Intent(this, DetailPOI.class);
-        //intent.putExtra("id", id);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
 
