@@ -110,9 +110,9 @@ public class MainActivity extends AppCompatActivity implements AdaptadorItinerar
     public void onClick(AdaptadorItinerarios.ViewHolder holder, long id) {
 
         if (ConsultaBD.changeCheck((int) id, true)) {
-            Toast.makeText(MainActivity.this, "Cambio realizado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, R.string.cambio_realizado, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(MainActivity.this, "Error al intentar cambiar" + id, Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, getString(R.string.error_cambio) + id, Toast.LENGTH_SHORT).show();
         }
         listaitinerarios();
     }
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements AdaptadorItinerar
 
     //crear un nuevo itinerario llamado prueba
     public void crear() {
-        ConsultaBD.newRoute(1, "prueba");
+        ConsultaBD.newRoute(1, getString(R.string.prueba));
         listaitinerarios();
     }
 /*

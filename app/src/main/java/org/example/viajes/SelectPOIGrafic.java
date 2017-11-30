@@ -1,10 +1,7 @@
 package org.example.viajes;
 
-/**
- * Created by 2k45y9w789ys on 11/11/2017.
- */
-
-import android.Manifest;
+import android.*;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -15,9 +12,11 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -29,21 +28,21 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PointOfInterest;
 
 /**
- * Utilizada para mostrar el mapa de google y el punto que se envia a traves de la actividad
- * desde varias actividades y se manda informacion para saber donde se debe centrar la vista, tambien
- * se puede modificar el tipo de mapa en las preferencias(sin implementar), tiene un escuchador de long click en la pantalla.
- * Created by 2k45y9w789ys on 01/12/2016.
+ * Created by Ivan on 30/11/2017.
  */
 
-public class MapActivity extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnPoiClickListener, PlaceSelectionListener {
+public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnPoiClickListener, PlaceSelectionListener {
+
+    int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
+
 
     ////ATRIBUTOS////
 
     private GoogleMap map;
 
     //posicion inicial
-    private double latPoint;
-    private double lngPoint;
+    private double latPoint = 0;
+    private double lngPoint = 0;
 
     //Extras
     private int seeOnMap = 0;
@@ -53,6 +52,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     private Cursor c;
 
+    private long id;
+
 
 
     ////CONSTRUCTOR////
@@ -60,20 +61,44 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        //obtenemos id de la ruta
+        Bundle extras = getIntent().getExtras();
+        id = extras.getLong("id", -1);
+
+        //Referencia el fragment del mapa
         SupportMapFragment mapFragment =(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        //Inicializa la BD
         ConsultaBD.inicializaBD(this);
-        c = ConsultaBD.listadoPOI();
+        //compruebo si la ruta esta vacia
+        c = ConsultaBD.listadoPOIItinerario((int)id);
 
-        try {
-            Bundle extras = getIntent().getExtras();
-            latPoint = extras.getDouble("LatPoint", -1);
-            lngPoint = extras.getDouble("LngPoint", -1);
-            seeOnMap = 1;
-        }catch (NullPointerException e){
-            seeOnMap = 0;
+        //si la ruta esta vacia muestro un intent para lugar inicial
+        //en caso contrario centro el mapa en el ultimo poi
+        if(c.getCount()==0){
+            //lanzo un intent de autocomplet
+            try {
+                Intent intent = new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
+                                .build(this);
+                startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
+            } catch (GooglePlayServicesRepairableException e) {
+                // TODO: Handle the error.
+            } catch (GooglePlayServicesNotAvailableException e) {
+                // TODO: Handle the error.
+            }
+
+        }else{
+            c.moveToLast();
+            latPoint = (0+c.getFloat(c.getColumnIndex("lat")));
+            lngPoint = (0+c.getFloat(c.getColumnIndex("lon")));
         }
+
+
+
+
+
 
         // Retrieve the PlaceAutocompleteFragment.
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
@@ -98,7 +123,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 getDefaultSharedPreferences(this);
         switch (Integer.parseInt(pref.getString(getString(R.string.mapa),"0"))){
             case 1:
-                map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
                 //Toast.makeText(this,"Map type: Satellite", Toast.LENGTH_SHORT).show();
                 break;
             case 2:
@@ -114,14 +139,15 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 //Toast.makeText(this,"Map type: Normal", Toast.LENGTH_SHORT).show();
         }
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        /*
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
             map.setMyLocationEnabled(true);
             map.getUiSettings().setMyLocationButtonEnabled(true);
-        }
+        }*/
 
-        if(seeOnMap != 0){
+        //Centro el mapa en el ultimo poi
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latPoint, lngPoint), 15));
-        }
+
 
         colocarMarcadores();
     }
@@ -138,7 +164,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
     /**Coloca sobre el mapa los marcadores de los puntos*/
     public void colocarMarcadores(){
 
-        if(seeOnMap != 0){
+        c = ConsultaBD.listadoPOIItinerario((int)id);
+
+
 
             for (int n=0; n<c.getCount(); n++) {
                 c.moveToPosition(n);
@@ -149,7 +177,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
                 map.addMarker(new MarkerOptions().position(new LatLng(lat, lng))
                         .title(name));
             }
-        }
+
     }
 
 
@@ -158,11 +186,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onPoiClick(PointOfInterest poi) {
-        Toast.makeText(getApplicationContext(), "Clicked: " +
-                        poi.name + "\nPlace ID:" + poi.placeId +
-                        "\nLatitude:" + poi.latLng.latitude +
-                        " Longitude:" + poi.latLng.longitude,
-                Toast.LENGTH_SHORT).show();
+        POI punto = new POI(poi);
+
+        ConsultaBD.newPOI(punto);
+        int poi_id = ConsultaBD.getIdPOI(poi.placeId);
+        if (poi_id != -1){
+            if(ConsultaBD.addPoi((int)id,poi_id,5,false)){
+                map.addMarker(new MarkerOptions().position(poi.latLng)
+                        .title(poi.name));
+            }
+        }
+
     }
 
 
@@ -181,4 +215,24 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlaceAutocomplete.getPlace(this, data);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(place.getLatLng(), 15));
+            } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+                Status status = PlaceAutocomplete.getStatus(this, data);
+                // TODO: Handle the error.
+                Log.i("", status.getStatusMessage());
+
+            } else if (resultCode == RESULT_CANCELED) {
+                // The user canceled the operation.
+            }
+        }
+    }
+
+
+    public void añadirPOI (){}
 }

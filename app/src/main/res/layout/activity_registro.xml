@@ -9,7 +9,7 @@
         android:id="@+id/titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Registrar correo"
+        android:text="@string/registrar_correo"
         android:layout_marginTop="16dp" />
     <android.support.design.widget.TextInputLayout
         android:id="@+id/til_email"
@@ -24,7 +24,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Correo"
+            android:hint="@string/correo"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
             android:textSize="14dp" />
@@ -42,7 +42,7 @@
             android:id="@+id/contraseña"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Contraseña"
+            android:hint="@string/contrasena"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:textSize="14dp" />
@@ -60,7 +60,7 @@
             android:id="@+id/nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Nombre"
+            android:hint="@string/nombre"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:textSize="14dp" />
@@ -78,7 +78,7 @@
             android:id="@+id/apellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Apellido"
+            android:hint="@string/apellido"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:textSize="14dp" />
@@ -95,7 +95,7 @@
         android:clickable="true"
         android:elevation="2dp"
         android:onClick="registrarUsuario"
-        android:text="Registrarse"
+        android:text="@string/registrarse"
         android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"

@@ -1,6 +1,5 @@
 package org.example.viajes;
 
-import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -96,7 +95,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                 final int posicion = recyclerViewitinerario.getChildAdapterPosition(v);
                 final long id = adaptador.getId(posicion);
                 AlertDialog.Builder menu = new AlertDialog.Builder(ListaPuntosInteresActivity.this);
-                CharSequence[] opciones = { "Abrir", "Eliminar", "Visitado"};
+                CharSequence[] opciones = { getString(R.string.abrir), getString(R.string.eliminar), getString(R.string.visitado)};
                 menu.setItems(opciones, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int opcion) {
                         switch (opcion) {
@@ -108,9 +107,9 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                             case 1: //Borrar
 
                                 new AlertDialog.Builder(ListaPuntosInteresActivity.this)
-                                        .setTitle("Borrar Punto de Interes")
-                                        .setMessage("¿Seguro que quiere borrar este punto de interes?")
-                                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                                        .setTitle(R.string.borrar_poi)
+                                        .setMessage(R.string.borrar_poi_pregunta)
+                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int whichButton) {
                                                 ConsultaBD.deletePoiRoute((int)id);
                                                 listaPuntosInteres();
@@ -144,27 +143,15 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     public void onClick(AdaptadorPuntosInteres.ViewHolder holder, long id) {
         Intent intent = new Intent(this, DetailPOI.class);
         //intent.putExtra("id", id);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        startActivity(intent);
     }
-
 
     //Accion a realizar al volver del otra actividad
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-
         super.onActivityResult(requestCode,resultCode,data);
         if (requestCode == RESULTADO_AÑADIR) {
-            if (resultCode == RESULT_OK) {
-                listaPuntosInteres();
-            } if(resultCode == 5){
-                Toast.makeText(ListaPuntosInteresActivity.this, "Error al añadir punto", Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(ListaPuntosInteresActivity.this, "Cancelado por el usuario", Toast.LENGTH_SHORT).show();
-            }
+            listaPuntosInteres();
         }
-        }
-
-
-
+    }
 }

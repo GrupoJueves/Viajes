@@ -11,19 +11,19 @@
         <item
             android:id="@+id/nav_mapa"
             android:icon="@android:drawable/ic_menu_mapmode"
-            android:title="Mapa" />
+            android:title="@string/mapa"/>
     </group>
 
-    <item android:title="Preferencias">
+    <item android:title="@string/preferencias">
         <menu>
             <item
                 android:id="@+id/nav_preferencias"
                 android:icon="@android:drawable/ic_menu_manage"
-                android:title="Preferencias" />
+                android:title="@string/preferencias"/>
             <item
                 android:id="@+id/nav_salir"
                 android:icon="@android:drawable/ic_menu_close_clear_cancel"
-                android:title="Finalizar sesion" />
+                android:title="@string/finalizar_sesion" />
         </menu>
     </item>
 

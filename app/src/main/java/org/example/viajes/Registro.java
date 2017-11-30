@@ -54,12 +54,12 @@ public class Registro extends AppCompatActivity {
                finish();
            }
            else{
-               Toast.makeText(this, "Ha habido un error, intentelo de nuevo más tarde", Toast.LENGTH_LONG).show();
+               Toast.makeText(this, R.string.registrar_usuario_error, Toast.LENGTH_LONG).show();
                finish();
            }
         }
         else{
-            email.setError("Existe una cuenta con este correo");
+            email.setError(getString(R.string.registrar_usuario_existe));
             email.requestFocus();
         }
 
@@ -70,9 +70,9 @@ public class Registro extends AppCompatActivity {
     /*
     * Comprueba si un campo está vacio, en caso de estarlo le asigna un mensaje de error
     * */
-    public static boolean checkEmpty(EditText input){
+    public boolean checkEmpty(EditText input){
         if(TextUtils.isEmpty(input.getText().toString())){
-            input.setError("Este campo no puede estar vacio");
+            input.setError(getString(R.string.campo_vacio_error));
             input.requestFocus();
             return true;
         }

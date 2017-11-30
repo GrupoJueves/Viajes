@@ -114,15 +114,16 @@ public class ConsultaBD {
         return correcto;
     }
 
-    //POI
 
+    //POI
+//No se utilizan con la api de places
     //Cursor con la lista de los puntos de interes
 
     public static Cursor listadoPOI(){
         SQLiteDatabase bdw = BaseDeDatos.getReadableDatabase();
         return bdw.rawQuery("SELECT poi_id AS _id, * FROM poi ORDER BY title", null);
     }
-
+/*
     //Crear un nuevo punto de interes (se le pasa el elemento POI a añadir a la BD)
     public static boolean newPOI (POI poi){
         boolean correcto = true;
@@ -135,7 +136,7 @@ public class ConsultaBD {
             Log.e("error:", e.getMessage());
         }
         return correcto;
-    }
+    }*/
 
     //Informacion de un POI en concreto (devuelve un elemto POI con la informacion solicitada)
     public static POI infoPoi (int id){
@@ -145,7 +146,7 @@ public class ConsultaBD {
         if (cursor.moveToNext()){
             poi = new POI();
             poi.setTitle(""+cursor.getString(cursor.getColumnIndex("title")));
-            poi.setDescription(""+cursor.getString(cursor.getColumnIndex("description")));
+            poi.setIdentificador(""+cursor.getString(cursor.getColumnIndex("identificador")));
             poi.setImg(""+cursor.getString(cursor.getColumnIndex("img")));
             poi.setLat(0+cursor.getFloat(cursor.getColumnIndex("lat")));
             poi.setLon(0+cursor.getFloat(cursor.getColumnIndex("lon")));
@@ -156,6 +157,36 @@ public class ConsultaBD {
 
         return poi;
     }
+
+    //Añadir un POI de la api a la BD
+    public static boolean newPOI (POI poi){
+        boolean correcto = true;
+        try {
+            bdw.execSQL("INSERT INTO poi (title, identificador, lon, lat, img) VALUES ('"+poi.getTitle()+"' , '"+poi.getIdentificador()+"' , "+poi.getLon()+" , "+poi.getLat()+" , '"+poi.getImg()+"')");
+
+        }
+        catch (Exception e){
+            correcto = false;
+            Log.e("error:", e.getMessage());
+        }
+        return correcto;
+    }
+
+    //obtener id de un identificador
+    public static int getIdPOI(String identificador){
+        int id = -1;
+
+        Cursor cursor = bdw.rawQuery("SELECT * FROM poi WHERE identificador = '" + identificador+"'", null);
+        if (cursor.moveToNext()){
+
+            id = cursor.getInt(cursor.getColumnIndex("poi_id"));
+
+        }
+
+
+        return id;
+    }
+
 
     //Pois de un itinerario
 
@@ -207,6 +238,18 @@ public class ConsultaBD {
             Log.e("error:", e.getMessage());
         }
         return correcto;
+    }
+
+    //Obtener poi_id de poi_route_id
+    public static int getPoiId(int id){
+        int poiId = -1;
+        Cursor cursor = bdw.rawQuery("SELECT * FROM route_pois WHERE route_pois_id = " + id, null);
+        if (cursor.moveToNext()){
+
+            poiId = cursor.getInt(cursor.getColumnIndex("poi"));
+
+        }
+        return poiId;
     }
 
 
