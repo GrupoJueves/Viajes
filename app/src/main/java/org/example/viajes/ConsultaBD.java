@@ -240,6 +240,18 @@ public class ConsultaBD {
         return correcto;
     }
 
+    //Obtener poi_id de poi_route_id
+    public static int getPoiId(int id){
+        int poiId = -1;
+        Cursor cursor = bdw.rawQuery("SELECT * FROM route_pois WHERE route_pois_id = " + id, null);
+        if (cursor.moveToNext()){
+
+            poiId = cursor.getInt(cursor.getColumnIndex("poi"));
+
+        }
+        return poiId;
+    }
+
 
     ///Funciones comentarios
 

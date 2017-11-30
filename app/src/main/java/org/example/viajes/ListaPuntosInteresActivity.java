@@ -137,7 +137,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     @Override
     public void onClick(AdaptadorPuntosInteres.ViewHolder holder, long id) {
         Intent intent = new Intent(this, DetailPOI.class);
-        //intent.putExtra("id", id);
+        intent.putExtra("id", id);
         startActivity(intent);
     }
 
