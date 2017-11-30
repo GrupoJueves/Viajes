@@ -19,6 +19,7 @@ import com.google.android.gms.location.places.Places;
  * Created by rodriii on 16/11/17.
  */
 
+
 public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
     private TextView titulo, detalle, longitud, latitud;
