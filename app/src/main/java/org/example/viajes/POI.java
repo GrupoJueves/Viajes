@@ -1,16 +1,27 @@
 package org.example.viajes;
 
+import com.google.android.gms.maps.model.PointOfInterest;
+
 /**
  * Created by Ivan on 11/11/2017.
  */
 
 public class POI {
-    String title, description, img;
+    String title, description,identificador, img;
     Float lon, lat;
 
     public POI() {
         img = null;
         description = null;
+    }
+
+    public POI(PointOfInterest poi){
+        img = null;
+        description = null;
+        title = poi.name;
+        identificador = poi.placeId;
+        lon = (float)poi.latLng.longitude;
+        lat = (float)poi.latLng.latitude;
     }
 
     public String getTitle() {
@@ -54,5 +65,13 @@ public class POI {
 
     public void setLat(float lat) {
         this.lat = lat;
+    }
+
+    public String getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(String identificador) {
+        this.identificador = identificador;
     }
 }
