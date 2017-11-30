@@ -1,0 +1,11 @@
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1500"
+    android:transitionOrdering="together">
+    <slide
+        android:interpolator="@android:interpolator/accelerate_decelerate"
+        android:slideEdge="top">
+        <targets>
+            <target android:targetId="@id/fab" />
+        </targets>
+    </slide>
+</transitionSet>

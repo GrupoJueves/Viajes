@@ -1,9 +1,12 @@
 package org.example.viajes;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -59,6 +62,9 @@ public class Registro extends AppCompatActivity {
             email.setError("Existe una cuenta con este correo");
             email.requestFocus();
         }
+
+        Transition slide = TransitionInflater.from(this).inflateTransition(R.transition.transition_slide);
+        getWindow().setExitTransition(slide);
     }
 
     /*

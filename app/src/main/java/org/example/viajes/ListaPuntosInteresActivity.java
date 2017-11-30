@@ -1,5 +1,6 @@
 package org.example.viajes;
 
+import android.app.ActivityOptions;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +12,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -66,6 +69,9 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Transition lista_enter = TransitionInflater.from(this).inflateTransition(R.transition.transition_lista_enter);
+        getWindow().setEnterTransition(lista_enter);
+        getWindow().setExitTransition(null);
     }
 
     public void listaPuntosInteres(){
@@ -138,7 +144,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     public void onClick(AdaptadorPuntosInteres.ViewHolder holder, long id) {
         Intent intent = new Intent(this, DetailPOI.class);
         //intent.putExtra("id", id);
-        startActivity(intent);
+        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
 

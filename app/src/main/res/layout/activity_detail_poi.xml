@@ -7,13 +7,15 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/titulo"
+        android:id="@+id/tituloPOI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginBottom="70dp"
+        android:layout_marginTop="90dp"
         android:text="Titulo"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/imagePOI"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,54 +24,52 @@
         android:id="@+id/imagePOI"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="46dp"
+        android:layout_marginBottom="72dp"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:srcCompat="@drawable/img2"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/detalle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/titulo"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/tituloPOI"
+        app:srcCompat="@drawable/img2" />
 
     <TextView
         android:id="@+id/detalle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="200dp"
-        android:text="Detalle"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:layout_marginBottom="134dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/imagePOI"
+        android:text="Detalle"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/longitud"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagePOI" />
 
     <TextView
         android:id="@+id/latitud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
         android:text="Latitud"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/longitud"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="parent" />
 
     <TextView
         android:id="@+id/longitud"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginStart="16dp"
         android:text="Longitud"
         android:textSize="18sp"
         android:textStyle="bold"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@+id/detalle" />
 </android.support.constraint.ConstraintLayout>

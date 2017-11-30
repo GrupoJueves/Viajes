@@ -2,6 +2,8 @@ package org.example.viajes;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,13 +22,16 @@ public class DetailPOI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_poi);
 
-        titulo = findViewById(R.id.titulo);
+        titulo = findViewById(R.id.tituloPOI);
         detalle = findViewById(R.id.detalle);
         longitud = findViewById(R.id.longitud);
         latitud = findViewById(R.id.latitud);
         imagePOI = findViewById(R.id.imagePOI);
 
         rellenarPOI();
+
+        Transition poi_enter = TransitionInflater.from(this).inflateTransition(R.transition.transition_poi_enter);
+        getWindow().setEnterTransition(poi_enter);
     }
 
     public void rellenarPOI(){

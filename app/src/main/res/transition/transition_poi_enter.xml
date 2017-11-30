@@ -1,0 +1,15 @@
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="1500"
+    android:transitionOrdering="together">
+    <slide
+        android:interpolator="@android:interpolator/accelerate_decelerate"
+        android:slideEdge="bottom">
+        <targets>
+            <target android:targetId="@id/tituloPOI" />
+            <target android:targetId="@id/imagePOI" />
+            <target android:targetId="@id/detalle" />
+            <target android:targetId="@id/latitud" />
+            <target android:targetId="@id/longitud" />
+        </targets>
+    </slide>
+</transitionSet>
