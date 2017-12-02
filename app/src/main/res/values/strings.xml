@@ -59,4 +59,9 @@
     <string name="tierra">Tierra</string>
     <string name="tipo_mapa">Tipo de mapa</string>
     <string name="tipo_mapa_summary">Se escoge el tipo de mapa</string>
+    <string name="dialog1">¿Quiere añadir</string>
+    <string name="dialog2">al itinerario?</string>
+    <string name="titulo_dialog">Añadir punto de interes</string>
+    <string name="confirmar">Confirmar</string>
+
 </resources>

@@ -109,14 +109,14 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                                 new AlertDialog.Builder(ListaPuntosInteresActivity.this)
                                         .setTitle(R.string.borrar_poi)
                                         .setMessage(R.string.borrar_poi_pregunta)
-                                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        .setPositiveButton(R.string.confirmar, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int whichButton) {
                                                 ConsultaBD.deletePoiRoute((int)id);
                                                 listaPuntosInteres();
 
                                             }
                                         })
-                                        .setNegativeButton("Cancelar", null)
+                                        .setNegativeButton(R.string.cancelar, null)
                                         .show();
 
                                 break;

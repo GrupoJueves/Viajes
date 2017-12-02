@@ -66,14 +66,16 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String confirmar = getString(R.string.confirmar);
+                String cancelar = getString(R.string.cancelar);
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle("Nombre de itinerario");
+                builder.setTitle(getString(R.string.nombre_itinerario));
                 // Set up the input
                 final EditText input = new EditText(view.getContext());
                 //input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
                 builder.setView(input);
                 // Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(confirmar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         nombreItinerario = input.getText().toString();
@@ -84,7 +86,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                         }
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(cancelar, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
@@ -165,7 +167,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 final int posicion = recyclerViewClientes.getChildAdapterPosition(v);
                 final long id = adaptador.getId(posicion);
                 AlertDialog.Builder menu = new AlertDialog.Builder(ListaItinerariosActivity.this);
-                CharSequence[] opciones = {"Abrir", "Eliminar", "Visitado"};
+                CharSequence[] opciones = {getString(R.string.abrir),getString(R.string.eliminar), getString(R.string.visitado)};
                 menu.setItems(opciones, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int opcion) {
                         switch (opcion) {
@@ -175,18 +177,20 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                                 startActivity(intent);
                                 break;
                             case 1: //Borrar
-
+                                String confirmar = getString(R.string.confirmar);
+                                String cancelar = getString(R.string.cancelar);
+                                String mensaje = getString(R.string.borrar_itinerario_pregunta);
                                 new AlertDialog.Builder(ListaItinerariosActivity.this)
-                                        .setTitle("Borrar Itinerario")
-                                        .setMessage("¿Seguro que quiere borrar este itinerario?")
-                                        .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                                        .setTitle(getString(R.string.borrar_itinerario))
+                                        .setMessage(mensaje)
+                                        .setPositiveButton(confirmar, new DialogInterface.OnClickListener() {
                                             public void onClick(DialogInterface dialog, int whichButton) {
                                                 ConsultaBD.deleteRoute((int) id);
                                                 listaitinerarios();
 
                                             }
                                         })
-                                        .setNegativeButton("Cancelar", null)
+                                        .setNegativeButton(cancelar, null)
                                         .show();
 
                                 break;

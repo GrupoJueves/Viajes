@@ -188,18 +188,20 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     public void onPoiClick(final PointOfInterest poi) {
-        String dialogo = "¿Quiere añadir "+poi.name+" al itinerario?";
+        String dialogo = getString(R.string.dialog1)+poi.name+getString(R.string.dialog2);
+        String confirmar = getString(R.string.confirmar);
+        String cancelar = getString(R.string.cancelar);
 
         new AlertDialog.Builder(SelectPOIGrafic.this)
-                .setTitle("Añadir punto de interes")
+                .setTitle(R.string.titulo_dialog)
                 .setMessage(dialogo)
-                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                .setPositiveButton(confirmar, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         anadirPOI(poi);
 
                     }
                 })
-                .setNegativeButton("Cancelar", null)
+                .setNegativeButton(cancelar, null)
                 .show();
 
 
