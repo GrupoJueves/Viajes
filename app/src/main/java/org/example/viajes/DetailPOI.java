@@ -1,6 +1,7 @@
 package org.example.viajes;
 
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +31,8 @@ import com.google.android.gms.location.places.Places;
 
 public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    private TextView titulo, detalle, longitud, latitud;
+    private TextView titulo, detalle, longitud, latitud, telefono, web, tipo,precio;
+    private RatingBar valoracion;
     private ImageView imagePOI;
     private POI POI;
     private GoogleApiClient mGoogleApiClient;
@@ -61,6 +64,12 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         longitud = findViewById(R.id.longitud);
         latitud = findViewById(R.id.latitud);
         imagePOI = findViewById(R.id.imagePOI);
+        telefono = findViewById(R.id.telefono);
+        web = findViewById(R.id.web);
+
+        tipo = findViewById(R.id.categoria);
+        precio = findViewById(R.id.precio);
+        valoracion = findViewById(R.id.valoracion);
 
         rellenarPOI();
     }
@@ -79,6 +88,16 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                             //obtengo la toda la info disponible del api places en la variable myPlace
                             ponerFoto(myPlace.getId());
                             detalle.setText(myPlace.getAddress());
+                            telefono.setText(myPlace.getPhoneNumber());
+                            //Pagina web, primero comprobamos que existe
+                            Uri uri = myPlace.getWebsiteUri();
+                            if (uri!= null){
+                            web.setText(""+uri.toString());
+                            }
+
+                            tipo.setText(""+myPlace.getPlaceTypes().toString());
+                           precio.setText(""+myPlace.getPriceLevel());
+                            valoracion.setRating(myPlace.getRating());
                         } else {
                             Log.e("", "Place not found");
                         }
