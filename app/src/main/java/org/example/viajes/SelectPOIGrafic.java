@@ -1,6 +1,7 @@
 package org.example.viajes;
 
 import android.*;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -185,7 +187,25 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
 
 
     @Override
-    public void onPoiClick(PointOfInterest poi) {
+    public void onPoiClick(final PointOfInterest poi) {
+        String dialogo = "¿Quiere añadir "+poi.name+" al itinerario?";
+
+        new AlertDialog.Builder(SelectPOIGrafic.this)
+                .setTitle("Añadir punto de interes")
+                .setMessage(dialogo)
+                .setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        anadirPOI(poi);
+
+                    }
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+
+
+    }
+
+    public void anadirPOI(PointOfInterest poi){
         POI punto = new POI(poi);
 
         ConsultaBD.newPOI(punto);
@@ -196,7 +216,6 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
                         .title(poi.name));
             }
         }
-
     }
 
 
