@@ -185,7 +185,7 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
 
     @Override
     public void onPoiClick(final PointOfInterest poi) {
-        String dialogo = getString(R.string.dialog1)+poi.name+getString(R.string.dialog2);
+        String dialogo = getString(R.string.dialog1)+" "+poi.name+" "+getString(R.string.dialog2);
         String confirmar = getString(R.string.confirmar);
         String cancelar = getString(R.string.cancelar);
 

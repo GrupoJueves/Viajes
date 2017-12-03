@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -20,6 +22,17 @@ import com.google.android.gms.location.places.PlacePhotoMetadata;
 import com.google.android.gms.location.places.PlacePhotoMetadataBuffer;
 import com.google.android.gms.location.places.PlacePhotoMetadataResult;
 import com.google.android.gms.location.places.Places;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+
+import static com.google.firebase.crash.FirebaseCrash.log;
 
 /**
  * Created by rodriii on 16/11/17.
@@ -34,6 +47,9 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     private POI POI;
     private GoogleApiClient mGoogleApiClient;
     private long id_poi;
+    private String nombre, direccion, localidad, nombreBusqueda;
+    private String[] secnom,secdir;
+    private int numero;
 
 
     @Override
@@ -85,6 +101,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                             //obtengo la toda la info disponible del api places en la variable myPlace
                             ponerFoto(myPlace.getId());
                             detalle.setText(myPlace.getAddress());
+                            direccion = myPlace.getAddress().toString();
+                            nombre = myPlace.getName().toString();
                             telefono.setText(myPlace.getPhoneNumber());
                             //Pagina web, primero comprobamos que existe
                             Uri uri = myPlace.getWebsiteUri();
@@ -95,6 +113,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                             tipo.setText(""+myPlace.getPlaceTypes().toString());
                            precio.setText(""+myPlace.getPriceLevel());
                             valoracion.setRating(myPlace.getRating());
+                            busca();
                         } else {
                             Log.e("", "Place not found");
                         }
@@ -204,6 +223,139 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 this.attribution = attribution;
                 this.bitmap = bitmap;
             }
+        }
+    }
+
+    //Funcion que busca en wikipedia
+    public void busca(){
+        //separo el nombre en partes
+        secnom = nombre.split(" ");
+        //genero la cadena que se pasara al buscador
+        nombreBusqueda= secnom[0];
+
+       for (int i = 1; i < secnom.length; i++)
+       {
+           nombreBusqueda = nombreBusqueda+"+"+secnom[i];
+       }
+
+        //separo la direccion por las comas
+        secdir = direccion.split(",");
+        //compruebo si es una direccion española, donde el segundo argumento seria un numero
+        localidad = secdir[1].replace(" ","");
+
+        try {
+            if(!localidad.equals("s/n")) {
+                numero = Integer.parseInt(localidad);
+                localidad = secdir[2];
+            }else{
+                localidad = secdir[2];
+            }
+        }
+        catch (Exception e){
+
+            localidad = secdir[1];
+            Log.e("error:", e.getMessage());
+        }
+
+        //separo la localidad obtenida en los espacios en blanco
+        secdir = localidad.split(" ");
+
+        //Para eliminar los codigos postales compruebo si el resultado es un numero entero
+        //en caso contrario lo añado a la busqueda
+        for (int i = 0; i < secdir.length ; i++){
+            try {
+                if(!secdir[i].replace(" ","").equals("")) {
+                    numero = Integer.parseInt(secdir[i].replace(" ", "")); //elimino los espacios en blanco
+                }
+
+            }
+            catch (Exception e){
+
+                nombreBusqueda = nombreBusqueda +"+"+secdir[i];
+                Log.e("error:", e.getMessage());
+            }
+        }
+
+        //Toast.makeText(this,"la busqueda es: "+ nombreBusqueda, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this,"la localidad es: "+ localidad, Toast.LENGTH_LONG).show();
+
+        new Link().execute();
+
+    }
+
+    // Link AsyncTask
+    private class Link extends AsyncTask<Void, Void, Void> {
+       boolean encontrado;
+        String url2, informacion;
+
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            try {
+                // Connect to the google
+                URL url = new URL("https://www.google.es/search?q="+nombreBusqueda);
+                Document document = Jsoup.parse(url,4000);
+                Elements links = document.select("cite._Rm");
+
+
+                boolean wiki = false;
+                for (int i =0; i<5 && !wiki; i++) {
+                    Element link = links.get(i);
+                    url2 = link.text();
+
+                    if (url2.contains("wikipedia.org")) {
+                        wiki = true;
+
+                    }
+                }
+
+                if (wiki){
+
+                    // Connect to the wikipedia
+                    URL url3 = new URL(url2);
+                    Document document2 = Jsoup.parse(url3, 10000);
+                    Elements info = document2.select("#mw-content-text > div > p:first-of-type");
+                    // Elements links2 = info.select("p");
+
+
+                    //Element link2 = info.first();
+                    informacion = info.text();
+
+                    encontrado = true;
+                }else{encontrado=false;}
+
+
+
+            } catch (SocketTimeoutException e) {
+                //this.errorMessage.put("Grouphug request timed out. Waiting before retrying");
+                encontrado = false;
+                return null;
+            } catch (IOException e) {
+                e.printStackTrace();
+                encontrado = false;
+                return null;
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            TextView title = findViewById(R.id.informacion);
+            TextView wikipedia = findViewById(R.id.wiki);
+            if (encontrado){
+                title.setText(informacion);
+                wikipedia.setText(url2);
+            }else{
+                title.setText("No encontrado");
+                wikipedia.setText("No disponoble");
+            }
+
         }
     }
 

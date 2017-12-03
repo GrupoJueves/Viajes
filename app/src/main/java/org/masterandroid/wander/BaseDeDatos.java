@@ -26,7 +26,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "name TEXT," +
                 "surname TEXT)");
 
-        db.execSQL("INSERT INTO user VALUES (null, 'grupojueves5@gmail.com', 'android1', 'Jueves', '5 de la tarde')");
+
 
         db.execSQL("CREATE TABLE route ( " +
                 "route_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, " +
@@ -36,10 +36,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "date NUMERIC, " +
                 "FOREIGN KEY(user) REFERENCES user(user_id) ON DELETE CASCADE)");
 
-        db.execSQL("INSERT INTO route VALUES (null, 1, 'primera ruta', 0, null)");
-        db.execSQL("INSERT INTO route VALUES (null, 1, 'segunda ruta', 0, null)");
-        db.execSQL("INSERT INTO route VALUES (null, 1, 'tercera ruta', 1, null)");
-        db.execSQL("INSERT INTO route VALUES (null, 2, 'ruta segundo usuario', 0, null)");
+
 
 
         db.execSQL("CREATE TABLE poi ( " +

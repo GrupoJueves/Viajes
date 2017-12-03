@@ -20,7 +20,12 @@
         <!-- Metadatos google maps -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCST7uazqirS8tpcWKOa5-N9_tbY8uxw24" />
+            android:value="AIzaSyAvNfxR-Axkx9L6ZAguy7cE_KxdgQBnIzk" />
+            <!--Apikey de release
+            android:value="AIzaSyCST7uazqirS8tpcWKOa5-N9_tbY8uxw24" />  -->
+            <!--Apikey de debug
+             android:value="AIzaSyAvNfxR-Axkx9L6ZAguy7cE_KxdgQBnIzk" />-->
+
 
         <activity android:name="org.masterandroid.wander.InicioSesionActivity">
             <intent-filter>
