@@ -23,8 +23,8 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                android:src="@drawable/pattern" />
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_wander_paper_plane_heading" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"

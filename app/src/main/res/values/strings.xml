@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Viajes</string>
+    <string name="app_name">Wander</string>
     <string name="title_activity_prueba_itinerario">pruebaItinerario</string>
     <string name="title_activity_prueba_poi">PruebaPoi</string>
     <string name="title_activity_lista_itinerarios">ListaItinerarios</string>
