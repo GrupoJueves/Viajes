@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -35,6 +36,11 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
     private ItemTouchHelper mItemTouchHelper;
 
+    //RateApp
+    private RateApp rateApp;
+    //Shared preference storage
+    private SharedPreferenceStorage spStorage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +51,12 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         if (id == 0) {
             this.finish();
         }
+
+        //Shared prefereces storage (Esto seria mejor meterlo en la clase aplication e inicializarlo solo una vez)
+        spStorage = new SharedPreferenceStorage(this);
+        //Rate App
+        rateApp = new RateApp(this, spStorage);
+
 
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(this);
@@ -90,6 +102,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                     }
                 });
                 builder.show();
+
+                rateApp.addOneRatePoint();
             }
         });
 
@@ -122,7 +136,17 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                     editor.commit();
                     startActivity(intent2);
                     finish();
+                } else if (id == R.id.nav_rate_us) {
+                    rateUsBtn();
+                    return true;
+                }else if (id == R.id.nav_shareapp) {
+                    shareAppBtn();
+                    return true;
+                }else if (id == R.id.nav_privacy) {
+                    privacyPolicyBtn();
+                    return true;
                 }
+
 
                 mDrawer.closeMenu();
                 return true;
@@ -243,6 +267,25 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     public void lanzarPreferencias(View view) {
         Intent i = new Intent(this, PreferenciasActivity.class);
         startActivity(i);
+    }
+
+    private void shareAppBtn(){
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_SUBJECT, getPackageName());
+        String sAux = "http://play.google.com/store/apps/details?id=" + getPackageName();
+        i.putExtra(Intent.EXTRA_TEXT, sAux);
+        startActivity(Intent.createChooser(i, "choose one"));
+    }
+
+    private void privacyPolicyBtn(){
+        Uri uri2 = Uri.parse("https://drive.google.com/open?id=1rRXJLMj4ixMvFJNHAiYIYHp5sU2Xk2I9");
+        Intent intent2 = new Intent(Intent.ACTION_VIEW, uri2);
+        startActivity(intent2);
+    }
+
+    private void rateUsBtn(){
+        rateApp.openAppStoreToRate(ListaItinerariosActivity.this);
     }
 
 

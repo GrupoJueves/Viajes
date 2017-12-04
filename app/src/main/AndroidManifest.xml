@@ -39,11 +39,11 @@
         <activity
             android:name="org.masterandroid.wander.ListaItinerariosActivity"
             android:label="@string/title_activity_lista_itinerarios"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="org.masterandroid.wander.ListaPuntosInteresActivity"
             android:label="@string/title_activity_lista_puntosdeinteres"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="org.masterandroid.wander.SelectPOI"
             android:label="@string/select_POI"

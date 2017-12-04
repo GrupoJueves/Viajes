@@ -27,4 +27,21 @@
         </menu>
     </item>
 
+    <item android:title="@string/sobre_nosotros">
+        <menu>
+            <item
+                android:id="@+id/nav_rate_us"
+                android:icon="@drawable/ic_action_rateus"
+                android:title="@string/votanos" />
+            <item
+                android:id="@+id/nav_shareapp"
+                android:icon="@drawable/ic_action_share"
+                android:title="@string/comparte_la_app" />
+            <item
+                android:id="@+id/nav_privacy"
+                android:icon="@drawable/ic_action_privacy"
+                android:title="@string/politica_de_privacidad" />
+        </menu>
+    </item>
+
 </menu>

@@ -63,5 +63,15 @@
     <string name="dialog2">al itinerario?</string>
     <string name="titulo_dialog">Añadir punto de interes</string>
     <string name="confirmar">Confirmar</string>
+    <string name="sobre_nosotros">Sobre Nosotros</string>
+    <string name="votanos">Votanos</string>
+    <string name="comparte_la_app">Comparte la App</string>
+    <string name="politica_de_privacidad">Politica de Privacidad</string>
+
+    <!--AlertDialogRateApp-->
+    <string name="layout_dra_title">PUNTUA LA APP</string>
+    <string name="layout_dra_subtitle">Porfavor, si has disfrutado con nuestra App, vótala y coméntala. Somos un grupo de desarrolladores jovenes y tus contribuciones son muy importantes para nosotros.</string>
+    <string name="layout_dra_btn_rate">COMENTA AHORA</string>
+    <string name="layout_dra_btn_rate_later">RECUERDAMELO MÁS TARDE</string>
 
 </resources>
