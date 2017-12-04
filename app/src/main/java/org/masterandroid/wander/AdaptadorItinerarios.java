@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,7 +35,9 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
 
     @Override
     public void onItemDismiss(int position) {
-       int id = (int) obtenerId(position);
+
+        //Obtengo el identificador del objeto a borrar
+        int id = (int) obtenerId(position);
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(contexto);
         //obtengo el usuario

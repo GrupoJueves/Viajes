@@ -27,25 +27,17 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        Log.e("Reciclerview ","De la pos: "+fromPosition+" a la pos: "+toPosition);
         //obtenemos el identificador del objeto a mover
         int id = (int)obtenerId(fromPosition);
-        Log.e("poiID: ",""+id);
         //obtenemos el valor del parametro position de la BD
         int posIn = obtenerPosicion(fromPosition);
         int posFin = obtenerPosicion(toPosition);
-        Log.e("De la pos: ",posIn+" a la pos: "+posFin);
-        //inicializo la base de datos, si no existe la crea
+        //inicializo la base de datos
         ConsultaBD.inicializaBD(contexto);
         //obtengo el route_id
         int route_id = ConsultaBD.getRouteId(id);
-        Log.e("Para la ruta: ",""+route_id);
         //Realizo el swap en la base de datos
-        if (ConsultaBD.swapPosition(id,posFin,route_id)){
-            Log.e("Realizado con ", "exito");
-        }else {
-            Log.e("No realizado con ", "exito");
-        }
+        ConsultaBD.swapPosition(id,posFin,route_id);
         //vuelvo a cargar el cursor
         c = ConsultaBD.listadoPOIItinerario(route_id);
 
@@ -56,8 +48,19 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
 
     @Override
     public void onItemDismiss(int position) {
+        //obtengo el id del punto a borrar
+        int id = (int)obtenerId(position);
+        //inicializo la base de datos
+        ConsultaBD.inicializaBD(contexto);
+        //obtengo el usuario
+        int route = ConsultaBD.getRouteId(id);
+        //elimino la ruta
+        ConsultaBD.deletePoiRoute(id);
+        //vuelvo a cargar el cursor con los itinerarios
+        c = ConsultaBD.listadoPOIItinerario(route);
+
         notifyItemRemoved(position);
-    }
+            }
 
     //lo utilizaremos desde la actividad
     interface OnItemClickListener {

@@ -308,10 +308,10 @@ public class ConsultaBD {
 
                     //SQLiteDatabase bdw = BaseDeDatos.getWritableDatabase();
                     bdw.execSQL("UPDATE route_pois SET position = "+pos+" WHERE route_pois_id = "+poi_id);
-                    Log.e("elemento: ",poi_id+" a la posicion "+pos);
+
                 }
                 catch (Exception e){
-                    Log.e("elemento: ","error");
+
                     correcto = false;
                 }
 
