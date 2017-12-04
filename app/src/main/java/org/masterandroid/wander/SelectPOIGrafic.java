@@ -210,7 +210,7 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
         ConsultaBD.newPOI(punto);
         int poi_id = ConsultaBD.getIdPOI(poi.placeId);
         if (poi_id != -1){
-            if(ConsultaBD.addPoi((int)id,poi_id,5,false)){
+            if(ConsultaBD.addPoi((int)id,poi_id,false)){
                 map.addMarker(new MarkerOptions().position(poi.latLng)
                         .title(poi.name));
             }

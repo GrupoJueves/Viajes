@@ -20,7 +20,7 @@
         <!-- Metadatos google maps -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAvNfxR-Axkx9L6ZAguy7cE_KxdgQBnIzk" />
+            android:value="AIzaSyDwLw1F9Exa2juI9b4AeEjGmZRM8e8Xm74" />
             <!--Apikey de release
             android:value="AIzaSyCST7uazqirS8tpcWKOa5-N9_tbY8uxw24" />  -->
             <!--Apikey de debug

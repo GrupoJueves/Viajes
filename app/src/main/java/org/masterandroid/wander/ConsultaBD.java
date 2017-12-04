@@ -114,6 +114,18 @@ public class ConsultaBD {
         return correcto;
     }
 
+    //Obtener el uuser de un itinerario
+    public static int getUser(int route_id){
+        int id = -1;
+        Cursor cursor = bdw.rawQuery("SELECT * FROM route WHERE route_id = " + route_id, null);
+        if (cursor.moveToNext()){
+
+            id = cursor.getInt(cursor.getColumnIndex("user"));
+
+        }
+        return id;
+    }
+
 
     //POI
 //No se utilizan con la api de places
@@ -198,8 +210,10 @@ public class ConsultaBD {
     }
 
     //Añadir un nuevo Poi al itinerario (El dia siempre sera 1 de momento)
-    public static boolean addPoi(int route_id, int poi_id, int position, boolean checked){
+    public static boolean addPoi(int route_id, int poi_id, boolean checked){
         boolean correcto = true;
+        int position = getMaxPosition(route_id)+1;
+        //Log.e("position: ",""+position+" ruta: "+route_id);
         int visto = (checked)?1:0;
         try {
             bdw.execSQL("INSERT INTO route_pois (route, poi, position, day, visto) VALUES ("+route_id+" , "+poi_id+" , "+position+" , 1 , "+visto+")");
@@ -226,7 +240,7 @@ public class ConsultaBD {
         return correcto;
     }
 
-    //Elimina un itinerario
+    //Elimina un poi de un itinerario
     public static boolean deletePoiRoute (int id){
         boolean correcto = true;
         try {
@@ -251,6 +265,65 @@ public class ConsultaBD {
         }
         return poiId;
     }
+
+    //Obtener route_id de poi_route_id
+    public static int getRouteId(int id){
+        int poiId = -1;
+        Cursor cursor = bdw.rawQuery("SELECT * FROM route_pois WHERE route_pois_id = " + id, null);
+        if (cursor.moveToNext()){
+
+            poiId = cursor.getInt(cursor.getColumnIndex("route"));
+
+        }
+        return poiId;
+    }
+
+    //obtener la posicion maxima de un itinerario
+    public static int getMaxPosition (int id){
+        int max = -1;
+        Cursor cursor = bdw.rawQuery("SELECT MAX(position) AS max_position FROM route_pois WHERE route = " + id, null);
+        if (cursor.moveToNext()){
+
+            max = cursor.getInt(cursor.getColumnIndex("max_position"));
+           //Log.e("position: ",""+max+" ruta: "+id);
+
+        }
+        return max;
+    }
+
+    //Modificar la posicion de un elemento
+    public static boolean swapPosition(int id, int position, int route_id){
+        boolean correcto = true;
+
+        Cursor c = bdw.rawQuery("SELECT * FROM route_pois WHERE route = " + route_id +" AND position >= "+position, null);
+
+        //Nos aseguramos de que existe al menos un registro
+        if (c.moveToFirst()) {
+            //Recorremos el cursor hasta que no haya más registros
+            do {
+                try {
+                    int pos = 1+c.getInt(c.getColumnIndex("position"));
+                    int poi_id = 0 + c.getInt(c.getColumnIndex("route_pois_id"));
+
+
+                    //SQLiteDatabase bdw = BaseDeDatos.getWritableDatabase();
+                    bdw.execSQL("UPDATE route_pois SET position = "+pos+" WHERE route_pois_id = "+poi_id);
+                    Log.e("elemento: ",poi_id+" a la posicion "+pos);
+                }
+                catch (Exception e){
+                    Log.e("elemento: ","error");
+                    correcto = false;
+                }
+
+            } while(c.moveToNext());
+            bdw.execSQL("UPDATE route_pois SET position = "+position+" WHERE route_pois_id = "+id);
+        }
+
+
+
+        return correcto;
+    }
+
 
 
     ///Funciones comentarios
@@ -327,6 +400,7 @@ public class ConsultaBD {
         }
         return correcto;
     }
+
 
 
 }

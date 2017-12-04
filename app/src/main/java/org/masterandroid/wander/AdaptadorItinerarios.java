@@ -2,8 +2,11 @@ package org.masterandroid.wander;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,14 +17,36 @@ import android.widget.TextView;
  * Created by Ivan on 07/11/2017.
  */
 
-public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerarios.ViewHolder> {
+public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerarios.ViewHolder> implements ItemTouchHelperAdapter {
 
     private LayoutInflater inflador;//Crea Layouts a partir del XML
     private long id;
+    private Context contexto;
 
     private Cursor c;
     private OnItemClickListener escucha;
     private View.OnLongClickListener onLongClickListener; // escuchador long
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        return false;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+       int id = (int) obtenerId(position);
+        //inicializo la base de datos, si no existe la crea
+        ConsultaBD.inicializaBD(contexto);
+        //obtengo el usuario
+        int user = ConsultaBD.getUser(id);
+        //elimino la ruta
+        ConsultaBD.deleteRoute(id);
+        //vuelvo a cargar el cursor con los itinerarios
+        c=ConsultaBD.listadoItinerarios(user);
+
+        notifyItemRemoved(position);
+
+    }
 
 
     //lo utilizaremos desde la actividad
@@ -34,11 +59,11 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
     public AdaptadorItinerarios(Context contexto, Cursor c, OnItemClickListener escucha) {
         this.c=c;
         this.escucha=escucha;
+        this.contexto = contexto;
     }
 
     //ViewHolder con los elementos a modificar
-    public class ViewHolder extends RecyclerView.ViewHolder
-            implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView titulo;
         ImageView check;
 
@@ -81,6 +106,8 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
          if (tele == 0) {
                 holder.check.setVisibility(View.INVISIBLE);
             }
+
+
     }
 
     @Override
@@ -111,6 +138,31 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
     public long getId(int position) {
         id= obtenerId(position);
         return id;
+    }
+
+    /**
+     * Simple example of a view holder that implements {@link ItemTouchHelperViewHolder} and has a
+     * "handle" view that initiates a drag event when touched.
+     */
+    public static class ItemViewHolder extends RecyclerView.ViewHolder implements
+            ItemTouchHelperViewHolder {
+
+
+
+        public ItemViewHolder(View itemView) {
+            super(itemView);
+
+        }
+
+        @Override
+        public void onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY);
+        }
+
+        @Override
+        public void onItemClear() {
+            itemView.setBackgroundColor(0);
+        }
     }
 }
 

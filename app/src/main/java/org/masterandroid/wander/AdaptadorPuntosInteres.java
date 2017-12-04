@@ -3,6 +3,7 @@ package org.masterandroid.wander;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,15 +14,50 @@ import android.widget.TextView;
  * Created by rodriii on 15/11/17.
  */
 
-public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntosInteres.ViewHolder> {
+public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntosInteres.ViewHolder> implements ItemTouchHelperAdapter{
 
     private LayoutInflater inflador; //Crea Layouts a partir del XML
     private long id;
+
 
     private Cursor c;
     private AdaptadorPuntosInteres.OnItemClickListener escucha;
     private View.OnLongClickListener onLongClickListener; // escuchador long
     private Context contexto;
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        Log.e("Reciclerview ","De la pos: "+fromPosition+" a la pos: "+toPosition);
+        //obtenemos el identificador del objeto a mover
+        int id = (int)obtenerId(fromPosition);
+        Log.e("poiID: ",""+id);
+        //obtenemos el valor del parametro position de la BD
+        int posIn = obtenerPosicion(fromPosition);
+        int posFin = obtenerPosicion(toPosition);
+        Log.e("De la pos: ",posIn+" a la pos: "+posFin);
+        //inicializo la base de datos, si no existe la crea
+        ConsultaBD.inicializaBD(contexto);
+        //obtengo el route_id
+        int route_id = ConsultaBD.getRouteId(id);
+        Log.e("Para la ruta: ",""+route_id);
+        //Realizo el swap en la base de datos
+        if (ConsultaBD.swapPosition(id,posFin,route_id)){
+            Log.e("Realizado con ", "exito");
+        }else {
+            Log.e("No realizado con ", "exito");
+        }
+        //vuelvo a cargar el cursor
+        c = ConsultaBD.listadoPOIItinerario(route_id);
+
+        //Realiza la animacion
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        notifyItemRemoved(position);
+    }
 
     //lo utilizaremos desde la actividad
     interface OnItemClickListener {
@@ -32,6 +68,7 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
     public AdaptadorPuntosInteres(Context contexto, Cursor c, AdaptadorPuntosInteres.OnItemClickListener escucha) {
         this.c = c;
         this.escucha = escucha;
+        this.contexto = contexto;
     }
 
     //ViewHolder con los elementos a modificar
@@ -97,6 +134,19 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
             return -1;
         }
     }
+
+    private int obtenerPosicion(int posicion) {
+        if (c != null) {
+            if (c.moveToPosition(posicion)) {
+                return c.getInt(c.getColumnIndex("position")); //se puede especipicar el id, por ejemplo route_id, pero _id es general y funcionara siempre
+            } else {
+                return -1;
+            }
+        } else {
+            return -1;
+        }
+    }
+
 
     //lo usariamos desde la actividad
     public void setOnItemLongClickListener(View.OnLongClickListener onLongClickListener) {

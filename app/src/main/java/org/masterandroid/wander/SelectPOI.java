@@ -62,7 +62,7 @@ public class SelectPOI extends AppCompatActivity implements AdaptadorPoi.OnItemC
     @Override
     public void onClick(AdaptadorPoi.ViewHolder holder, long id2) {
 
-        if(ConsultaBD.addPoi((int)id,(int)id2,1,false)){
+        if(ConsultaBD.addPoi((int)id,(int)id2,false)){
             setResult(RESULT_OK);
             finish();
         }else{

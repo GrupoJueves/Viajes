@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     private RecyclerView recyclerViewitinerario;
     public AdaptadorPuntosInteres adaptador;
     private RecyclerView.LayoutManager lManager;
+
+    private ItemTouchHelper mItemTouchHelper;
 
     //Valor para la llamada a añadir poi
     final static int RESULTADO_AÑADIR = 1;
@@ -88,7 +91,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
             //emptyview.setVisibility(View.GONE);
             recyclerViewitinerario.setVisibility(View.VISIBLE);
         }
-        //Implementamos la funcionalidad del longClick
+       /* //Implementamos la funcionalidad del longClick
         adaptador.setOnItemLongClickListener(new View.OnLongClickListener() {
             public boolean onLongClick(final View v) {
                 final int posicion = recyclerViewitinerario.getChildAdapterPosition(v);
@@ -125,16 +128,21 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                                 break;
 
 
+
                         }
                     }
                 });
                 menu.create().show();
                 return true;
             }
-        });
+        });*/
 
         //rellenamos el reciclerview
         recyclerViewitinerario.setAdapter(adaptador);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adaptador);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(recyclerViewitinerario);
     }
 
     //accion de pulsar sobre un elemento de la lista

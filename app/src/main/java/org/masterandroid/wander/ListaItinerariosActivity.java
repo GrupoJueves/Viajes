@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.MenuItem;
@@ -31,6 +32,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
     private String nombreItinerario = "";
     private FlowingDrawer mDrawer;
+
+    private ItemTouchHelper mItemTouchHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +146,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         int id = pref.getInt("id", 0);
         //Obtenemos el cursor con todas las rutas del usuario
         Cursor c = ConsultaBD.listadoItinerarios(id);
+
         //creamos el adaptador
         adaptador = new AdaptadorItinerarios(this, c, this);
         //Esto seria para el caso de que no existireran rutas para este usuario
@@ -156,7 +160,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         }
 
         //Implementamos la funcionalidad del longClick
-        adaptador.setOnItemLongClickListener(new View.OnLongClickListener() {
+        /*adaptador.setOnItemLongClickListener(new View.OnLongClickListener() {
             public boolean onLongClick(final View v) {
                 final int posicion = recyclerViewClientes.getChildAdapterPosition(v);
                 final long id = adaptador.getId(posicion);
@@ -193,17 +197,22 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                                 listaitinerarios();
                                 break;
 
+
                         }
                     }
                 });
                 menu.create().show();
                 return true;
             }
-        });
+        });*/
 
 
         //rellenamos el reciclerview
         recyclerViewClientes.setAdapter(adaptador);
+
+        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(adaptador);
+        mItemTouchHelper = new ItemTouchHelper(callback);
+        mItemTouchHelper.attachToRecyclerView(recyclerViewClientes);
     }
 
     //accion de pulsar sobre un elemento de la lista
@@ -235,4 +244,6 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         Intent i = new Intent(this, PreferenciasActivity.class);
         startActivity(i);
     }
+
+
 }
