@@ -20,7 +20,11 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
@@ -75,6 +79,10 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ImageView imagen = findViewById(R.id.aprendizaje);
+                imagen.setVisibility(View.GONE);
+                TextView b_entendido = findViewById(R.id.entendido);
+                b_entendido.setVisibility(View.GONE);
                 String confirmar = getString(R.string.confirmar);
                 String cancelar = getString(R.string.cancelar);
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
@@ -286,6 +294,27 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
     private void rateUsBtn(){
         rateApp.openAppStoreToRate(ListaItinerariosActivity.this);
+    }
+
+    public void ententdido(View view){
+        ImageView imagen = findViewById(R.id.aprendizaje);
+        imagen.setVisibility(View.GONE);
+        TextView b_entendido = findViewById(R.id.entendido);
+        b_entendido.setVisibility(View.GONE);
+    }
+
+    public void abrePrimeraVez(){
+        SharedPreferences sp = getSharedPreferences("mispreferencias", 0);
+        boolean primerAcceso = sp.getBoolean("abrePrimeraVez", true);
+        if (primerAcceso) {
+            ImageView imagen = findViewById(R.id.aprendizaje);
+            imagen.setVisibility(View.VISIBLE);
+            TextView b_entendido = findViewById(R.id.entendido);
+            b_entendido.setVisibility(View.VISIBLE);
+
+            SharedPreferences.Editor e = sp.edit();
+            e.putBoolean("abrePrimeraVez", false).commit();
+        }
     }
 
 
