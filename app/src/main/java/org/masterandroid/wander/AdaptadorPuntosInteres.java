@@ -3,6 +3,7 @@ package org.masterandroid.wander;
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,7 +48,8 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
     }
 
     @Override
-    public void onItemDismiss(int position) {
+    public void onItemDismiss(int position,int direction) {
+        if (direction == ItemTouchHelper.LEFT){
         //obtengo el id del punto a borrar
         int id = (int)obtenerId(position);
         //inicializo la base de datos
@@ -60,7 +62,24 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
         c = ConsultaBD.listadoPOIItinerario(route);
 
         notifyItemRemoved(position);
-            }
+        }else {
+            //obtengo el id del punto a borrar
+            int id = (int)obtenerId(position);
+            //inicializo la base de datos
+            ConsultaBD.inicializaBD(contexto);
+            //obtengo el usuario
+            int route = ConsultaBD.getRouteId(id);
+            //obtengo el valor actual del check
+            boolean check = obtenerCheck(position);
+            //elimino la ruta
+            ConsultaBD.changeCheckPoi(id,check);
+            //vuelvo a cargar el cursor con los itinerarios
+            c = ConsultaBD.listadoPOIItinerario(route);
+
+            notifyItemChanged(position);
+        }
+
+    }
 
     //lo utilizaremos desde la actividad
     interface OnItemClickListener {
@@ -150,6 +169,23 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
         }
     }
 
+    private boolean obtenerCheck(int posicion) {
+        boolean check = false;
+        if (c != null) {
+            if (c.moveToPosition(posicion)) {
+                int estado = c.getInt(c.getColumnIndex("visto"));
+                if (estado == 0){
+                    return true;
+                }else{
+                    return false;
+                }
+            } else {
+                return check;
+            }
+        } else {
+            return check;
+        }
+    }
 
     //lo usariamos desde la actividad
     public void setOnItemLongClickListener(View.OnLongClickListener onLongClickListener) {

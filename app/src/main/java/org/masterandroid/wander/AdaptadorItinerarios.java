@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -34,8 +35,9 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
     }
 
     @Override
-    public void onItemDismiss(int position) {
+    public void onItemDismiss(int position, int direction) {
 
+        if (direction == ItemTouchHelper.LEFT){
         //Obtengo el identificador del objeto a borrar
         int id = (int) obtenerId(position);
         //inicializo la base de datos, si no existe la crea
@@ -48,6 +50,26 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
         c=ConsultaBD.listadoItinerarios(user);
 
         notifyItemRemoved(position);
+
+        }else{
+            //Obtengo el identificador del objeto a modificar
+            int id = (int) obtenerId(position);
+            //inicializo la base de datos, si no existe la crea
+            ConsultaBD.inicializaBD(contexto);
+            //obtengo el usuario
+            int user = ConsultaBD.getUser(id);
+            //obtengo el valor actual del check
+            boolean check = obtenerCheck(position);
+            //Cambio la ruta
+            ConsultaBD.changeCheck(id,check);
+            //vuelvo a cargar el cursor con los itinerarios
+            c=ConsultaBD.listadoItinerarios(user);
+
+
+            notifyItemChanged(position);
+
+
+        }
 
     }
 
@@ -142,6 +164,27 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
         id= obtenerId(position);
         return id;
     }
+
+    private boolean obtenerCheck(int posicion) {
+        boolean check = false;
+        if (c != null) {
+            if (c.moveToPosition(posicion)) {
+                int estado = c.getInt(c.getColumnIndex("checked"));
+                if (estado == 0){
+                    return true;
+                }else{
+                    return false;
+                }
+            } else {
+                return check;
+            }
+        } else {
+            return check;
+        }
+    }
+
+
+
 
     /**
      * Simple example of a view holder that implements {@link ItemTouchHelperViewHolder} and has a
