@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements AdaptadorItinerar
     // Infla el menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_detail_poi, menu);
         return true; //true -> el menu ya esta visible
     }
 

@@ -1,13 +1,11 @@
 package org.masterandroid.wander;
 
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.database.Cursor;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -15,12 +13,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -40,6 +46,8 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
+import static com.google.firebase.crash.FirebaseCrash.log;
+
 /**
  * Created by rodriii on 16/11/17.
  */
@@ -47,8 +55,9 @@ import java.net.URL;
 
 public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    private TextView titulo, detalle, longitud, latitud, telefono, web, tipo, precio;
+    private TextView titulo, detalle, longitud, latitud, telefono, web, tipo,precio;
     private FloatingActionButton nuevoComentario;
+    private RatingBar valoracion;
     private ImageView imagePOI;
     private POI POI;
     private GoogleApiClient mGoogleApiClient;
@@ -56,6 +65,12 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     private String nombre, direccion, localidad, nombreBusqueda;
     private String[] secnom,secdir;
     private int numero;
+
+    //Anuncios
+    private AdView adView;
+    private InterstitialAd interstitialAd;
+    private String ID_BLOQUE_ANUNCIOS_INTERSTICIAL;
+    private String ID_INICIALIZADOR_ADS;
 
     private RecyclerView recyclerView;
     public AdaptadorComentarios adaptador;
@@ -87,6 +102,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 .enableAutoManage(this, this)
                 .build();
 
+
         titulo = findViewById(R.id.tituloPOI);
         detalle = findViewById(R.id.detalle);
         longitud = findViewById(R.id.longitud);
@@ -98,8 +114,27 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
 
         tipo = findViewById(R.id.categoria);
         precio = findViewById(R.id.precio);
+        valoracion = findViewById(R.id.valoracion);
 
-        rellenarPOI();
+        //Anuncios:
+        ID_BLOQUE_ANUNCIOS_INTERSTICIAL = getString(R.string.ads_intersticial_id_test);
+        ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
+
+        MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
+
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                interstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+        });
 
         nuevoComentario.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,30 +144,59 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         });
     }
 
+    ///////MENU///////
+    // Infla el menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail_poi, menu);
+        return true; //true -> el menu ya esta visible
+    }
+
+    //Recibe los OnClicks de los items del menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId(); //Esto almacena el Id del elemento del menu que pulsamos
+
+        //Busca cual es el id del menu que se ha pulsado para lanzar la actividad correspondiente
+        if (id == R.id.map_menu) {
+            if (interstitialAd.isLoaded()) {
+                interstitialAd.show();
+            }
+
+            double lat = POI.getLat();
+            double lng = POI.getLon();
+            showPointOnMap(lat, lng);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public void ShowDialog()
     {
         final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
         popDialog.setView(R.layout.alert_dialog);
         // Button OK
         popDialog.setPositiveButton(android.R.string.ok,
-        new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                EditText editText = popDialog.create().findViewById(R.id.alertComentario);
-                RatingBar ratingBar = popDialog.create().findViewById(R.id.alertRatingBar);
-                //ConsultaBD
-                dialog.dismiss();
-            }
-        }).setNegativeButton("Cancelar",
-        new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        });
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        EditText editText = popDialog.create().findViewById(R.id.alertComentario);
+                        RatingBar ratingBar = popDialog.create().findViewById(R.id.alertRatingBar);
+                        //ConsultaBD
+                        dialog.dismiss();
+                    }
+                }).setNegativeButton("Cancelar",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
         popDialog.create();
         popDialog.show();
     }
 
     public void rellenarPOI(){
+
         int id = ConsultaBD.getPoiId((int)id_poi);
         POI = ConsultaBD.infoPoi((int) id);
 
@@ -155,8 +219,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                             }
 
                             tipo.setText(""+myPlace.getPlaceTypes().toString());
-                            precio.setText(""+myPlace.getPriceLevel());
-                            //valoracion.setRating(myPlace.getRating());
+                           precio.setText(""+myPlace.getPriceLevel());
+                            valoracion.setRating(myPlace.getRating());
                             busca();
                         } else {
                             Log.e("", "Place not found");
@@ -403,4 +467,10 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         }
     }
 
+    private void showPointOnMap(Double LatPoint, Double LngPoint) {
+        Intent i = new Intent(DetailPOI.this, MapActivity.class);
+        i.putExtra("LatPoint", LatPoint);
+        i.putExtra("LngPoint", LngPoint);
+        startActivity(i);
+    }
 }

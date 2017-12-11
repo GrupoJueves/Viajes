@@ -16,6 +16,12 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.View;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+
 public class ListaPuntosInteresActivity extends AppCompatActivity implements AdaptadorPuntosInteres.OnItemClickListener {
 
     private RecyclerView recyclerViewitinerario;
@@ -33,6 +39,13 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     private SharedPreferences pref;
 
     private String nombrePuntoInteres = "";
+
+    //Anuncios
+    //Anuncios
+    private AdView adView;
+    private InterstitialAd interstitialAd;
+    private String ID_BLOQUE_ANUNCIOS_INTERSTICIAL;
+    private String ID_INICIALIZADOR_ADS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +76,10 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                 Intent i = new Intent(ListaPuntosInteresActivity.this, SelectPOIGrafic.class);
                 i.putExtra("id", id_ruta);
                 startActivityForResult(i, RESULTADO_AÑADIR);
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                }
             }
         });
 
@@ -73,6 +90,26 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         Transition lista_enter = TransitionInflater.from(this).inflateTransition(R.transition.transition_lista_enter);
         getWindow().setEnterTransition(lista_enter);
         getWindow().setExitTransition(null);
+
+        //Anuncios:
+        ID_BLOQUE_ANUNCIOS_INTERSTICIAL = getString(R.string.ads_intersticial_id_test);
+        ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
+
+        MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
+
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                interstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+        });
     }
 
     public void listaPuntosInteres(){
