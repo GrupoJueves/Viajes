@@ -23,6 +23,15 @@
         </menu>
     </item>
 
+    <item android:title="@string/compras">
+        <menu>
+            <item
+                android:id="@+id/nav_quitar_anuncios"
+                android:icon="@drawable/ic_action_money"
+                android:title="@string/quitar_anuncios"/>
+        </menu>
+    </item>
+
     <item android:title="@string/sobre_nosotros">
         <menu>
             <item

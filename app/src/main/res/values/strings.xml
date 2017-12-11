@@ -1,4 +1,16 @@
 <resources>
+    <!--No hace falta traducir-->
+    <string name="ads_initialize_test" translatable="false">a-app-pub-3940256099942544~3347511713</string>
+    <string name="ads_banner_id_test" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ads_intersticial_id_test" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
+    <!--AlertDialogRateApp-->
+    <string name="layout_dra_title">PUNTUA LA APP</string>
+    <string name="layout_dra_subtitle">Porfavor, si has disfrutado con nuestra App, vótala y coméntala. Somos un grupo de desarrolladores jovenes y tus contribuciones son muy importantes para nosotros.</string>
+    <string name="layout_dra_btn_rate">COMENTA AHORA</string>
+    <string name="layout_dra_btn_rate_later">RECUERDAMELO MÁS TARDE</string>
+
+
     <string name="app_name">Wander</string>
     <string name="title_activity_prueba_itinerario">pruebaItinerario</string>
     <string name="title_activity_prueba_poi">PruebaPoi</string>
@@ -67,16 +79,8 @@
     <string name="votanos">Votanos</string>
     <string name="comparte_la_app">Comparte la App</string>
     <string name="politica_de_privacidad">Politica de Privacidad</string>
-
-    <!--AlertDialogRateApp-->
-    <string name="layout_dra_title">PUNTUA LA APP</string>
-    <string name="layout_dra_subtitle">Porfavor, si has disfrutado con nuestra App, vótala y coméntala. Somos un grupo de desarrolladores jovenes y tus contribuciones son muy importantes para nosotros.</string>
-    <string name="layout_dra_btn_rate">COMENTA AHORA</string>
-    <string name="layout_dra_btn_rate_later">RECUERDAMELO MÁS TARDE</string>
-
-    <!--No hace falta traducir-->
-    <string name="ads_initialize_test" translatable="false">a-app-pub-3940256099942544~3347511713</string>
-    <string name="ads_banner_id_test" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="ads_intersticial_id_test" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="mostrar_en_mapa">Mostrar En Mapa</string>
+    <string name="compras">Compras</string>
+    <string name="quitar_anuncios">Quitar Anuncios</string>
 
 </resources>

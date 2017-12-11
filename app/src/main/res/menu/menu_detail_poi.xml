@@ -5,7 +5,7 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/map_menu"
-        android:title="Mostrar En Mapa"
+        android:title="@string/mostrar_en_mapa"
         android:icon="@android:drawable/ic_menu_mapmode"
         android:orderInCategory="10"
         app:showAsAction="ifRoom"/>
