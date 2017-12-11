@@ -1,12 +1,15 @@
 package org.masterandroid.wander;
 
 import android.app.ActivityOptions;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -35,6 +38,9 @@ import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ListaItinerariosActivity extends AppCompatActivity implements AdaptadorItinerarios.OnItemClickListener {
     private RecyclerView recyclerViewClientes;
     public AdaptadorItinerarios adaptador;
@@ -50,13 +56,23 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     private RateApp rateApp;
     //Shared preference storage
     private SharedPreferenceStorage spStorage;
-    private String email;
 
     //Anuncios
     private AdView adView;
     private InterstitialAd interstitialAd;
     private String ID_BLOQUE_ANUNCIOS_INTERSTICIAL;
     private String ID_INICIALIZADOR_ADS;
+    private boolean showInterticial=false;
+
+    //Clases tipo sigleton
+    private ApplicationClass app;
+
+    //InAppBilling
+    private IInAppBillingService serviceBilling;
+    private final String ID_ARTICULO = "org.masterandroid.wander.quitaranuncios";
+    private final int INAPP_BILLING = 1;
+    private final String developerPayLoad = "clave de seguridad";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +89,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         spStorage = new SharedPreferenceStorage(this);
         //Rate App
         rateApp = new RateApp(this, spStorage);
+
 
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(this);
@@ -125,8 +142,10 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
                 rateApp.addOneRatePoint();
 
-                if (interstitialAd.isLoaded()) {
-                    interstitialAd.show();
+                if(showInterticial) {
+                    if (interstitialAd.isLoaded()) {
+                        interstitialAd.show();
+                    }
                 }
             }
         });
@@ -171,6 +190,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                     startActivity(i);
                 }
 
+
                 mDrawer.closeMenu();
                 return true;
             }
@@ -193,20 +213,12 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
 
         MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
-
         adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
+        setAds(app.adsEnabled());
 
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-        interstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                interstitialAd.loadAd(new AdRequest.Builder().build());
-            }
-        });
+        //InAppbilling
+        serviceBilling = app.getServiceBilling();
+    }
     }
 
     public void listaitinerarios() {
@@ -346,7 +358,72 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         }
     }
 
+    private void setAds(Boolean adsEnabled) {
+        if (adsEnabled) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.loadAd(adRequest);
+            interstitialAd = new InterstitialAd(this);
+            interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
+            interstitialAd.loadAd(new AdRequest.Builder().build());
+            interstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    interstitialAd.loadAd(new AdRequest.Builder().build());
+                }
+            });
+            showInterticial = true;
+        } else {
+            showInterticial = false;
+            adView.setVisibility(View.GONE);
+        }
+    }
 
+    public void comprarQuitarAds() {
+        if (serviceBilling != null) {
+            Bundle buyIntentBundle = null;
+            try {
+                buyIntentBundle = serviceBilling.getBuyIntent(3, getPackageName(), ID_ARTICULO, "inapp", developerPayLoad);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+            try {
+                if (pendingIntent != null) {
+                    startIntentSenderForResult(pendingIntent.getIntentSender(), INAPP_BILLING, new Intent(), 0, 0, 0);
+                }
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, "InApp Billing service not available", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case INAPP_BILLING: {
+                int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
+                String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
+                String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
+                if (resultCode == RESULT_OK) {
+                    try {
+                        JSONObject jo = new JSONObject(purchaseData);
+                        String sku = jo.getString("productId");
+                        String developerPayload = jo.getString("developerPayload");
+                        String purchaseToken = jo.getString("purchaseToken");
+                        if (sku.equals(ID_ARTICULO)) {
+                            Toast.makeText(this, "Compra completada", Toast.LENGTH_LONG).show();
+                            setAds(false);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 
 
 }
