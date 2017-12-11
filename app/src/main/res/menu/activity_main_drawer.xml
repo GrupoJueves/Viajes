@@ -8,10 +8,6 @@
             android:id="@+id/nav_itinerarios"
             android:icon="@android:drawable/ic_menu_myplaces"
             android:title="Mis itinerarios" />
-        <item
-            android:id="@+id/nav_mapa"
-            android:icon="@android:drawable/ic_menu_mapmode"
-            android:title="@string/mapa"/>
     </group>
 
     <item android:title="@string/preferencias">

@@ -1,5 +1,6 @@
 package org.masterandroid.wander;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -7,12 +8,17 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
@@ -32,8 +38,6 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
-import static com.google.firebase.crash.FirebaseCrash.log;
-
 /**
  * Created by rodriii on 16/11/17.
  */
@@ -50,6 +54,13 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     private String nombre, direccion, localidad, nombreBusqueda;
     private String[] secnom,secdir;
     private int numero;
+
+
+    //Anuncios
+    private AdView adView;
+    private InterstitialAd interstitialAd;
+    private String ID_BLOQUE_ANUNCIOS_INTERSTICIAL;
+    private String ID_INICIALIZADOR_ADS;
 
 
     @Override
@@ -85,6 +96,55 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         valoracion = findViewById(R.id.valoracion);
 
         rellenarPOI();
+
+
+        //Anuncios:
+        ID_BLOQUE_ANUNCIOS_INTERSTICIAL = getString(R.string.ads_intersticial_id_test);
+        ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
+
+        MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
+
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                interstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+        });
+    }
+
+    ///////MENU///////
+    // Infla el menu
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detail_poi, menu);
+        return true; //true -> el menu ya esta visible
+    }
+
+    //Recibe los OnClicks de los items del menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId(); //Esto almacena el Id del elemento del menu que pulsamos
+
+        //Busca cual es el id del menu que se ha pulsado para lanzar la actividad correspondiente
+        if (id == R.id.map_menu) {
+            if (interstitialAd.isLoaded()) {
+                interstitialAd.show();
+            }
+
+            double lat = POI.getLat();
+            double lng = POI.getLon();
+            showPointOnMap(lat, lng);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     public void rellenarPOI(){
@@ -357,6 +417,13 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             }
 
         }
+    }
+
+    private void showPointOnMap(Double LatPoint, Double LngPoint) {
+        Intent i = new Intent(DetailPOI.this, MapActivity.class);
+        i.putExtra("LatPoint", LatPoint);
+        i.putExtra("LngPoint", LngPoint);
+        startActivity(i);
     }
 
 }

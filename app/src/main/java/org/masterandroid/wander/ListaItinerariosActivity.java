@@ -26,6 +26,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
@@ -44,6 +50,12 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     private RateApp rateApp;
     //Shared preference storage
     private SharedPreferenceStorage spStorage;
+
+    //Anuncios
+    private AdView adView;
+    private InterstitialAd interstitialAd;
+    private String ID_BLOQUE_ANUNCIOS_INTERSTICIAL;
+    private String ID_INICIALIZADOR_ADS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +124,10 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 builder.show();
 
                 rateApp.addOneRatePoint();
+
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                }
             }
         });
 
@@ -133,9 +149,6 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                     }
                 } else if (id == R.id.nav_preferencias) {
                     lanzarPreferencias(null);
-                    return true;
-                } else if (id == R.id.nav_mapa) {
-                    showPointOnMap(40.418153, -3.684369);
                     return true;
                 } else if (id == R.id.nav_salir) {
                     SharedPreferences.Editor editor = pref.edit();
@@ -172,6 +185,26 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
         Transition lista_enter = TransitionInflater.from(this).inflateTransition(R.transition.transition_explode);
         getWindow().setEnterTransition(lista_enter);
+
+        //Anuncios:
+        ID_BLOQUE_ANUNCIOS_INTERSTICIAL = getString(R.string.ads_intersticial_id_test);
+        ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
+
+        MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
+
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                interstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+        });
     }
 
     public void listaitinerarios() {
@@ -265,12 +298,6 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         }
     }
 
-    private void showPointOnMap(Double LatPoint, Double LngPoint) {
-        Intent i = new Intent(ListaItinerariosActivity.this, MapActivity.class);
-        i.putExtra("LatPoint", LatPoint);
-        i.putExtra("LngPoint", LngPoint);
-        startActivity(i);
-    }
 
     public void lanzarPreferencias(View view) {
         Intent i = new Intent(this, PreferenciasActivity.class);
@@ -316,6 +343,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
             e.putBoolean("abrePrimeraVez", false).commit();
         }
     }
+
+
 
 
 }

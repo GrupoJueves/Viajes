@@ -56,7 +56,7 @@
         <activity
             android:name="org.masterandroid.wander.DetailPOI"
             android:label="@string/title_activity_POIdetalle"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme" />
 
         <activity
             android:name="org.masterandroid.wander.CreatePOI"
