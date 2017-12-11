@@ -142,6 +142,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 ShowDialog();
             }
         });
+
+        rellenarPOI();
     }
 
     ///////MENU///////

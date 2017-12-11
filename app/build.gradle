@@ -2,12 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        config {
-            keyAlias 'androiddebugkey'
-            keyPassword 'android'
-            storeFile file('/Users/rodriii/Desktop/debug.keystore')
-            storePassword 'android'
-        }
     }
     compileSdkVersion 26
     defaultConfig {
@@ -23,9 +17,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-        debug {
-            signingConfig signingConfigs.config
         }
     }
 }
@@ -47,8 +38,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-maps:11.6.0'
     compile 'com.google.android.gms:play-services:11.6.0'
     compile 'org.jsoup:jsoup:1.11.2'
-
     compile 'com.google.firebase:firebase-ads:11.6.0'
-
     compile 'com.android.billingclient:billing:1.0'
 }

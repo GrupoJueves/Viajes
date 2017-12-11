@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -78,6 +79,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_itinerarios);
+
+        app = (ApplicationClass) getApplication();
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         int id = pref.getInt("id", 0);
@@ -188,6 +191,9 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 }else if(id == R.id.user_menu){
                     Intent i = new Intent(ListaItinerariosActivity.this, PerfilUsuarioActivity.class);
                     startActivity(i);
+                }else if (id == R.id.nav_quitar_anuncios) {
+                    comprarQuitarAds();
+                    return true;
                 }
 
 
@@ -219,7 +225,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         //InAppbilling
         serviceBilling = app.getServiceBilling();
     }
-    }
+
 
     public void listaitinerarios() {
         int id = pref.getInt("id", 0);
