@@ -44,6 +44,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     private RateApp rateApp;
     //Shared preference storage
     private SharedPreferenceStorage spStorage;
+    private String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +61,6 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         spStorage = new SharedPreferenceStorage(this);
         //Rate App
         rateApp = new RateApp(this, spStorage);
-
 
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(this);
@@ -153,8 +153,10 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 }else if (id == R.id.nav_privacy) {
                     privacyPolicyBtn();
                     return true;
+                }else if(id == R.id.user_menu){
+                    Intent i = new Intent(ListaItinerariosActivity.this, PerfilUsuarioActivity.class);
+                    startActivity(i);
                 }
-
 
                 mDrawer.closeMenu();
                 return true;

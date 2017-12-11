@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <uses-feature android:name="android.hardware.location.gps" />
 
@@ -25,7 +26,6 @@
             android:value="AIzaSyCST7uazqirS8tpcWKOa5-N9_tbY8uxw24" />  -->
             <!--Apikey de debug
              android:value="AIzaSyAvNfxR-Axkx9L6ZAguy7cE_KxdgQBnIzk" />-->
-
 
         <activity android:name="org.masterandroid.wander.InicioSesionActivity">
             <intent-filter>
@@ -52,15 +52,21 @@
             android:name="org.masterandroid.wander.SelectPOIGrafic"
             android:label="@string/select_POI"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name="org.masterandroid.wander.DetailPOI"
             android:label="@string/title_activity_POIdetalle"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name="org.masterandroid.wander.CreatePOI"
             android:label="@string/title_activity_POIcreate"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="org.masterandroid.wander.PerfilUsuarioActivity"
+            android:label="@string/title_activity_PerfilUsuario"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name="org.masterandroid.wander.EditarPerfilUsuarioActivity"
+            android:label="@string/title_activity_EditarPerfilUsuario"
+            android:theme="@style/AppTheme" />
     </application>
 </manifest>

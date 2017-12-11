@@ -51,11 +51,9 @@ public class InicioSesionActivity extends AppCompatActivity {
         EditText contraseña = (EditText) findViewById(R.id.contraseña);
         CheckBox mostrar = (CheckBox) findViewById(R.id.mostrar_contraseña);
         if (mostrar.isChecked()) {
-            contraseña.setInputType(InputType.TYPE_CLASS_TEXT |
-                    InputType.TYPE_TEXT_VARIATION_NORMAL);
+            contraseña.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
         } else {
-            contraseña.setInputType(InputType.TYPE_CLASS_TEXT |
-                    InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            contraseña.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
     }
 
@@ -63,7 +61,7 @@ public class InicioSesionActivity extends AppCompatActivity {
         if (checkEmpty(email)) return;
         if (checkEmpty(contraseña)) return;
 
-        int answer = ConsultaBD.identificar(email.getText().toString(),contraseña.getText().toString());
+        int answer = ConsultaBD.identificar(email.getText().toString(), contraseña.getText().toString());
         if (answer > 0){
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = pref.edit();

@@ -47,6 +47,27 @@ public class ConsultaBD {
         return correcto;
     }
 
+    //Informacion de un usuario
+    public static Usuario infoUser (int id){
+        Usuario user = null;
+
+        Cursor cursor = bdw.rawQuery("SELECT * FROM user WHERE user_id = " + id, null);
+        if (cursor.moveToNext()){
+            user = new Usuario();
+            user.setCorreo(""+cursor.getString(cursor.getColumnIndex("email")));
+            user.setNombre(""+cursor.getString(cursor.getColumnIndex("name")));
+            user.setApellidos(""+cursor.getString(cursor.getColumnIndex("surname")));
+        }
+        cursor.close();
+
+        return user;
+    }
+
+    //Actualizar un usuario
+    public static void updateUser (Usuario usuario, int id){
+
+    }
+
     //Identificarse (devuelve -1 si el usuario no esta registrado, -2 en caso de error en lectura de la base de datos, si va bien devuelve el identificador del usuario)
     public static int identificar(String email, String password){
         int id = -1;

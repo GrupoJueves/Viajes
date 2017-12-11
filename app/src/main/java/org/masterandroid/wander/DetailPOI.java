@@ -1,17 +1,25 @@
 package org.masterandroid.wander;
 
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -32,8 +40,6 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
 
-import static com.google.firebase.crash.FirebaseCrash.log;
-
 /**
  * Created by rodriii on 16/11/17.
  */
@@ -41,8 +47,8 @@ import static com.google.firebase.crash.FirebaseCrash.log;
 
 public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    private TextView titulo, detalle, longitud, latitud, telefono, web, tipo,precio;
-    private RatingBar valoracion;
+    private TextView titulo, detalle, longitud, latitud, telefono, web, tipo, precio;
+    private FloatingActionButton nuevoComentario;
     private ImageView imagePOI;
     private POI POI;
     private GoogleApiClient mGoogleApiClient;
@@ -51,11 +57,21 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     private String[] secnom,secdir;
     private int numero;
 
+    private RecyclerView recyclerView;
+    public AdaptadorComentarios adaptador;
+    private RecyclerView.LayoutManager lManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_poi);
+
+        recyclerView = findViewById(R.id.recyclerComentarios);
+        recyclerView.setHasFixedSize(true);
+        lManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(lManager);
+        adaptador = new AdaptadorComentarios(this);
+        recyclerView.setAdapter(adaptador);
 
         //recojo el valor del identificador de la ruta
         Bundle extras = getIntent().getExtras();
@@ -71,7 +87,6 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 .enableAutoManage(this, this)
                 .build();
 
-
         titulo = findViewById(R.id.tituloPOI);
         detalle = findViewById(R.id.detalle);
         longitud = findViewById(R.id.longitud);
@@ -79,16 +94,45 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         imagePOI = findViewById(R.id.imagePOI);
         telefono = findViewById(R.id.telefono);
         web = findViewById(R.id.web);
+        nuevoComentario = findViewById(R.id.nuevoComentario);
 
         tipo = findViewById(R.id.categoria);
         precio = findViewById(R.id.precio);
-        valoracion = findViewById(R.id.valoracion);
 
         rellenarPOI();
+
+        nuevoComentario.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ShowDialog();
+            }
+        });
+    }
+
+    public void ShowDialog()
+    {
+        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+        popDialog.setView(R.layout.alert_dialog);
+        // Button OK
+        popDialog.setPositiveButton(android.R.string.ok,
+        new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                EditText editText = popDialog.create().findViewById(R.id.alertComentario);
+                RatingBar ratingBar = popDialog.create().findViewById(R.id.alertRatingBar);
+                //ConsultaBD
+                dialog.dismiss();
+            }
+        }).setNegativeButton("Cancelar",
+        new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        });
+        popDialog.create();
+        popDialog.show();
     }
 
     public void rellenarPOI(){
-
         int id = ConsultaBD.getPoiId((int)id_poi);
         POI = ConsultaBD.infoPoi((int) id);
 
@@ -111,8 +155,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                             }
 
                             tipo.setText(""+myPlace.getPlaceTypes().toString());
-                           precio.setText(""+myPlace.getPriceLevel());
-                            valoracion.setRating(myPlace.getRating());
+                            precio.setText(""+myPlace.getPriceLevel());
+                            //valoracion.setRating(myPlace.getRating());
                             busca();
                         } else {
                             Log.e("", "Place not found");
