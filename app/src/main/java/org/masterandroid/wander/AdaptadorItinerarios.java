@@ -14,6 +14,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 
 /**
  * Created by Ivan on 07/11/2017.
@@ -89,14 +92,16 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
 
     //ViewHolder con los elementos a modificar
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView titulo;
-        ImageView check;
+        TextView titulo, fecha;
+        ImageView check,  imageRef;
 
         public ViewHolder(View vista) {
             super(vista);
             //referencio los elemtos a modificar
             titulo = (TextView) vista.findViewById(R.id.titulo);
             check = (ImageView) vista.findViewById(R.id.visto);
+            fecha = vista.findViewById(R.id.fecha);
+            imageRef = vista.findViewById(R.id.referencia);
 
             vista.setOnClickListener(this);
 
@@ -114,7 +119,7 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //inflamos la vista
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_itinerario, parent, false); //Cambiar elemnto lista por el nombre del layout del elemento del reciclerview
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.targeta_itinerarios, parent, false); //Cambiar elemnto lista por el nombre del layout del elemento del reciclerview
 
         vista.setOnLongClickListener(onLongClickListener); //aplicamos escuchador long a cada vista
         return new ViewHolder(vista);
@@ -127,10 +132,36 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
 
         //Modifico los elementos de la vista
         holder.titulo.setText(c.getString(c.getColumnIndex("title")));
+        holder.fecha.setText(DateFormat.getDateInstance().format(new Date(c.getLong(c.getColumnIndex("date")))));
         int tele = c.getInt(c.getColumnIndex("checked"));
          if (tele == 0) {
                 holder.check.setVisibility(View.INVISIBLE);
             }
+        int valorref = c.getInt(c.getColumnIndex("ref"));
+        switch (valorref){
+            case 1:
+                holder.imageRef.setImageResource(R.drawable.ref1);
+
+                break;
+            case 2:
+                holder.imageRef.setImageResource(R.drawable.ref2);
+                break;
+            case 3:
+                holder.imageRef.setImageResource(R.drawable.ref3);
+                break;
+            case 4:
+                holder.imageRef.setImageResource(R.drawable.ref4);
+                break;
+            case 5:
+                holder.imageRef.setImageResource(R.drawable.ref5);
+                break;
+            case 6:
+                holder.imageRef.setImageResource(R.drawable.ref6);
+                break;
+            default:
+                holder.imageRef.setImageResource(R.drawable.ref1);
+                break;
+        }
 
 
     }
