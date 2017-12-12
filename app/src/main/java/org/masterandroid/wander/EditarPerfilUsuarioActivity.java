@@ -55,15 +55,15 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
         imageView = findViewById(R.id.foto);
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
-        id = pref.getInt("id", 0);
-        if (id == 0) {
+        id = pref.getInt("id", -1);
+        if (id == -1) {
             this.finish();
         }
         usuario = ConsultaBD.infoUser(id);
         if(usuario != null){
             nombre.setText(usuario.getNombre());
             apellidos.setText(usuario.getApellidos());
-            telefono.setText(usuario.getTelefono());
+            telefono.setText(String.valueOf(usuario.getTelefono()));
             edad.setText(String.valueOf(usuario.getEdad()));
             lugar.setText(usuario.getLugar());
         }
