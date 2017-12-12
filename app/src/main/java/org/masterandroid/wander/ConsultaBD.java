@@ -351,6 +351,18 @@ public class ConsultaBD {
         return poiId;
     }
 
+    //obtengo el usuario de una poiroute
+    public static int getUserId(int id){
+        int userId = -1;
+        Cursor cursor = bdw.rawQuery("SELECT * FROM route_pois, route WHERE route = route_id AND route_pois_id = " + id, null);
+        if (cursor.moveToNext()){
+
+            userId = cursor.getInt(cursor.getColumnIndex("user"));
+
+        }
+        return userId;
+    }
+
     //obtener la posicion maxima de un itinerario
     public static int getMaxPosition (int id){
         int max = -1;
@@ -434,8 +446,8 @@ public class ConsultaBD {
     //Obtener cursor con todos los comentarios de un poi
     public static Cursor listadoComentarios(int poi_id){
         SQLiteDatabase bdw = BaseDeDatos.getReadableDatabase();
-        return bdw.rawQuery("SELECT poi_comment_id AS _id, * FROM poi_comment " +
-                "WHERE poi = "+poi_id, null);
+        return bdw.rawQuery("SELECT poi_comment_id AS _id, * FROM poi_comment, user " +
+                "WHERE user_id = user AND poi = "+poi_id, null);
     }
 
     //Obtener el comentario de un usuario para un poi
@@ -473,6 +485,8 @@ public class ConsultaBD {
         }
         return correcto;
     }
+
+
 
 
 

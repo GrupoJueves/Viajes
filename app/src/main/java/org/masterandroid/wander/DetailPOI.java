@@ -2,6 +2,7 @@ package org.masterandroid.wander;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -13,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +47,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 
 import static com.google.firebase.crash.FirebaseCrash.log;
 
@@ -65,6 +69,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     private String nombre, direccion, localidad, nombreBusqueda;
     private String[] secnom,secdir;
     private int numero;
+    private int user;
 
     //Anuncios
     private AdView adView;
@@ -81,16 +86,14 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_poi);
 
-        recyclerView = findViewById(R.id.recyclerComentarios);
-        recyclerView.setHasFixedSize(true);
-        lManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(lManager);
-        adaptador = new AdaptadorComentarios(this);
-        recyclerView.setAdapter(adaptador);
+
 
         //recojo el valor del identificador de la ruta
         Bundle extras = getIntent().getExtras();
         id_poi = extras.getLong("id", -1);
+
+        //obtengo el id del user para el comentario
+
 
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(this);
@@ -110,7 +113,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         imagePOI = findViewById(R.id.imagePOI);
         telefono = findViewById(R.id.telefono);
         web = findViewById(R.id.web);
-        nuevoComentario = findViewById(R.id.nuevoComentario);
+
 
         tipo = findViewById(R.id.categoria);
         precio = findViewById(R.id.precio);
@@ -136,6 +139,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             }
         });
 
+        //fab de agregar comentario, en la version final se tiene que quitar
+        nuevoComentario = findViewById(R.id.nuevoComentario);
         nuevoComentario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,7 +148,14 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             }
         });
 
+        //Recicler view de comentarios
+        recyclerView = findViewById(R.id.recyclerComentarios);
+        recyclerView.setHasFixedSize(true);
+        lManager = new LinearLayoutManager(this);
+
+
         rellenarPOI();
+        mostarComentarios();
     }
 
     ///////MENU///////
@@ -177,14 +189,31 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     public void ShowDialog()
     {
         final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
-        popDialog.setView(R.layout.alert_dialog);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.alert_dialog, null);
+        popDialog.setView(dialogView);
+
         // Button OK
+        popDialog.setTitle("Nueva valoración");
         popDialog.setPositiveButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        EditText editText = popDialog.create().findViewById(R.id.alertComentario);
-                        RatingBar ratingBar = popDialog.create().findViewById(R.id.alertRatingBar);
+                        //obtengo el comentario
+                        EditText editText = dialogView.findViewById(R.id.alertComentario);
+                        String comentario = editText.getText()+"";
+                        //obtengo la valoracion
+                        RatingBar ratingBar = dialogView.findViewById(R.id.alertRatingBar);
+                        int val = (int)ratingBar.getRating();
+                        //cojo la fecha de hoy
+                        long hoy = Calendar.getInstance().getTimeInMillis();
+                        //necesito el id del usuario que pone el comentario
+                        int usuario = usuario();
                         //ConsultaBD
+                        ConsultaBD.addComment(usuario,(int)id_poi,comentario,val,hoy);
+                        //recargo el recilerview
+                        mostarComentarios();
+
+
                         dialog.dismiss();
                     }
                 }).setNegativeButton("Cancelar",
@@ -195,7 +224,9 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 });
         popDialog.create();
         popDialog.show();
+
     }
+
 
     public void rellenarPOI(){
 
@@ -237,6 +268,29 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         longitud.setText(String.valueOf(POI.getLon()));
         latitud.setText(String.valueOf(POI.getLat()));
         //imagePOI
+    }
+
+    public void mostarComentarios(){
+
+        int id = ConsultaBD.getPoiId((int)id_poi);
+        Cursor c = ConsultaBD.listadoComentarios(id);
+
+        recyclerView.setLayoutManager(lManager);
+        adaptador = new AdaptadorComentarios(this,c);
+        if (adaptador.getItemCount() == 0) {
+            //emptyview.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            //emptyview.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+        }
+        recyclerView.setAdapter(adaptador);
+    }
+
+    public int usuario(){
+        int user = -1;
+        user = ConsultaBD.getUserId((int)id_poi);
+        return user;
     }
 
     @Override

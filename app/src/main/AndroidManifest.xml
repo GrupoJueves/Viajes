@@ -4,11 +4,10 @@
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="com.android.vending.BILLING" />
 
     <uses-feature android:name="android.hardware.location.gps" />
-
     <!-- Se añade si se trabaja con un targetSDK igual o superior a la version 21 -->
     <application
         android:name=".ApplicationClass"
@@ -18,50 +17,52 @@
         android:roundIcon="@drawable/ic_wander_round_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="org.masterandroid.wander.MainActivity" />
-        <activity android:name="org.masterandroid.wander.MapActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".MapActivity" />
         <!-- Metadatos google maps -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDwLw1F9Exa2juI9b4AeEjGmZRM8e8Xm74" />
-            <!--Apikey de release
-            android:value="AIzaSyCST7uazqirS8tpcWKOa5-N9_tbY8uxw24" />  -->
-            <!--Apikey de debug
-             android:value="AIzaSyAvNfxR-Axkx9L6ZAguy7cE_KxdgQBnIzk" />-->
+        <!--
+            Apikey de release
+            android:value="AIzaSyCST7uazqirS8tpcWKOa5-N9_tbY8uxw24" />
+        -->
+        <!--
+             Apikey de debug
+             android:value="AIzaSyAvNfxR-Axkx9L6ZAguy7cE_KxdgQBnIzk" />
+        -->
 
-        <activity android:name="org.masterandroid.wander.InicioSesionActivity">
+        <activity android:name=".InicioSesionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.masterandroid.wander.Registro" />
-        <activity android:name="org.masterandroid.wander.PreferenciasActivity" />
+        <activity android:name=".Registro" />
+        <activity android:name=".PreferenciasActivity" />
         <activity
-            android:name="org.masterandroid.wander.ListaItinerariosActivity"
+            android:name=".ListaItinerariosActivity"
             android:label="@string/title_activity_lista_itinerarios"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="org.masterandroid.wander.ListaPuntosInteresActivity"
+            android:name=".ListaPuntosInteresActivity"
             android:label="@string/title_activity_lista_puntosdeinteres"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="org.masterandroid.wander.SelectPOI"
+            android:name=".SelectPOI"
             android:label="@string/select_POI"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="org.masterandroid.wander.SelectPOIGrafic"
+            android:name=".SelectPOIGrafic"
             android:label="@string/select_POI"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
-            android:name="org.masterandroid.wander.DetailPOI"
+            android:name=".DetailPOI"
             android:label="@string/title_activity_POIdetalle"
             android:theme="@style/AppTheme" />
-
         <activity
-            android:name="org.masterandroid.wander.CreatePOI"
+            android:name=".CreatePOI"
             android:label="@string/title_activity_POIcreate"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -73,12 +74,14 @@
             android:label="Seleccione Imagen"
             android:theme="@style/Dialogo" />
         <activity
-            android:name="org.masterandroid.wander.PerfilUsuarioActivity"
+            android:name=".PerfilUsuarioActivity"
             android:label="@string/title_activity_PerfilUsuario"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="org.masterandroid.wander.EditarPerfilUsuarioActivity"
+            android:name=".EditarPerfilUsuarioActivity"
             android:label="@string/title_activity_EditarPerfilUsuario"
             android:theme="@style/AppTheme" />
+        <activity android:name=".AddComment"></activity>
     </application>
+
 </manifest>
