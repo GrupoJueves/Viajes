@@ -21,6 +21,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -83,8 +84,9 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         app = (ApplicationClass) getApplication();
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
-        int id = pref.getInt("id", 0);
-        if (id == 0) {
+        final int id = pref.getInt("id", -1);
+        //Log.e("id_user en prefe"," "+id);
+        if (id == -1) {
             this.finish();
         }
 
@@ -145,10 +147,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
                 rateApp.addOneRatePoint();
 
-                if(showInterticial) {
-                    if (interstitialAd.isLoaded()) {
-                        interstitialAd.show();
-                    }
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
                 }
             }
         });
@@ -219,11 +219,20 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
 
         MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
-        adView = (AdView) findViewById(R.id.adView);
-        setAds(app.adsEnabled());
 
-        //InAppbilling
-        serviceBilling = app.getServiceBilling();
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
+        interstitialAd.loadAd(new AdRequest.Builder().build());
+        interstitialAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                interstitialAd.loadAd(new AdRequest.Builder().build());
+            }
+        });
     }
 
 
@@ -409,7 +418,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
-            case INAPP_BILLING: {
+            case INAPP_BILLING:
+                {
                 int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
                 String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
                 String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
@@ -427,9 +437,17 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                         e.printStackTrace();
                     }
                 }
-            }
+                }
+                break;
+            case 1694:
+                if(resultCode == RESULT_OK){
+                    listaitinerarios();
+                }
         }
     }
+
+
+
 
 
 }

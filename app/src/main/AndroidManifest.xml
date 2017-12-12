@@ -54,14 +54,24 @@
             android:name="org.masterandroid.wander.SelectPOIGrafic"
             android:label="@string/select_POI"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name="org.masterandroid.wander.DetailPOI"
             android:label="@string/title_activity_POIdetalle"
             android:theme="@style/AppTheme" />
+
         <activity
             android:name="org.masterandroid.wander.CreatePOI"
             android:label="@string/title_activity_POIcreate"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CrearItinerario"
+            android:label="Nuevo Itinerario"
+            android:theme="@style/Dialogo" />
+        <activity
+            android:name=".PickImage"
+            android:label="Seleccione Imagen"
+            android:theme="@style/Dialogo" />
         <activity
             android:name="org.masterandroid.wander.PerfilUsuarioActivity"
             android:label="@string/title_activity_PerfilUsuario"

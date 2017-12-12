@@ -121,6 +121,20 @@ public class ConsultaBD {
         return correcto;
     }
 
+    //Crea un nuevo itinerario con el valor de checked a false(0)
+    public static boolean newRoute (int user_id, String title, long date, int ref){
+        boolean correcto = true;
+        try {
+            bdw.execSQL("INSERT INTO route (user, title, checked, date) VALUES ("+user_id+" , '"+title+"' , 0, "+date+")");
+            //bdw.rawQuery("INSERT INTO route  VALUES (null, "+user_id+" , '"+title+"' , 0, null)",null);
+        }
+        catch (Exception e){
+            correcto = false;
+            Log.e("error:", e.getMessage());
+        }
+        return correcto;
+    }
+
     //Elimina un itinerario
     public static boolean deleteRoute (int id){
         boolean correcto = true;
