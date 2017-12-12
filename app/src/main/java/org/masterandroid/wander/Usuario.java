@@ -5,7 +5,7 @@ package org.masterandroid.wander;
  */
 
 public class Usuario {
-    String correo, nombre, apellidos, lugar, aficiones, username, photo, web;
+    String correo, nombre, apellidos, lugar,pais,  username, photo, web;
     int  telefono,edad, ref;
 
     public Usuario(){
@@ -23,12 +23,12 @@ public class Usuario {
         this.lugar = lugar;
     }
 
-    public Usuario(String correo, String nombre, String apellidos, String lugar, String aficiones, String username, String photo, String web, int telefono, int edad, int ref) {
+    public Usuario(String correo, String nombre, String apellidos, String lugar, String pais, String username, String photo, String web, int telefono, int edad, int ref) {
         this.correo = correo;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.lugar = lugar;
-        this.aficiones = aficiones;
+        this.pais = pais;
         this.username = username;
         this.photo = photo;
         this.web = web;
@@ -85,12 +85,12 @@ public class Usuario {
         this.lugar = lugar;
     }
 
-    public String getAficiones() {
-        return aficiones;
+    public String getPais() {
+        return pais;
     }
 
-    public void setAficiones(String aficiones) {
-        this.aficiones = aficiones;
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public String getUsername() {

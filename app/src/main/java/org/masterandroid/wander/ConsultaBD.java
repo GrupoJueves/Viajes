@@ -60,7 +60,7 @@ public class ConsultaBD {
             user.setCorreo(""+cursor.getString(cursor.getColumnIndex("email")));
             user.setNombre(""+cursor.getString(cursor.getColumnIndex("name")));
             user.setApellidos(""+cursor.getString(cursor.getColumnIndex("surname")));
-            user.setAficiones(""+cursor.getString(cursor.getColumnIndex("aficiones")));
+            user.setPais(""+cursor.getString(cursor.getColumnIndex("pais")));
             user.setUsername(""+cursor.getString(cursor.getColumnIndex("username")));
             user.setLugar(""+cursor.getString(cursor.getColumnIndex("localidad")));
             user.setPhoto(""+cursor.getString(cursor.getColumnIndex("photo")));
@@ -92,7 +92,7 @@ public class ConsultaBD {
                     "localidad = '"+usuario.getLugar()+"', " +
                     "telefono = "+usuario.getTelefono()+", " +
                     "edad = "+usuario.getEdad()+", " +
-                    "aficiones = '"+usuario.getAficiones()+"', " +
+                    "pais = '"+usuario.getPais()+"', " +
                     "username = '"+usuario.getUsername()+"', " +
                     "web = '"+usuario.getWeb()+"', " +
                     "referencia = "+usuario.getRef()+"  " +

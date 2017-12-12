@@ -33,7 +33,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "localidad TEXT," +
                 "telefono INTEGER," +
                 " edad INTEGER, " +
-                "aficiones TEXT, " +
+                "pais TEXT, " +
                 "username TEXT, " + //nombre de usuario, puede ser distinto del nombre real
                 "web TEXT, " + //pagina personal, si existe
                 "referencia INTEGER, " + //Para poder poner imagenes de referencia como en el itinerario
