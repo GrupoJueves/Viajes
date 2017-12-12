@@ -76,16 +76,20 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     private InterstitialAd interstitialAd;
     private String ID_BLOQUE_ANUNCIOS_INTERSTICIAL;
     private String ID_INICIALIZADOR_ADS;
+    private boolean showInterticial=false;
 
     private RecyclerView recyclerView;
     public AdaptadorComentarios adaptador;
     private RecyclerView.LayoutManager lManager;
 
+    //Clases tipo sigleton
+    private ApplicationClass app;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_poi);
-
+        app = (ApplicationClass) getApplication();
 
 
         //recojo el valor del identificador de la ruta
@@ -124,20 +128,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
 
         MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
-
         adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-        interstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                interstitialAd.loadAd(new AdRequest.Builder().build());
-            }
-        });
+        setAds(app.adsEnabled());
 
         //fab de agregar comentario, en la version final se tiene que quitar
         nuevoComentario = findViewById(R.id.nuevoComentario);
@@ -173,8 +165,10 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
 
         //Busca cual es el id del menu que se ha pulsado para lanzar la actividad correspondiente
         if (id == R.id.map_menu) {
-            if (interstitialAd.isLoaded()) {
-                interstitialAd.show();
+            if(showInterticial) {
+                if (interstitialAd.isLoaded()) {
+                    interstitialAd.show();
+                }
             }
 
             double lat = POI.getLat();
@@ -528,5 +522,25 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         i.putExtra("LatPoint", LatPoint);
         i.putExtra("LngPoint", LngPoint);
         startActivity(i);
+    }
+
+    private void setAds(Boolean adsEnabled) {
+        if (adsEnabled) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.loadAd(adRequest);
+            interstitialAd = new InterstitialAd(this);
+            interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
+            interstitialAd.loadAd(new AdRequest.Builder().build());
+            interstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    interstitialAd.loadAd(new AdRequest.Builder().build());
+                }
+            });
+            showInterticial = true;
+        } else {
+            showInterticial = false;
+            adView.setVisibility(View.GONE);
+        }
     }
 }

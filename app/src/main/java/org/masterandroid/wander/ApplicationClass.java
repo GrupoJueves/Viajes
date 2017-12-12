@@ -30,6 +30,7 @@ public class ApplicationClass extends Application {
     private ServiceConnection serviceConnection;
     private boolean adsEnabled = false;
     private final String ID_ARTICULO = "org.masterandroid.wander.quitaranuncios";
+    private String quitarAnunciosToken = "";
 
     @Override
     public void onCreate() {
@@ -80,9 +81,16 @@ public class ApplicationClass extends Application {
                     System.out.println("Inapp Purchase data: " + purchaseData);
                     System.out.println("Inapp Signature: " + signature);
                     System.out.println("Inapp Sku: " + sku);
-
+                    try {
+                        JSONObject jo = new JSONObject(purchaseData);
+                        String purchaseToken = jo.getString("purchaseToken");
+                        System.out.println("Prueba Token: " + purchaseToken);
+                        quitarAnunciosToken = purchaseToken;
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     if (sku.equals(ID_ARTICULO)) {
-                        Toast.makeText(this, "Inapp comprado: " + sku + "el dia " + purchaseData, Toast.LENGTH_LONG).show();
+                        //Toast.makeText(this, "Inapp comprado: " + sku + "el dia " + purchaseData, Toast.LENGTH_LONG).show();
                         adsEnabled = false;
                     } else {
                         adsEnabled = true;
@@ -108,6 +116,10 @@ public class ApplicationClass extends Application {
 
     public IInAppBillingService getServiceBilling(){
         return serviceBilling;
+    }
+
+    public String getQuitarAnunciosToken(){
+        return quitarAnunciosToken;
     }
 
     ///////////////////////GETERS AND SETTERS\\\\\\\\\\\\\\\\\\\\\\\\

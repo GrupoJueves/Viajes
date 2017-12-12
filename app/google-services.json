@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "894268771254",
+    "firebase_url": "https://wander-187902.firebaseio.com",
+    "project_id": "wander-187902",
+    "storage_bucket": "wander-187902.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894268771254:android:ebc2aedb4331e81d",
+        "android_client_info": {
+          "package_name": "org.masterandroid.wander"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894268771254-kr1qd46sp8cpgtoeldua43b79t524rba.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5GzDxoaIeQgC2CZWK70mmL7H3XmIRvkY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -33,6 +33,11 @@
                 android:id="@+id/nav_quitar_anuncios"
                 android:icon="@drawable/ic_action_money"
                 android:title="@string/quitar_anuncios"/>
+            <item
+                android:visible="false"
+                android:id="@+id/nav_reiniciar_anuncios"
+                android:icon="@drawable/ic_action_money"
+                android:title="@string/poner_anuncios"/>
         </menu>
     </item>
 

@@ -40,17 +40,21 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
 
     private String nombrePuntoInteres = "";
 
-    //Anuncios
+    //Clases tipo sigleton
+    private ApplicationClass app;
+
     //Anuncios
     private AdView adView;
     private InterstitialAd interstitialAd;
     private String ID_BLOQUE_ANUNCIOS_INTERSTICIAL;
     private String ID_INICIALIZADOR_ADS;
+    private boolean showInterticial=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_puntos_interes);
+        app = (ApplicationClass) getApplication();
 
         //recojo el valor del identificador de la ruta
         Bundle extras = getIntent().getExtras();
@@ -77,8 +81,10 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                 i.putExtra("id", id_ruta);
                 startActivityForResult(i, RESULTADO_AÑADIR);
 
-                if (interstitialAd.isLoaded()) {
-                    interstitialAd.show();
+                if(showInterticial) {
+                    if (interstitialAd.isLoaded()) {
+                        interstitialAd.show();
+                    }
                 }
             }
         });
@@ -96,20 +102,8 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
 
         MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
-
         adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-        interstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                interstitialAd.loadAd(new AdRequest.Builder().build());
-            }
-        });
+        setAds(app.adsEnabled());
     }
 
     public void listaPuntosInteres(){
@@ -196,6 +190,26 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         super.onActivityResult(requestCode,resultCode,data);
         if (requestCode == RESULTADO_AÑADIR) {
             listaPuntosInteres();
+        }
+    }
+
+    private void setAds(Boolean adsEnabled) {
+        if (adsEnabled) {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.loadAd(adRequest);
+            interstitialAd = new InterstitialAd(this);
+            interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
+            interstitialAd.loadAd(new AdRequest.Builder().build());
+            interstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    interstitialAd.loadAd(new AdRequest.Builder().build());
+                }
+            });
+            showInterticial = true;
+        } else {
+            showInterticial = false;
+            adView.setVisibility(View.GONE);
         }
     }
 }

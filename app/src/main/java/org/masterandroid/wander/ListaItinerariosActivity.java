@@ -2,7 +2,6 @@ package org.masterandroid.wander;
 
 import android.app.ActivityOptions;
 import android.app.PendingIntent;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
@@ -13,7 +12,6 @@ import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,11 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,7 +31,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
@@ -74,6 +68,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     private final String ID_ARTICULO = "org.masterandroid.wander.quitaranuncios";
     private final int INAPP_BILLING = 1;
     private final String developerPayLoad = "clave de seguridad";
+    private String quitarAnunciosToken = "";
 
 
     @Override
@@ -82,6 +77,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         setContentView(R.layout.activity_lista_itinerarios);
 
         app = (ApplicationClass) getApplication();
+        serviceBilling = app.getServiceBilling();
+        quitarAnunciosToken = app.getQuitarAnunciosToken();
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         final int id = pref.getInt("id", -1);
@@ -91,7 +88,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         }
 
         //Shared prefereces storage (Esto seria mejor meterlo en la clase aplication e inicializarlo solo una vez)
-        spStorage = new SharedPreferenceStorage(this);
+        spStorage = app.getSpStorage();
         //Rate App
         rateApp = new RateApp(this, spStorage);
 
@@ -152,8 +149,10 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
                 rateApp.addOneRatePoint();
 
-                if (interstitialAd.isLoaded()) {
-                    interstitialAd.show();
+                if(showInterticial) {
+                    if (interstitialAd.isLoaded()) {
+                        interstitialAd.show();
+                    }
                 }
             }
         });
@@ -193,11 +192,20 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 }else if (id == R.id.nav_privacy) {
                     privacyPolicyBtn();
                     return true;
-                }else if(id == R.id.user_menu){
+                } else if (id == R.id.user_menu) {
                     Intent i = new Intent(ListaItinerariosActivity.this, PerfilUsuarioActivity.class);
                     startActivity(i);
-                }else if (id == R.id.nav_quitar_anuncios) {
+                } else if (id == R.id.nav_quitar_anuncios) {
                     comprarQuitarAds();
+                    return true;
+                } else if (id == R.id.nav_reiniciar_anuncios) {
+                    if (quitarAnunciosToken.equals("")) {
+                        Toast.makeText(getApplicationContext(), "No hay ninguna compra para reinciar", Toast.LENGTH_SHORT).show();
+                    } else {
+                        backToBuy(quitarAnunciosToken);
+                        quitarAnunciosToken = "";
+                        Toast.makeText(getApplicationContext(), "Compra reiniciada", Toast.LENGTH_SHORT).show();
+                    }
                     return true;
                 }
 
@@ -224,20 +232,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
 
         MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
-
         adView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
-
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
-        interstitialAd.loadAd(new AdRequest.Builder().build());
-        interstitialAd.setAdListener(new AdListener() {
-            @Override
-            public void onAdClosed() {
-                interstitialAd.loadAd(new AdRequest.Builder().build());
-            }
-        });
+        setAds(app.adsEnabled());
     }
 
 
@@ -451,7 +447,16 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         }
     }
 
-
+    public void backToBuy(String token) {
+        if (serviceBilling != null) {
+            try {
+                int response = serviceBilling.consumePurchase(3, getPackageName(), token);
+                System.out.print("Respuesta de backToBuy: " + response);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
 
