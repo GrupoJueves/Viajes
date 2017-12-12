@@ -26,6 +26,19 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "name TEXT," +
                 "surname TEXT)");
 
+        db.execSQL("CREATE TABLE user_data("+
+                "user_data_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                "user INTEGER NOT NULL," +
+                "photo TEXT ," + //Foto del usuario (en teoria de su cara)
+                "localidad TEXT," +
+                "telefono INTEGER," +
+                " edad INTEGER, " +
+                "aficiones TEXT, " +
+                "username TEXT, " + //nombre de usuario, puede ser distinto del nombre real
+                "web TEXT, " + //pagina personal, si existe
+                "referencia INTEGER, " + //Para poder poner imagenes de referencia como en el itinerario
+                "FOREIGN KEY(user) REFERENCES user(user_id) ON DELETE CASCADE )");
+
 
 
         db.execSQL("CREATE TABLE route ( " +
@@ -34,6 +47,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "title TEXT NOT NULL, " +
                 "checked NUMERIC, " +
                 "date NUMERIC, " +
+                "ref INTEGER,  " +
                 "FOREIGN KEY(user) REFERENCES user(user_id) ON DELETE CASCADE)");
 
 
@@ -45,7 +59,8 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "identificador TEXT NOT NULL UNIQUE, " +
                 "lon REAL NOT NULL, " +
                 "lat REAL NOT NULL, " +
-                "img TEXT)");
+                "img TEXT, " +
+                "categoria INTEGER)");
 
 
 

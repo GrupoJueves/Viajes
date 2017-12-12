@@ -39,6 +39,8 @@ public class ConsultaBD {
         boolean correcto = true;
         try{
             bdw.execSQL("INSERT INTO user (email,password,name,surname) VALUES ('"+email+"' , '"+password+"' , '"+name+"' , '"+surname+"')");
+            int id = identificar(email,password);
+            bdw.execSQL("INSERT INTO user_data (user) VALUES ("+id+")");
         }
         catch (Exception e){
             correcto = false;
@@ -51,12 +53,24 @@ public class ConsultaBD {
     public static Usuario infoUser (int id){
         Usuario user = null;
 
-        Cursor cursor = bdw.rawQuery("SELECT * FROM user WHERE user_id = " + id, null);
+        Cursor cursor = bdw.rawQuery("SELECT * FROM user, user_data WHERE  user_id = " + id +" AND user = "+id, null);
+
         if (cursor.moveToNext()){
             user = new Usuario();
             user.setCorreo(""+cursor.getString(cursor.getColumnIndex("email")));
             user.setNombre(""+cursor.getString(cursor.getColumnIndex("name")));
             user.setApellidos(""+cursor.getString(cursor.getColumnIndex("surname")));
+            user.setAficiones(""+cursor.getString(cursor.getColumnIndex("aficiones")));
+            user.setUsername(""+cursor.getString(cursor.getColumnIndex("username")));
+            user.setLugar(""+cursor.getString(cursor.getColumnIndex("localidad")));
+            user.setPhoto(""+cursor.getString(cursor.getColumnIndex("photo")));
+            user.setWeb(""+cursor.getString(cursor.getColumnIndex("web")));
+            user.setEdad(0+cursor.getInt(cursor.getColumnIndex("edad")));
+            user.setTelefono(0+cursor.getInt(cursor.getColumnIndex("telefono")));
+            user.setRef(0+cursor.getInt(cursor.getColumnIndex("referencia")));
+
+        }else{
+            Log.e("cursor vacio","");
         }
         cursor.close();
 
@@ -64,7 +78,31 @@ public class ConsultaBD {
     }
 
     //Actualizar un usuario
-    public static void updateUser (Usuario usuario, int id){
+    public static boolean updateUser (Usuario usuario, int id){
+        boolean correcto = true;
+        try {
+            //SQLiteDatabase bdw = BaseDeDatos.getWritableDatabase();
+            bdw.execSQL("UPDATE user SET " +
+                    "name = '"+usuario.getNombre()+"', " +
+                    "surname = '"+usuario.getApellidos()+"' " +
+                    "WHERE user_id = "+id);
+
+            bdw.execSQL("UPDATE user_data SET " +
+                    "photo = '"+usuario.getPhoto()+"', " +
+                    "localidad = '"+usuario.getLugar()+"', " +
+                    "telefono = "+usuario.getTelefono()+", " +
+                    "edad = "+usuario.getEdad()+", " +
+                    "aficiones = '"+usuario.getAficiones()+"', " +
+                    "username = '"+usuario.getUsername()+"', " +
+                    "web = '"+usuario.getWeb()+"', " +
+                    "referencia = "+usuario.getRef()+"  " +
+                    "WHERE user = "+id);
+        }
+        catch (Exception e){
+            correcto = false;
+        }
+        return correcto;
+
 
     }
 
@@ -125,7 +163,7 @@ public class ConsultaBD {
     public static boolean newRoute (int user_id, String title, long date, int ref){
         boolean correcto = true;
         try {
-            bdw.execSQL("INSERT INTO route (user, title, checked, date) VALUES ("+user_id+" , '"+title+"' , 0, "+date+")");
+            bdw.execSQL("INSERT INTO route (user, title, checked, date, ref) VALUES ("+user_id+" , '"+title+"' , 0, "+date+", "+ref+")");
             //bdw.rawQuery("INSERT INTO route  VALUES (null, "+user_id+" , '"+title+"' , 0, null)",null);
         }
         catch (Exception e){
@@ -149,7 +187,7 @@ public class ConsultaBD {
         return correcto;
     }
 
-    //Obtener el uuser de un itinerario
+    //Obtener el user de un itinerario
     public static int getUser(int route_id){
         int id = -1;
         Cursor cursor = bdw.rawQuery("SELECT * FROM route WHERE route_id = " + route_id, null);

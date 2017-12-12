@@ -5,22 +5,36 @@ package org.masterandroid.wander;
  */
 
 public class Usuario {
-    String correo, nombre, apellidos, lugar, telefono;
-    int edad;
+    String correo, nombre, apellidos, lugar, aficiones, username, photo, web;
+    int  telefono,edad, ref;
 
     public Usuario(){
         edad = 0;
-        telefono = "";
+        telefono = 0;
         lugar = "";
     }
 
-    public Usuario(String correo, String nombre, String apellidos, String telefono, int edad, String lugar) {
+    public Usuario(String correo, String nombre, String apellidos, int telefono, int edad, String lugar) {
         this.correo = correo;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.telefono = telefono;
         this.edad = edad;
         this.lugar = lugar;
+    }
+
+    public Usuario(String correo, String nombre, String apellidos, String lugar, String aficiones, String username, String photo, String web, int telefono, int edad, int ref) {
+        this.correo = correo;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.lugar = lugar;
+        this.aficiones = aficiones;
+        this.username = username;
+        this.photo = photo;
+        this.web = web;
+        this.telefono = telefono;
+        this.edad = edad;
+        this.ref = ref;
     }
 
     public String getCorreo() {
@@ -47,11 +61,11 @@ public class Usuario {
         this.apellidos = apellidos;
     }
 
-    public String getTelefono() {
+    public int getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(String telefono) {
+    public void setTelefono(int telefono) {
         this.telefono = telefono;
     }
 
@@ -69,5 +83,45 @@ public class Usuario {
 
     public void setLugar(String lugar) {
         this.lugar = lugar;
+    }
+
+    public String getAficiones() {
+        return aficiones;
+    }
+
+    public void setAficiones(String aficiones) {
+        this.aficiones = aficiones;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getWeb() {
+        return web;
+    }
+
+    public void setWeb(String web) {
+        this.web = web;
+    }
+
+    public int getRef() {
+        return ref;
+    }
+
+    public void setRef(int ref) {
+        this.ref = ref;
     }
 }

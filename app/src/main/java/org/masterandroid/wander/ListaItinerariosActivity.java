@@ -117,6 +117,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 imagen.setVisibility(View.GONE);
                 TextView b_entendido = findViewById(R.id.entendido);
                 b_entendido.setVisibility(View.GONE);
+                /*
                 String confirmar = getString(R.string.confirmar);
                 String cancelar = getString(R.string.cancelar);
                 AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
@@ -143,7 +144,11 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                         dialog.cancel();
                     }
                 });
-                builder.show();
+                builder.show();*/
+
+                Intent intent = new Intent(ListaItinerariosActivity.this, CrearItinerario.class);
+                intent.putExtra("id", (long)id);
+                startActivityForResult(intent,1694);
 
                 rateApp.addOneRatePoint();
 

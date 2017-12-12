@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,8 +40,9 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         lugar = findViewById(R.id.localizacionUsuario);
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
-        int id = pref.getInt("id", 0);
-        if (id == 0) {
+        int id = pref.getInt("id", -1);
+
+        if (id == -1) {
             this.finish();
         }
         usuario = ConsultaBD.infoUser(id);
@@ -48,7 +50,7 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
             correo.setText(usuario.getCorreo());
             nombre.setText(usuario.getNombre());
             apellidos.setText(usuario.getApellidos());
-            telefono.setText(usuario.getTelefono());
+            telefono.setText(String.valueOf(usuario.getTelefono()));
             edad.setText(String.valueOf(usuario.getEdad()));
             lugar.setText(usuario.getLugar());
         }
