@@ -77,12 +77,15 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
         Bundle extras = getIntent().getExtras();
         id = extras.getLong("id", -1);
 
+
+
         //Referencia el fragment del mapa
         SupportMapFragment mapFragment =(SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         //Inicializa la BD
         ConsultaBD.inicializaBD(this);
+
         //compruebo si la ruta esta vacia
         c = ConsultaBD.listadoPOIItinerario((int)id);
 
@@ -304,7 +307,7 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
             } catch (Exception e) {
 
                 localidad = secdir[1];
-                Log.e("error:", e.getMessage());
+                //Log.e("error:", e.getMessage());
             }
 
             //separo la localidad obtenida en los espacios en blanco
@@ -321,7 +324,7 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
                 } catch (Exception e) {
 
                     nombreBusqueda = nombreBusqueda+" " +secdir[i];
-                    Log.e("error:", e.getMessage());
+                   // Log.e("error:", e.getMessage());
                 }
             }
             return nombreBusqueda;

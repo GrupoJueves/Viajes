@@ -41,6 +41,8 @@ dependencies {
     compile 'com.google.firebase:firebase-ads:11.6.0'
     compile 'com.android.billingclient:billing:1.0'
     compile 'com.android.support:palette-v7:26+'
+    compile 'com.google.maps:google-maps-services:0.1.20'
+    compile 'com.google.maps.android:android-maps-utils:0.5'
 }
 
 

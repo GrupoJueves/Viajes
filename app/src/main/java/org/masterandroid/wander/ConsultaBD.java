@@ -438,6 +438,40 @@ public class ConsultaBD {
         return correcto;
     }
 
+    //obtiene los elementos de una ruta
+    public static Ruta getRoute(int route_id){
+        Ruta ruta = null;
+        String waypoints="";
+        boolean primer = true;
+
+        Cursor c = bdw.rawQuery("SELECT route_pois_id AS _id, * FROM route_pois, route, poi " +
+                "WHERE route = route_id AND poi_id = poi AND route_id = "+route_id+" ORDER BY position", null);
+        if (c.moveToNext()) {
+            ruta = new Ruta();
+            ruta.setOrigen("place_id:"+c.getString(c.getColumnIndex("identificador")));
+           // Log.e("origen"," "+ruta.getOrigen());
+            for (int i = 1; i<c.getCount()-1;i++){
+                c.moveToPosition(i);
+                if(primer){
+                    waypoints = "place_id:"+c.getString(c.getColumnIndex("identificador"));
+                    primer=false;
+                }else{
+                    waypoints = waypoints+"|place_id:"+c.getString(c.getColumnIndex("identificador"));
+                }
+            }
+            //Log.e("waypoints"," "+waypoints);
+            ruta.setWaypoints(waypoints);
+
+            c.moveToLast();
+            ruta.setDestino("place_id:"+c.getString(c.getColumnIndex("identificador")));
+            //Log.e("destino"," "+ruta.getDestino());
+        }
+
+        c.close();
+
+        return ruta;
+    }
+
 
 
     ///Funciones comentarios
