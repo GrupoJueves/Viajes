@@ -2,6 +2,9 @@ package org.masterandroid.wander;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -97,6 +100,7 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView titulo, fecha;
         ImageView check,  imageRef;
+        android.support.constraint.ConstraintLayout itemView;
 
         public ViewHolder(View vista) {
             super(vista);
@@ -105,6 +109,7 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
             check = (ImageView) vista.findViewById(R.id.visto);
             fecha = vista.findViewById(R.id.fecha);
             imageRef = vista.findViewById(R.id.referencia);
+            itemView = vista.findViewById(R.id.contenedor);
 
             vista.setOnClickListener(this);
 
@@ -129,6 +134,9 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
 
     @Override
     public void onBindViewHolder(AdaptadorPuntosInteres.ViewHolder holder, int position) {
+        Bitmap bitmap;
+        Palette palette;
+
         //siguiente elemento del cursor
         c.moveToPosition(position);
 
@@ -142,6 +150,9 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
         int ref = 0+c.getInt(c.getColumnIndex("categoria"));
         int icono = iconos.iconoCategoria(ref);
         holder.imageRef.setImageResource(icono);
+        bitmap = BitmapFactory.decodeResource(contexto.getResources(), icono);
+        palette = Palette.from(bitmap).generate();
+        holder.itemView.setBackgroundColor(palette.getDominantColor(0));
     }
 
     @Override
