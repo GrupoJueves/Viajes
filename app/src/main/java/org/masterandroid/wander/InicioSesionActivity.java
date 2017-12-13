@@ -25,15 +25,6 @@ public class InicioSesionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_sesion);
 
-        ConsultaBD.inicializaBD(this);
-
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean rememberMe = pref.getBoolean("rememberMe",false);
-        if (rememberMe){
-            Intent intent = new Intent(this, ListaItinerariosActivity.class);
-            startActivity(intent);
-        }
-
         email = (EditText) findViewById(R.id.email);
         contraseña = (EditText) findViewById(R.id.contraseña);
 
