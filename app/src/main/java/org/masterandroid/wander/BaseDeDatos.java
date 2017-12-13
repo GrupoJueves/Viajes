@@ -60,7 +60,8 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 "lon REAL NOT NULL, " +
                 "lat REAL NOT NULL, " +
                 "img TEXT, " +
-                "categoria INTEGER)");
+                "categoria INTEGER," +
+                " localidad TEXT)");
 
 
 

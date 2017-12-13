@@ -7,8 +7,9 @@ import com.google.android.gms.maps.model.PointOfInterest;
  */
 
 public class POI {
-    String title, description,identificador, img;
+    String title, description,identificador, img, localidad;
     Float lon, lat;
+    int categoria;
 
     public POI() {
         img = null;
@@ -73,5 +74,29 @@ public class POI {
 
     public void setIdentificador(String identificador) {
         this.identificador = identificador;
+    }
+
+    public void setLon(Float lon) {
+        this.lon = lon;
+    }
+
+    public void setLat(Float lat) {
+        this.lat = lat;
+    }
+
+    public int getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(int categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getLocalidad() {
+        return localidad;
+    }
+
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
     }
 }

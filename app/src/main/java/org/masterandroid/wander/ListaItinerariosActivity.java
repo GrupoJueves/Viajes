@@ -76,6 +76,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_itinerarios);
 
+        abrePrimeraVez();
+
         app = (ApplicationClass) getApplication();
         serviceBilling = app.getServiceBilling();
         quitarAnunciosToken = app.getQuitarAnunciosToken();
@@ -114,34 +116,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 imagen.setVisibility(View.GONE);
                 TextView b_entendido = findViewById(R.id.entendido);
                 b_entendido.setVisibility(View.GONE);
-                /*
-                String confirmar = getString(R.string.confirmar);
-                String cancelar = getString(R.string.cancelar);
-                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-                builder.setTitle(getString(R.string.nombre_itinerario));
-                // Set up the input
-                final EditText input = new EditText(view.getContext());
-                //input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                builder.setView(input);
-                // Set up the buttons
-                builder.setPositiveButton(confirmar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        nombreItinerario = input.getText().toString();
-                        if (!nombreItinerario.isEmpty()) {
-                            int id = pref.getInt("id", 0);
-                            ConsultaBD.newRoute(id, nombreItinerario);
-                            listaitinerarios();
-                        }
-                    }
-                });
-                builder.setNegativeButton(cancelar, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();*/
+
 
                 Intent intent = new Intent(ListaItinerariosActivity.this, CrearItinerario.class);
                 intent.putExtra("id", (long)id);
@@ -254,52 +229,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
             recyclerViewClientes.setVisibility(View.VISIBLE);
         }
 
-        //Implementamos la funcionalidad del longClick
-        /*adaptador.setOnItemLongClickListener(new View.OnLongClickListener() {
-            public boolean onLongClick(final View v) {
-                final int posicion = recyclerViewClientes.getChildAdapterPosition(v);
-                final long id = adaptador.getId(posicion);
-                AlertDialog.Builder menu = new AlertDialog.Builder(ListaItinerariosActivity.this);
-                CharSequence[] opciones = {getString(R.string.abrir),getString(R.string.eliminar), getString(R.string.visitado)};
-                menu.setItems(opciones, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int opcion) {
-                        switch (opcion) {
-                            case 0: //Abrir
-                                Intent intent = new Intent(ListaItinerariosActivity.this, ListaPuntosInteresActivity.class);
-                                intent.putExtra("id", id);
-                                startActivity(intent);
-                                break;
-                            case 1: //Borrar
-                                String confirmar = getString(R.string.confirmar);
-                                String cancelar = getString(R.string.cancelar);
-                                String mensaje = getString(R.string.borrar_itinerario_pregunta);
-                                new AlertDialog.Builder(ListaItinerariosActivity.this)
-                                        .setTitle(getString(R.string.borrar_itinerario))
-                                        .setMessage(mensaje)
-                                        .setPositiveButton(confirmar, new DialogInterface.OnClickListener() {
-                                            public void onClick(DialogInterface dialog, int whichButton) {
-                                                ConsultaBD.deleteRoute((int) id);
-                                                listaitinerarios();
 
-                                            }
-                                        })
-                                        .setNegativeButton(cancelar, null)
-                                        .show();
-
-                                break;
-                            case 2: //Marcar como visto
-                                ConsultaBD.changeCheck((int) id, true);
-                                listaitinerarios();
-                                break;
-
-
-                        }
-                    }
-                });
-                menu.create().show();
-                return true;
-            }
-        });*/
 
 
         //rellenamos el reciclerview

@@ -245,7 +245,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                             web.setText(""+uri.toString());
                             }
 
-                            tipo.setText(""+myPlace.getPlaceTypes().toString());
+                            //tipo.setText(""+myPlace.getPlaceTypes().toString());
+
                            precio.setText(""+myPlace.getPriceLevel());
                             valoracion.setRating(myPlace.getRating());
                             busca();
@@ -261,6 +262,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         //detalle.setText(POI.getDescription());
         longitud.setText(String.valueOf(POI.getLon()));
         latitud.setText(String.valueOf(POI.getLat()));
+        tipo.setText(String.valueOf(POI.getCategoria()));
         //imagePOI
     }
 

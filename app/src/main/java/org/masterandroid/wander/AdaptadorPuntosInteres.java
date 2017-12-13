@@ -95,17 +95,19 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
 
     //ViewHolder con los elementos a modificar
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView titulo;
-        ImageView check;
+        TextView titulo, fecha;
+        ImageView check,  imageRef;
 
         public ViewHolder(View vista) {
             super(vista);
             //referencio los elemtos a modificar
             titulo = (TextView) vista.findViewById(R.id.titulo);
             check = (ImageView) vista.findViewById(R.id.visto);
+            fecha = vista.findViewById(R.id.fecha);
+            imageRef = vista.findViewById(R.id.referencia);
 
             vista.setOnClickListener(this);
-            // vista.setOnLongClickListener(this);
+
         }
 
         @Override
@@ -119,7 +121,7 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
     public AdaptadorPuntosInteres.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //inflamos la vista
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_itinerario, parent, false); //Cambiar elemnto lista por el nombre del layout del elemento del reciclerview
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.targeta_itinerarios, parent, false); //Cambiar elemnto lista por el nombre del layout del elemento del reciclerview
 
         vista.setOnLongClickListener(onLongClickListener);//aplicamos escuchador long a cada vista
         return new AdaptadorPuntosInteres.ViewHolder(vista);
@@ -132,10 +134,14 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
 
         //Modifico los elementos de la vista
         holder.titulo.setText(c.getString(c.getColumnIndex("title")));
-        int tele = c.getInt(c.getColumnIndex("visto"));
+        holder.fecha.setText(""+c.getString(c.getColumnIndex("localidad")));
+        int tele = 0+c.getInt(c.getColumnIndex("visto"));
         if (tele == 0) {
             holder.check.setVisibility(View.INVISIBLE);
         }
+        int ref = 0+c.getInt(c.getColumnIndex("categoria"));
+        int icono = iconos.iconoCategoria(ref);
+        holder.imageRef.setImageResource(icono);
     }
 
     @Override

@@ -235,6 +235,8 @@ public class ConsultaBD {
             poi.setImg(""+cursor.getString(cursor.getColumnIndex("img")));
             poi.setLat(0+cursor.getFloat(cursor.getColumnIndex("lat")));
             poi.setLon(0+cursor.getFloat(cursor.getColumnIndex("lon")));
+            poi.setCategoria(0+cursor.getInt(cursor.getColumnIndex("categoria")));
+            poi.setLocalidad(""+cursor.getString(cursor.getColumnIndex("localidad")));
 
         }
         cursor.close();
@@ -256,6 +258,33 @@ public class ConsultaBD {
         }
         return correcto;
     }
+
+    //Añadir la categoria de un poi
+    public static boolean putCat(String identificador, int cat){
+        boolean correcto = true;
+        try {
+            //SQLiteDatabase bdw = BaseDeDatos.getWritableDatabase();
+            bdw.execSQL("UPDATE poi SET categoria = "+cat+" WHERE identificador = '"+identificador+"'");
+        }
+        catch (Exception e){
+            correcto = false;
+        }
+        return correcto;
+    }
+
+    //Añadir la categoria de un poi
+    public static boolean putLocalidad(String identificador, String localidad){
+        boolean correcto = true;
+        try {
+            //SQLiteDatabase bdw = BaseDeDatos.getWritableDatabase();
+            bdw.execSQL("UPDATE poi SET localidad = '"+localidad+"' WHERE identificador = '"+identificador+"'");
+        }
+        catch (Exception e){
+            correcto = false;
+        }
+        return correcto;
+    }
+
 
     //obtener id de un identificador
     public static int getIdPOI(String identificador){

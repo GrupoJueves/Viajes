@@ -4,17 +4,25 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceBuffer;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
@@ -26,11 +34,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PointOfInterest;
 
+import java.util.List;
+
 /**
  * Created by Ivan on 30/11/2017.
  */
 
-public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnPoiClickListener, PlaceSelectionListener {
+public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallback, GoogleMap.OnMapLongClickListener, GoogleMap.OnPoiClickListener, PlaceSelectionListener, GoogleApiClient.OnConnectionFailedListener {
 
     int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
 
@@ -52,6 +62,8 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
     private Cursor c;
 
     private long id;
+
+    private GoogleApiClient mGoogleApiClient;
 
 
 
@@ -106,6 +118,14 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
         // Register a listener to receive callbacks when a place has been selected or an error has
         // occurred.
         autocompleteFragment.setOnPlaceSelectedListener(this);
+
+
+        //Creo cliente api places
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(this)
+                .addApi(Places.GEO_DATA_API)
+                .enableAutoManage(this, this)
+                .build();
 
 
     }
@@ -207,12 +227,14 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
     public void anadirPOI(PointOfInterest poi){
         POI punto = new POI(poi);
 
+
         ConsultaBD.newPOI(punto);
         int poi_id = ConsultaBD.getIdPOI(poi.placeId);
         if (poi_id != -1){
             if(ConsultaBD.addPoi((int)id,poi_id,false)){
                 map.addMarker(new MarkerOptions().position(poi.latLng)
                         .title(poi.name));
+                new Link().execute(poi.placeId);
             }
         }
     }
@@ -251,6 +273,110 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
         }
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    public void añadirPOI (){}
+    }
+
+
+    // Link AsyncTask
+    private class Link extends AsyncTask<String, Void, Void> {
+        private String[]secdir;
+        private String  direccion, localidad, nombreBusqueda;
+        private int numero;
+
+        //Funcion que obtiene la localidad
+        public String busca() {
+            nombreBusqueda = "";
+
+            //separo la direccion por las comas
+            secdir = direccion.split(",");
+            //compruebo si es una direccion española, donde el segundo argumento seria un numero
+            localidad = secdir[1].replace(" ", "");
+
+            try {
+                if (!localidad.equals("s/n")) {
+                    numero = Integer.parseInt(localidad);
+                    localidad = secdir[2];
+                } else {
+                    localidad = secdir[2];
+                }
+            } catch (Exception e) {
+
+                localidad = secdir[1];
+                Log.e("error:", e.getMessage());
+            }
+
+            //separo la localidad obtenida en los espacios en blanco
+            secdir = localidad.split(" ");
+
+            //Para eliminar los codigos postales compruebo si el resultado es un numero entero
+            //en caso contrario lo añado a la busqueda
+            for (int i = 0; i < secdir.length; i++) {
+                try {
+                    if (!secdir[i].replace(" ", "").equals("")) {
+                        numero = Integer.parseInt(secdir[i].replace(" ", "")); //elimino los espacios en blanco
+                    }
+
+                } catch (Exception e) {
+
+                    nombreBusqueda = nombreBusqueda+" " +secdir[i];
+                    Log.e("error:", e.getMessage());
+                }
+            }
+            return nombreBusqueda;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected Void doInBackground(String... params) {
+            if (params.length != 1) {
+                return null;
+            }
+            final String placeId = params[0];
+            Places.GeoDataApi.getPlaceById(mGoogleApiClient, placeId)
+                    .setResultCallback(new ResultCallback<PlaceBuffer>() {
+                        @Override
+                        public void onResult(PlaceBuffer places) {
+                            if (places.getStatus().isSuccess() && places.getCount() > 0) {
+                                final Place myPlace = places.get(0);
+                                List<Integer> categorias = myPlace.getPlaceTypes();
+                                int categoria = categorias.get(0);
+                                direccion = myPlace.getAddress().toString();
+                                String loc = busca();
+
+
+                                if(ConsultaBD.putCat(placeId,categoria)){
+                                    Log.e("Categoria añadida","");
+                                }else{
+                                    Log.e("Error al ","añadir categoria");
+                                }
+
+                                if(ConsultaBD.putLocalidad(placeId,loc)){
+                                    Log.e("Localidad añadida","");
+                                }else{
+                                    Log.e("Error al ","añadir localidad");
+                                }
+
+                            } else {
+                                Log.e("", "Place not found");
+                            }
+                            places.release();
+                        }
+                    });
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+
+        }
+    }
+
+
 }
