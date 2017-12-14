@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_itinerario_mapa"
+            android:icon="@android:drawable/ic_menu_myplaces"
+            android:title="Ver itinerario en mapa" />
+        <item
+            android:id="@+id/nav_visitado"
+            android:icon="@android:drawable/ic_menu_view"
+            android:title="Marcar como visitado"/>
+        <item
+            android:id="@+id/nav_eliminar"
+            android:icon="@android:drawable/ic_menu_delete"
+            android:title="Eliminar itinerario"/>
+    </group>
+
+</menu>

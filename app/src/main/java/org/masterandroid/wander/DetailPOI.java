@@ -9,10 +9,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +40,8 @@ import com.google.android.gms.location.places.PlacePhotoMetadata;
 import com.google.android.gms.location.places.PlacePhotoMetadataBuffer;
 import com.google.android.gms.location.places.PlacePhotoMetadataResult;
 import com.google.android.gms.location.places.Places;
+import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
+import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -70,6 +74,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     private String[] secnom,secdir;
     private int numero;
     private int user;
+
+    private FlowingDrawer mDrawer;
 
     //Anuncios
     private AdView adView;
@@ -123,6 +129,40 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         precio = findViewById(R.id.precio);
         valoracion = findViewById(R.id.valoracion);
 
+        // Toolbar
+        Toolbar toolbar = findViewById(R.id.detail_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.vNavigation);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @SuppressWarnings("StatementWithEmptyBody")
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.nav_poi_mapa) {
+                    double lat = POI.getLat();
+                    double lng = POI.getLon();
+                    showPointOnMap(lat, lng);
+                    Toast.makeText(getApplicationContext(), "Mostrar punto en mapa", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.nav_poi_visitado) {
+                    Toast.makeText(getApplicationContext(), "Marcar punto como visitado", Toast.LENGTH_SHORT).show();
+                }else if (id == R.id.nav_poi_eliminar) {
+                    Toast.makeText(getApplicationContext(), "Eliminar punto", Toast.LENGTH_SHORT).show();
+                }
+                mDrawer.closeMenu();
+                return true;
+            }
+        });
+        mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
+        mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawer.toggleMenu();
+            }
+        });
+
         //Anuncios:
         ID_BLOQUE_ANUNCIOS_INTERSTICIAL = getString(R.string.ads_intersticial_id_test);
         ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
@@ -150,7 +190,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         mostarComentarios();
     }
 
-    ///////MENU///////
+    /*///////MENU///////
     // Infla el menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -178,7 +218,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
     public void ShowDialog()
     {

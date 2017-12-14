@@ -1,10 +1,15 @@
 package org.masterandroid.wander;
 
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.RemoteException;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,13 +19,18 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
+import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
 public class ListaPuntosInteresActivity extends AppCompatActivity implements AdaptadorPuntosInteres.OnItemClickListener {
 
@@ -29,6 +39,8 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     private RecyclerView.LayoutManager lManager;
 
     private ItemTouchHelper mItemTouchHelper;
+
+    private FlowingDrawer mDrawer;
 
     //Valor para la llamada a añadir poi
     final static int RESULTADO_AÑADIR = 1;
@@ -90,12 +102,50 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         });
 
         // Toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        Transition lista_enter = TransitionInflater.from(this).inflateTransition(R.transition.transition_lista_enter);
-        getWindow().setEnterTransition(lista_enter);
-        getWindow().setExitTransition(null);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.vNavigation);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @SuppressWarnings("StatementWithEmptyBody")
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.nav_itinerario_mapa) {
+                    Toast.makeText(getApplicationContext(), "Mostrar itinerario en mapa", Toast.LENGTH_SHORT).show();
+                    /*Intent i = new Intent(ListaPuntosInteresActivity.this, MapActivity.class);
+                    startActivity(i);*/
+                } else if (id == R.id.nav_visitado) {
+                    Toast.makeText(getApplicationContext(), "Marcar itinerario como visitado", Toast.LENGTH_SHORT).show();
+                    /*ConsultaBD.changeCheckPoi((int) id, true);
+                    listaPuntosInteres();*/
+                }else if (id == R.id.nav_eliminar) {
+                    Toast.makeText(getApplicationContext(), "Eliminar itinerario", Toast.LENGTH_SHORT).show();
+                    /*new AlertDialog.Builder(ListaPuntosInteresActivity.this)
+                            .setTitle(R.string.borrar_poi)
+                            .setMessage(R.string.borrar_poi_pregunta)
+                            .setPositiveButton(R.string.confirmar, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int whichButton) {
+                                    ConsultaBD.deletePoiRoute((int) id);
+                                    listaPuntosInteres();
+                                }
+                            })
+                            .setNegativeButton(R.string.cancelar, null)
+                            .show();*/
+                }
+                mDrawer.closeMenu();
+                return true;
+            }
+        });
+        mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
+        mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawer.toggleMenu();
+            }
+        });
 
         //Anuncios:
         ID_BLOQUE_ANUNCIOS_INTERSTICIAL = getString(R.string.ads_intersticial_id_test);
