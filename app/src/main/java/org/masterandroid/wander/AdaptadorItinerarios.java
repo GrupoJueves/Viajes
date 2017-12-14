@@ -150,45 +150,24 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
         switch (valorref){
             case 1:
                 holder.imageRef.setImageResource(R.drawable.ref1);
-                bitmap = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.ref1);
-                palette = Palette.from(bitmap).generate();
-                holder.itemView.setBackgroundColor(palette.getDominantColor(0));
                 break;
             case 2:
                 holder.imageRef.setImageResource(R.drawable.ref2);
-                bitmap = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.ref2);
-                palette = Palette.from(bitmap).generate();
-                holder.itemView.setBackgroundColor(palette.getDominantColor(0));
                 break;
             case 3:
                 holder.imageRef.setImageResource(R.drawable.ref3);
-                bitmap = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.ref3);
-                palette = Palette.from(bitmap).generate();
-                holder.itemView.setBackgroundColor(palette.getDominantColor(0));
                 break;
             case 4:
                 holder.imageRef.setImageResource(R.drawable.ref4);
-                bitmap = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.ref4);
-                palette = Palette.from(bitmap).generate();
-                holder.itemView.setBackgroundColor(palette.getDominantColor(0));
                 break;
             case 5:
                 holder.imageRef.setImageResource(R.drawable.ref5);
-                bitmap = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.ref5);
-                palette = Palette.from(bitmap).generate();
-                holder.itemView.setBackgroundColor(palette.getDominantColor(0));
                 break;
             case 6:
                 holder.imageRef.setImageResource(R.drawable.ref6);
-                bitmap = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.ref6);
-                palette = Palette.from(bitmap).generate();
-                holder.itemView.setBackgroundColor(palette.getDominantColor(0));
                 break;
             default:
                 holder.imageRef.setImageResource(R.drawable.ref1);
-                bitmap = BitmapFactory.decodeResource(contexto.getResources(), R.drawable.ref1);
-                palette = Palette.from(bitmap).generate();
-                holder.itemView.setBackgroundColor(palette.getDominantColor(0));
                 break;
         }
 

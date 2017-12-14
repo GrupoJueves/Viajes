@@ -18,4 +18,45 @@
             android:title="Eliminar itinerario"/>
     </group>
 
+    <item android:title="@string/preferencias">
+        <menu>
+            <item
+                android:id="@+id/nav_preferencias"
+                android:icon="@android:drawable/ic_menu_manage"
+                android:title="@string/preferencias"/>
+            <item
+                android:id="@+id/nav_salir"
+                android:icon="@android:drawable/ic_menu_close_clear_cancel"
+                android:title="@string/finalizar_sesion" />
+        </menu>
+    </item>
+
+    <item android:title="@string/compras">
+        <menu>
+            <item
+                android:id="@+id/nav_quitar_anuncios"
+                android:icon="@drawable/ic_action_money"
+                android:title="@string/quitar_anuncios"/>
+
+        </menu>
+    </item>
+
+    <item android:title="@string/sobre_nosotros">
+        <menu>
+            <item
+                android:id="@+id/nav_rate_us"
+                android:icon="@drawable/ic_action_rateus"
+                android:title="@string/votanos" />
+            <item
+                android:id="@+id/nav_shareapp"
+                android:icon="@drawable/ic_action_share"
+                android:title="@string/comparte_la_app" />
+            <item
+                android:id="@+id/nav_privacy"
+                android:icon="@drawable/ic_action_privacy"
+                android:title="@string/politica_de_privacidad" />
+        </menu>
+    </item>
+
+
 </menu>

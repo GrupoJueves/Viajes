@@ -4,10 +4,7 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_itinerarios"
-            android:icon="@android:drawable/ic_menu_myplaces"
-            android:title="Mis itinerarios" />
+
         <item
             android:id="@+id/user_menu"
             android:title="Perfil de Usuario"

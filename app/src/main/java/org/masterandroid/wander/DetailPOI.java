@@ -1,12 +1,16 @@
 package org.masterandroid.wander;
 
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -26,6 +30,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.vending.billing.IInAppBillingService;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -74,6 +79,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     private String[] secnom,secdir;
     private int numero;
     private int user;
+    private SharedPreferences pref;
 
     private FlowingDrawer mDrawer;
 
@@ -91,11 +97,34 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     //Clases tipo sigleton
     private ApplicationClass app;
 
+    //RateApp
+    private RateApp rateApp;
+    //Shared preference storage
+    private SharedPreferenceStorage spStorage;
+
+    //InAppBilling
+    private IInAppBillingService serviceBilling;
+    private final String ID_ARTICULO = "org.masterandroid.wander.quitaranuncios";
+    private final int INAPP_BILLING = 1;
+    private final String developerPayLoad = "clave de seguridad";
+    private String quitarAnunciosToken = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_poi);
         app = (ApplicationClass) getApplication();
+
+        //pagos
+
+        app = (ApplicationClass) getApplication();
+        serviceBilling = app.getServiceBilling();
+        quitarAnunciosToken = app.getQuitarAnunciosToken();
+
+        //Shared prefereces storage (Esto seria mejor meterlo en la clase aplication e inicializarlo solo una vez)
+        spStorage = app.getSpStorage();
+        //Rate App
+        rateApp = new RateApp(this, spStorage);
 
 
         //recojo el valor del identificador de la ruta
@@ -143,12 +172,42 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                     double lat = POI.getLat();
                     double lng = POI.getLon();
                     showPointOnMap(lat, lng);
-                    Toast.makeText(getApplicationContext(), "Mostrar punto en mapa", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Mostrar punto en mapa", Toast.LENGTH_SHORT).show();
                 } else if (id == R.id.nav_poi_visitado) {
-                    Toast.makeText(getApplicationContext(), "Marcar punto como visitado", Toast.LENGTH_SHORT).show();
+                    if(ConsultaBD.changeCheckPoi((int)id_poi,true)){
+                        Toast.makeText(getApplicationContext(), "Marcado como visitado", Toast.LENGTH_SHORT).show();
+                    }
                 }else if (id == R.id.nav_poi_eliminar) {
-                    Toast.makeText(getApplicationContext(), "Eliminar punto", Toast.LENGTH_SHORT).show();
+                   ConsultaBD.deletePoiRoute((int)id_poi);
+                   finish();
+                }else if (id == R.id.nav_poi_comentario) {
+                    ShowDialog();
+                } else if (id == R.id.nav_salir) {
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putInt("id", 0);
+                    editor.putBoolean("rememberMe", false);
+                    editor.commit();
+                    Intent intent2 = new Intent(DetailPOI.this, InicioSesionActivity.class);
+                    startActivity(intent2);
+                    finish();
+                } else if (id == R.id.nav_rate_us) {
+                    rateUsBtn();
+                    return true;
+                }else if (id == R.id.nav_shareapp) {
+                    shareAppBtn();
+                    return true;
+                }else if (id == R.id.nav_privacy) {
+                    privacyPolicyBtn();
+                    return true;
+                } else if (id == R.id.user_menu) {
+                    Intent i = new Intent(DetailPOI.this, PerfilUsuarioActivity.class);
+                    startActivity(i);
+                } else if (id == R.id.nav_quitar_anuncios) {
+                    comprarQuitarAds();
+                    return true;
                 }
+
+
                 mDrawer.closeMenu();
                 return true;
             }
@@ -171,14 +230,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         adView = (AdView) findViewById(R.id.adView);
         setAds(app.adsEnabled());
 
-        //fab de agregar comentario, en la version final se tiene que quitar
-        nuevoComentario = findViewById(R.id.nuevoComentario);
-        nuevoComentario.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ShowDialog();
-            }
-        });
+
 
         //Recicler view de comentarios
         recyclerView = findViewById(R.id.recyclerComentarios);
@@ -585,4 +637,46 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             adView.setVisibility(View.GONE);
         }
     }
+
+
+    private void rateUsBtn(){
+        rateApp.openAppStoreToRate(DetailPOI.this);
+    }
+
+    private void shareAppBtn(){
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_SUBJECT, getPackageName());
+        String sAux = "http://play.google.com/store/apps/details?id=" + getPackageName();
+        i.putExtra(Intent.EXTRA_TEXT, sAux);
+        startActivity(Intent.createChooser(i, "choose one"));
+    }
+
+    private void privacyPolicyBtn(){
+        Uri uri2 = Uri.parse("https://drive.google.com/open?id=1rRXJLMj4ixMvFJNHAiYIYHp5sU2Xk2I9");
+        Intent intent2 = new Intent(Intent.ACTION_VIEW, uri2);
+        startActivity(intent2);
+    }
+
+    public void comprarQuitarAds() {
+        if (serviceBilling != null) {
+            Bundle buyIntentBundle = null;
+            try {
+                buyIntentBundle = serviceBilling.getBuyIntent(3, getPackageName(), ID_ARTICULO, "inapp", developerPayLoad);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+            try {
+                if (pendingIntent != null) {
+                    startIntentSenderForResult(pendingIntent.getIntentSender(), INAPP_BILLING, new Intent(), 0, 0, 0);
+                }
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, "InApp Billing service not available", Toast.LENGTH_LONG).show();
+        }
+    }
+
 }

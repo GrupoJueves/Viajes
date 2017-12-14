@@ -32,6 +32,9 @@ import com.google.android.gms.ads.MobileAds;
 import com.mxn.soul.flowingdrawer_core.ElasticDrawer;
 import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ListaPuntosInteresActivity extends AppCompatActivity implements AdaptadorPuntosInteres.OnItemClickListener {
 
     private RecyclerView recyclerViewitinerario;
@@ -43,7 +46,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     private FlowingDrawer mDrawer;
 
     //Valor para la llamada a añadir poi
-    final static int RESULTADO_AÑADIR = 1;
+    final static int RESULTADO_AÑADIR = 1500;
 
     //Variable donde almacenare el identificador de la ruta
     private long id_ruta;
@@ -52,8 +55,11 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
 
     private String nombrePuntoInteres = "";
 
-    //Clases tipo sigleton
-    private ApplicationClass app;
+
+    //RateApp
+    private RateApp rateApp;
+    //Shared preference storage
+    private SharedPreferenceStorage spStorage;
 
     //Anuncios
     private AdView adView;
@@ -62,11 +68,32 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     private String ID_INICIALIZADOR_ADS;
     private boolean showInterticial=false;
 
+    //Clases tipo sigleton
+    private ApplicationClass app;
+
+    //InAppBilling
+    private IInAppBillingService serviceBilling;
+    private final String ID_ARTICULO = "org.masterandroid.wander.quitaranuncios";
+    private final int INAPP_BILLING = 1;
+    private final String developerPayLoad = "clave de seguridad";
+    private String quitarAnunciosToken = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_puntos_interes);
         app = (ApplicationClass) getApplication();
+
+        //pagos
+
+        app = (ApplicationClass) getApplication();
+        serviceBilling = app.getServiceBilling();
+        quitarAnunciosToken = app.getQuitarAnunciosToken();
+
+        //Shared prefereces storage (Esto seria mejor meterlo en la clase aplication e inicializarlo solo una vez)
+        spStorage = app.getSpStorage();
+        //Rate App
+        rateApp = new RateApp(this, spStorage);
 
         //recojo el valor del identificador de la ruta
         Bundle extras = getIntent().getExtras();
@@ -113,26 +140,45 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                 int id = item.getItemId();
                 if (id == R.id.nav_itinerario_mapa) {
                     Toast.makeText(getApplicationContext(), "Mostrar itinerario en mapa", Toast.LENGTH_SHORT).show();
-                    /*Intent i = new Intent(ListaPuntosInteresActivity.this, MapActivity.class);
-                    startActivity(i);*/
+
+                    //apliar directions
+
                 } else if (id == R.id.nav_visitado) {
-                    Toast.makeText(getApplicationContext(), "Marcar itinerario como visitado", Toast.LENGTH_SHORT).show();
-                    /*ConsultaBD.changeCheckPoi((int) id, true);
-                    listaPuntosInteres();*/
+                    //Toast.makeText(getApplicationContext(), "Marcar itinerario como visitado", Toast.LENGTH_SHORT).show();
+                    ConsultaBD.changeCheck((int)id_ruta,true);
+
                 }else if (id == R.id.nav_eliminar) {
-                    Toast.makeText(getApplicationContext(), "Eliminar itinerario", Toast.LENGTH_SHORT).show();
-                    /*new AlertDialog.Builder(ListaPuntosInteresActivity.this)
-                            .setTitle(R.string.borrar_poi)
-                            .setMessage(R.string.borrar_poi_pregunta)
-                            .setPositiveButton(R.string.confirmar, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                    ConsultaBD.deletePoiRoute((int) id);
-                                    listaPuntosInteres();
-                                }
-                            })
-                            .setNegativeButton(R.string.cancelar, null)
-                            .show();*/
+                    ConsultaBD.deleteRoute((int)id_ruta);
+                    finish();
+
+                } else if (id == R.id.nav_salir) {
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putInt("id", 0);
+                    editor.putBoolean("rememberMe", false);
+                    editor.commit();
+                    Intent intent2 = new Intent(ListaPuntosInteresActivity.this, InicioSesionActivity.class);
+                    startActivity(intent2);
+                    finish();
+                } else if (id == R.id.nav_rate_us) {
+                    rateUsBtn();
+                    return true;
+                }else if (id == R.id.nav_shareapp) {
+                    shareAppBtn();
+                    return true;
+                }else if (id == R.id.nav_privacy) {
+                    privacyPolicyBtn();
+                    return true;
+                } else if (id == R.id.user_menu) {
+                    Intent i = new Intent(ListaPuntosInteresActivity.this, PerfilUsuarioActivity.class);
+                    startActivity(i);
+                } else if (id == R.id.nav_quitar_anuncios) {
+                    comprarQuitarAds();
+                    return true;
                 }
+
+
+
+
                 mDrawer.closeMenu();
                 return true;
             }
@@ -238,9 +284,33 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
-        if (requestCode == RESULTADO_AÑADIR) {
-            listaPuntosInteres();
+        switch (requestCode) {
+            case INAPP_BILLING: {
+                int responseCode = data.getIntExtra("RESPONSE_CODE", 0);
+                String purchaseData = data.getStringExtra("INAPP_PURCHASE_DATA");
+                String dataSignature = data.getStringExtra("INAPP_DATA_SIGNATURE");
+                if (resultCode == RESULT_OK) {
+                    try {
+                        JSONObject jo = new JSONObject(purchaseData);
+                        String sku = jo.getString("productId");
+                        String developerPayload = jo.getString("developerPayload");
+                        String purchaseToken = jo.getString("purchaseToken");
+                        if (sku.equals(ID_ARTICULO)) {
+                            Toast.makeText(this, "Compra completada", Toast.LENGTH_LONG).show();
+                            setAds(false);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            break;
+            case RESULTADO_AÑADIR:
+                listaPuntosInteres();
+                break;
         }
+
+
     }
 
     private void setAds(Boolean adsEnabled) {
@@ -260,6 +330,47 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         } else {
             showInterticial = false;
             adView.setVisibility(View.GONE);
+        }
+    }
+
+
+    private void rateUsBtn(){
+        rateApp.openAppStoreToRate(ListaPuntosInteresActivity.this);
+    }
+
+    private void shareAppBtn(){
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_SUBJECT, getPackageName());
+        String sAux = "http://play.google.com/store/apps/details?id=" + getPackageName();
+        i.putExtra(Intent.EXTRA_TEXT, sAux);
+        startActivity(Intent.createChooser(i, "choose one"));
+    }
+
+    private void privacyPolicyBtn(){
+        Uri uri2 = Uri.parse("https://drive.google.com/open?id=1rRXJLMj4ixMvFJNHAiYIYHp5sU2Xk2I9");
+        Intent intent2 = new Intent(Intent.ACTION_VIEW, uri2);
+        startActivity(intent2);
+    }
+
+    public void comprarQuitarAds() {
+        if (serviceBilling != null) {
+            Bundle buyIntentBundle = null;
+            try {
+                buyIntentBundle = serviceBilling.getBuyIntent(3, getPackageName(), ID_ARTICULO, "inapp", developerPayLoad);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+            PendingIntent pendingIntent = buyIntentBundle.getParcelable("BUY_INTENT");
+            try {
+                if (pendingIntent != null) {
+                    startIntentSenderForResult(pendingIntent.getIntentSender(), INAPP_BILLING, new Intent(), 0, 0, 0);
+                }
+            } catch (IntentSender.SendIntentException e) {
+                e.printStackTrace();
+            }
+        } else {
+            Toast.makeText(this, "InApp Billing service not available", Toast.LENGTH_LONG).show();
         }
     }
 }

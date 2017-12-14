@@ -136,19 +136,16 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        final Intent intent1 = new Intent(this, ListaItinerariosActivity.class);
+
         final Intent intent2 = new Intent(this, InicioSesionActivity.class);
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.vNavigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @SuppressWarnings("StatementWithEmptyBody")
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 int id = item.getItemId();
-                if (id == R.id.nav_itinerarios) {
-                    if (!this.getClass().equals(ListaItinerariosActivity.class)) {
-                        startActivity(intent1);
-                    }
-                } else if (id == R.id.nav_preferencias) {
+               if (id == R.id.nav_preferencias) {
                     lanzarPreferencias(null);
                     return true;
                 } else if (id == R.id.nav_salir) {

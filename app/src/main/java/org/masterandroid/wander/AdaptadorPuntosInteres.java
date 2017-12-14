@@ -150,9 +150,6 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
         int ref = 0+c.getInt(c.getColumnIndex("categoria"));
         int icono = iconos.iconoCategoria(ref);
         holder.imageRef.setImageResource(icono);
-        bitmap = BitmapFactory.decodeResource(contexto.getResources(), icono);
-        palette = Palette.from(bitmap).generate();
-        holder.itemView.setBackgroundColor(palette.getDominantColor(0));
     }
 
     @Override
