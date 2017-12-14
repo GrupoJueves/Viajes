@@ -139,9 +139,11 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
             public boolean onNavigationItemSelected(MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.nav_itinerario_mapa) {
-                    Toast.makeText(getApplicationContext(), "Mostrar itinerario en mapa", Toast.LENGTH_SHORT).show();
-
                     //apliar directions
+                    Intent i = new Intent(ListaPuntosInteresActivity.this, MapaRuta.class);
+                    i.putExtra("id", id_ruta);
+                    startActivity(i);
+
 
                 } else if (id == R.id.nav_visitado) {
                     //Toast.makeText(getApplicationContext(), "Marcar itinerario como visitado", Toast.LENGTH_SHORT).show();
