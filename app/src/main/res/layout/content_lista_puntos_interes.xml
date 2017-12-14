@@ -32,6 +32,15 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_wander_paper_plane_heading" />
 
+                <ImageView
+                    android:id="@+id/ref"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginTop="100dp"
+                    app:srcCompat="@drawable/ref1_1" />
+
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/detail_toolbar"
                     android:layout_width="match_parent"
@@ -40,12 +49,14 @@
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
                     <TextView
+                        android:id="@+id/itinerario"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/puntos_de_interes"
                         android:textColor="#fff"
                         android:textSize="18sp" />
                 </android.support.v7.widget.Toolbar>
+
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
@@ -60,7 +71,7 @@
                 android:id="@+id/recicladorPunto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#ffffff"
+                android:background="@color/background"
                 android:scrollbars="vertical" />
         </android.support.v4.widget.NestedScrollView>
 

@@ -142,9 +142,11 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
         //Modifico los elementos de la vista
         holder.titulo.setText(c.getString(c.getColumnIndex("title")));
         holder.fecha.setText(DateFormat.getDateInstance().format(new Date(c.getLong(c.getColumnIndex("date")))));
+        holder.itemView.setBackgroundResource(R.color.itemRecycler);
         int tele = c.getInt(c.getColumnIndex("checked"));
          if (tele == 0) {
                 holder.check.setVisibility(View.INVISIBLE);
+                holder.itemView.setBackgroundResource(R.color.itemRecyclerCheck);
             }
         int valorref = c.getInt(c.getColumnIndex("ref"));
         switch (valorref){

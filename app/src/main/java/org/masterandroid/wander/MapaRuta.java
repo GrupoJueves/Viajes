@@ -114,7 +114,7 @@ public class MapaRuta extends FragmentActivity implements OnMapReadyCallback {
 
         ruta = ConsultaBD.getRoute((int)id);
 
-        DirectionsResult results = getDirectionsDetails(ruta.getOrigen(),ruta.getDestino(),TravelMode.DRIVING,ruta.getWaypoints());
+        DirectionsResult results = getDirectionsDetails(ruta.getOrigen(),ruta.getDestino(),TravelMode.WALKING,ruta.getWaypoints());
         if (results != null) {
             addPolyline(results, googleMap);
             positionCamera(results.routes[overview], googleMap);

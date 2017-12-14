@@ -21,6 +21,8 @@ import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
@@ -101,6 +103,10 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
 
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(this);
+
+        //cambio los valores del toolbar
+        cambiarTitulo();
+
 
         recyclerViewitinerario = (RecyclerView) findViewById(R.id.recicladorPunto);
         recyclerViewitinerario.setHasFixedSize(true);
@@ -374,5 +380,39 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         } else {
             Toast.makeText(this, "InApp Billing service not available", Toast.LENGTH_LONG).show();
         }
+    }
+
+    //Funcion que cambia los valores del toolbar
+    public void cambiarTitulo(){
+        ImageView icono = findViewById(R.id.ref);
+        TextView itinerario = findViewById(R.id.itinerario);
+
+        Itinerario route = ConsultaBD.infoRoute((int) id_ruta);
+
+        itinerario.setText(route.getTitulo());
+        switch (route.getRef()){
+            case 1:
+                icono.setImageResource(R.drawable.ref1_1);
+                break;
+            case 2:
+                icono.setImageResource(R.drawable.ref2_1);
+                break;
+            case 3:
+                icono.setImageResource(R.drawable.ref3_1);
+                break;
+            case 4:
+                icono.setImageResource(R.drawable.ref4_1);
+                break;
+            case 5:
+                icono.setImageResource(R.drawable.ref5_1);
+                break;
+            case 6:
+                icono.setImageResource(R.drawable.ref6_1);
+                break;
+            default:
+                icono.setImageResource(R.drawable.ref1_1);
+                break;
+        }
+
     }
 }

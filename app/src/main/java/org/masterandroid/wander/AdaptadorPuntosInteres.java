@@ -143,9 +143,11 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
         //Modifico los elementos de la vista
         holder.titulo.setText(c.getString(c.getColumnIndex("title")));
         holder.fecha.setText(""+c.getString(c.getColumnIndex("localidad")));
+        holder.itemView.setBackgroundResource(R.color.itemRecycler);
         int tele = 0+c.getInt(c.getColumnIndex("visto"));
         if (tele == 0) {
             holder.check.setVisibility(View.INVISIBLE);
+            holder.itemView.setBackgroundResource(R.color.itemRecyclerCheck);
         }
         int ref = 0+c.getInt(c.getColumnIndex("categoria"));
         int icono = iconos.iconoCategoria(ref);

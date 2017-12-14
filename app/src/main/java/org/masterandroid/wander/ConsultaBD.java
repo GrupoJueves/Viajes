@@ -131,6 +131,25 @@ public class ConsultaBD {
                 "WHERE user = "+id, null);
     }
 
+    //Obtener la info de un itinerario
+    public static Itinerario infoRoute (int id){
+        Itinerario itinerario = null;
+
+        Cursor cursor = bdw.rawQuery("SELECT * FROM route WHERE route_id = " + id, null);
+        if (cursor.moveToNext()){
+            itinerario = new Itinerario();
+            itinerario.setTitulo(""+cursor.getString(cursor.getColumnIndex("title")));
+           itinerario.setFecha(0+cursor.getLong(cursor.getColumnIndex("date")));
+           itinerario.setRef(0+cursor.getInt(cursor.getColumnIndex("ref")));
+           itinerario.setVisto(0+cursor.getInt(cursor.getColumnIndex("checked")));
+
+        }
+        cursor.close();
+
+
+        return itinerario;
+    }
+
     //Modidica el parametro checked de un itinerario
     public static boolean changeCheck(int id, boolean valor){
         boolean correcto = true;
