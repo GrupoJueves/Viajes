@@ -134,8 +134,9 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
 
     @Override
     public void onBindViewHolder(AdaptadorPuntosInteres.ViewHolder holder, int position) {
-        Bitmap bitmap;
-        Palette palette;
+
+        Bitmap bitmap1;
+        Bitmap circularBitmap1;
 
         //siguiente elemento del cursor
         c.moveToPosition(position);
@@ -143,15 +144,21 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
         //Modifico los elementos de la vista
         holder.titulo.setText(c.getString(c.getColumnIndex("title")));
         holder.fecha.setText(""+c.getString(c.getColumnIndex("localidad")));
-        holder.itemView.setBackgroundResource(R.color.itemRecycler);
+        holder.itemView.setBackgroundResource(R.color.itemRecyclerCheck);
         int tele = 0+c.getInt(c.getColumnIndex("visto"));
         if (tele == 0) {
             holder.check.setVisibility(View.INVISIBLE);
-            holder.itemView.setBackgroundResource(R.color.itemRecyclerCheck);
+            holder.itemView.setBackgroundResource(R.color.itemRecycler);
+        }else{
+            holder.check.setVisibility(View.VISIBLE);
         }
+
         int ref = 0+c.getInt(c.getColumnIndex("categoria"));
         int icono = iconos.iconoCategoria(ref);
-        holder.imageRef.setImageResource(icono);
+        bitmap1 = BitmapFactory.decodeResource(contexto.getResources(),icono);
+        circularBitmap1 = ImageConverter.getRoundedCornerBitmap(bitmap1, 40);
+        holder.imageRef.setImageBitmap(circularBitmap1);
+        //holder.imageRef.setImageResource(icono);
     }
 
     @Override

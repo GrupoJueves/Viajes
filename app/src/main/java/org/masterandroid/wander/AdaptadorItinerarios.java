@@ -133,7 +133,8 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Bitmap bitmap;
+        Bitmap bitmap1;
+        Bitmap circularBitmap1;
         Palette palette;
 
         //siguiente elemento del cursor
@@ -142,34 +143,50 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
         //Modifico los elementos de la vista
         holder.titulo.setText(c.getString(c.getColumnIndex("title")));
         holder.fecha.setText(DateFormat.getDateInstance().format(new Date(c.getLong(c.getColumnIndex("date")))));
-        holder.itemView.setBackgroundResource(R.color.itemRecycler);
+        holder.itemView.setBackgroundResource(R.color.itemRecyclerCheck);
         int tele = c.getInt(c.getColumnIndex("checked"));
          if (tele == 0) {
                 holder.check.setVisibility(View.INVISIBLE);
-                holder.itemView.setBackgroundResource(R.color.itemRecyclerCheck);
-            }
+                holder.itemView.setBackgroundResource(R.color.itemRecycler);
+            }else{
+             holder.check.setVisibility(View.VISIBLE);
+         }
         int valorref = c.getInt(c.getColumnIndex("ref"));
         switch (valorref){
             case 1:
-                holder.imageRef.setImageResource(R.drawable.ref1);
+                bitmap1 = BitmapFactory.decodeResource(contexto.getResources(),R.drawable.ref1);
+                circularBitmap1 = ImageConverter.getRoundedCornerBitmap(bitmap1, 40);
+                holder.imageRef.setImageBitmap(circularBitmap1);
                 break;
             case 2:
-                holder.imageRef.setImageResource(R.drawable.ref2);
+                bitmap1 = BitmapFactory.decodeResource(contexto.getResources(),R.drawable.ref2);
+               circularBitmap1 = ImageConverter.getRoundedCornerBitmap(bitmap1, 40);
+                holder.imageRef.setImageBitmap(circularBitmap1);
                 break;
             case 3:
-                holder.imageRef.setImageResource(R.drawable.ref3);
+                bitmap1 = BitmapFactory.decodeResource(contexto.getResources(),R.drawable.ref3);
+                circularBitmap1 = ImageConverter.getRoundedCornerBitmap(bitmap1, 40);
+                holder.imageRef.setImageBitmap(circularBitmap1);
                 break;
             case 4:
-                holder.imageRef.setImageResource(R.drawable.ref4);
+                bitmap1 = BitmapFactory.decodeResource(contexto.getResources(),R.drawable.ref4);
+                circularBitmap1 = ImageConverter.getRoundedCornerBitmap(bitmap1, 40);
+                holder.imageRef.setImageBitmap(circularBitmap1);
                 break;
             case 5:
-                holder.imageRef.setImageResource(R.drawable.ref5);
+                bitmap1 = BitmapFactory.decodeResource(contexto.getResources(),R.drawable.ref5);
+                circularBitmap1 = ImageConverter.getRoundedCornerBitmap(bitmap1, 40);
+                holder.imageRef.setImageBitmap(circularBitmap1);
                 break;
             case 6:
-                holder.imageRef.setImageResource(R.drawable.ref6);
+                bitmap1 = BitmapFactory.decodeResource(contexto.getResources(),R.drawable.ref6);
+                circularBitmap1 = ImageConverter.getRoundedCornerBitmap(bitmap1, 40);
+                holder.imageRef.setImageBitmap(circularBitmap1);
                 break;
             default:
-                holder.imageRef.setImageResource(R.drawable.ref1);
+                bitmap1 = BitmapFactory.decodeResource(contexto.getResources(),R.drawable.ref1);
+                circularBitmap1 = ImageConverter.getRoundedCornerBitmap(bitmap1, 40);
+                holder.imageRef.setImageBitmap(circularBitmap1);
                 break;
         }
 
