@@ -12,6 +12,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AlertDialog;
@@ -109,6 +110,9 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     private final String developerPayLoad = "clave de seguridad";
     private String quitarAnunciosToken = "";
 
+    //Colapsing toolbar
+    CollapsingToolbarLayout collapsingToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +150,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
 
 
         titulo = findViewById(R.id.tituloPOI);
-        detalle = findViewById(R.id.detalle);
+        detalle = findViewById(R.id.direccion);
         longitud = findViewById(R.id.longitud);
         latitud = findViewById(R.id.latitud);
         imagePOI = findViewById(R.id.imagePOI);
@@ -161,7 +165,11 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         // Toolbar
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        //Set Collapsing Toolbar layout to the screen
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setTitle("Titulo");
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.vNavigation);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @SuppressWarnings("StatementWithEmptyBody")
@@ -325,16 +333,33 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                     public void onResult(PlaceBuffer places) {
                         if (places.getStatus().isSuccess() && places.getCount() > 0) {
                             final Place myPlace = places.get(0);
+
                             //obtengo la toda la info disponible del api places en la variable myPlace
                             ponerFoto(myPlace.getId());
-                            detalle.setText(myPlace.getAddress());
-                            direccion = myPlace.getAddress().toString();
-                            nombre = myPlace.getName().toString();
-                            telefono.setText(myPlace.getPhoneNumber());
+
+                            detalle.setText(myPlace.getAddress());//es la direccion
+
+                            direccion = myPlace.getAddress().toString();//para la busqueda en wikipedia
+                            nombre = myPlace.getName().toString();//para la busqueda en wikipedia
+
+                            if(myPlace.getPhoneNumber().equals("")){
+                                View vista = (View) telefono.getParent();
+                                vista.setVisibility(View.GONE);
+                            }else{
+                                View vista = (View) telefono.getParent();
+                                vista.setVisibility(View.VISIBLE);
+                                telefono.setText(myPlace.getPhoneNumber());
+                            }
+
                             //Pagina web, primero comprobamos que existe
                             Uri uri = myPlace.getWebsiteUri();
-                            if (uri!= null){
-                            web.setText(""+uri.toString());
+                            if(uri == null){
+                                View vista = (View) web.getParent();
+                                vista.setVisibility(View.GONE);
+                            }else{
+                                View vista = (View) web.getParent();
+                                vista.setVisibility(View.VISIBLE);
+                                web.setText(""+uri.toString());
                             }
 
                             //tipo.setText(""+myPlace.getPlaceTypes().toString());
@@ -342,6 +367,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                            precio.setText(""+myPlace.getPriceLevel());
                             valoracion.setRating(myPlace.getRating());
                             busca();
+
+
                         } else {
                             Log.e("", "Place not found");
                         }
@@ -351,6 +378,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
 
 
         titulo.setText(POI.getTitle());
+        collapsingToolbar.setTitle(POI.getTitle());
         //detalle.setText(POI.getDescription());
         longitud.setText(String.valueOf(POI.getLon()));
         latitud.setText(String.valueOf(POI.getLat()));
@@ -392,7 +420,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             @Override
             protected void onPreExecute() {
                 // Display a temporary image to show while bitmap is loading.
-                imagePOI.setImageResource(R.drawable.ic_photo_black_48dp);
+                imagePOI.setImageResource(R.drawable.ic_wander_paper_plane_heading);
             }
 
             @Override
@@ -601,6 +629,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             TextView title = findViewById(R.id.informacion);
             TextView wikipedia = findViewById(R.id.wiki);
             if (encontrado){
+                View vista = (View) title.getParent();
+                vista.setVisibility(View.VISIBLE);
                 title.setText(informacion);
                 wikipedia.setText(url2);
             }else{

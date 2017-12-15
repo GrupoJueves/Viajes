@@ -10,7 +10,7 @@
     app:edPosition="1">
     <!--El contenido de la actividad -->
     <include
-        layout="@layout/content_detail_poi"
+        layout="@layout/content_detail_poi_2"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <!--menu-->

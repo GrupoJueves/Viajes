@@ -65,6 +65,7 @@ public class InicioSesionActivity extends AppCompatActivity {
             editor.commit();
             Intent intent = new Intent(this, ListaItinerariosActivity.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+            finish();
         }
         else if (answer == -1){
             Snackbar.make(view, R.string.login_incorrecto, Snackbar.LENGTH_SHORT).show();
@@ -90,10 +91,10 @@ public class InicioSesionActivity extends AppCompatActivity {
     /*
     * Para evitar volver al login al darle atrás, sale de la aplicación
     * */
-    @Override protected void onRestart() {
+    /*@Override protected void onRestart() {
         super.onRestart();
         this.finish();
-    }
+    }*/
     /*
 * Comprueba si un campo está vacio, en caso de estarlo le asigna un mensaje de error
 * */
