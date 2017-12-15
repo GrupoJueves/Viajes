@@ -113,6 +113,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     //Colapsing toolbar
     CollapsingToolbarLayout collapsingToolbar;
 
+    Uri uri, uri_wiki;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -352,14 +354,14 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                             }
 
                             //Pagina web, primero comprobamos que existe
-                            Uri uri = myPlace.getWebsiteUri();
+                            uri = myPlace.getWebsiteUri();
                             if(uri == null){
                                 View vista = (View) web.getParent();
                                 vista.setVisibility(View.GONE);
                             }else{
                                 View vista = (View) web.getParent();
                                 vista.setVisibility(View.VISIBLE);
-                                web.setText(""+uri.toString());
+
                             }
 
                             //tipo.setText(""+myPlace.getPlaceTypes().toString());
@@ -632,7 +634,9 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 View vista = (View) title.getParent();
                 vista.setVisibility(View.VISIBLE);
                 title.setText(informacion);
-                wikipedia.setText(url2);
+                //wikipedia.setText(url2);
+                uri_wiki = Uri.parse(url2);
+
             }else{
                 title.setText("No encontrado");
                 wikipedia.setText("No disponoble");
@@ -708,5 +712,18 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             Toast.makeText(this, "InApp Billing service not available", Toast.LENGTH_LONG).show();
         }
     }
+
+    public void llamadaTelefono(View view) {
+        startActivity(new Intent(Intent.ACTION_DIAL,
+                Uri.parse("tel:" + telefono.getText().toString())));
+    }
+
+    public void pgWeb(View view) {
+        startActivity(new Intent(Intent.ACTION_VIEW,uri));
+    }
+    public void pgWebWiki(View view) {
+        startActivity(new Intent(Intent.ACTION_VIEW,uri_wiki));
+    }
+
 
 }
