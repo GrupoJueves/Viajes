@@ -19,8 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -108,12 +110,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         cambiarTitulo();
 
 
-        recyclerViewitinerario = (RecyclerView) findViewById(R.id.recicladorPunto);
-        recyclerViewitinerario.setHasFixedSize(true);
 
-        // Usar un administrador para LinearLayout
-        lManager = new LinearLayoutManager(this);
-        recyclerViewitinerario.setLayoutManager(lManager);
 
         //Inicializar los elementos
         listaPuntosInteres();
@@ -154,9 +151,11 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                 } else if (id == R.id.nav_visitado) {
                     //Toast.makeText(getApplicationContext(), "Marcar itinerario como visitado", Toast.LENGTH_SHORT).show();
                     ConsultaBD.changeCheck((int)id_ruta,true);
+                    setResult(RESULT_OK);
 
                 }else if (id == R.id.nav_eliminar) {
                     ConsultaBD.deleteRoute((int)id_ruta);
+                    setResult(RESULT_OK);
                     finish();
 
                 } else if (id == R.id.nav_salir) {
@@ -214,6 +213,15 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
 
         //Obtenemos el cursor con todos los puntos del usuario
         Cursor c = ConsultaBD.listadoPOIItinerario((int)id_ruta);
+
+        recyclerViewitinerario = (RecyclerView) findViewById(R.id.reciclador);
+        recyclerViewitinerario.setHasFixedSize(true);
+
+        // Usar un administrador para LinearLayout
+        lManager = new LinearLayoutManager(this);
+        recyclerViewitinerario.setLayoutManager(lManager);
+
+
         //creamos el adaptador
         adaptador = new AdaptadorPuntosInteres(this, c, this);
         //Esto seria para el caso de que no existireran rutas para este usuario
@@ -285,7 +293,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     public void onClick(AdaptadorPuntosInteres.ViewHolder holder, long id) {
         Intent intent = new Intent(this, DetailPOI.class);
         intent.putExtra("id", id);
-        startActivity(intent);
+        startActivityForResult(intent,RESULTADO_AÑADIR);
     }
 
     //Accion a realizar al volver del otra actividad
@@ -314,6 +322,16 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
             }
             break;
             case RESULTADO_AÑADIR:
+                View myView = findViewById(R.id.reciclador);
+                ViewGroup parent = (ViewGroup) myView.getParent();
+                parent.removeView(myView);
+
+                android.support.v4.widget.NestedScrollView layout = findViewById(R.id.nsv);
+
+                LayoutInflater inflater = LayoutInflater.from(this);
+                RecyclerView nuevoLayout = (RecyclerView) inflater.inflate(R.layout.recycler, null, false);
+                layout.addView(nuevoLayout);
+
                 listaPuntosInteres();
                 break;
         }

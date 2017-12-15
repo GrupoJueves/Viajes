@@ -226,7 +226,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         ID_BLOQUE_ANUNCIOS_INTERSTICIAL = getString(R.string.ads_intersticial_id_test);
         ID_INICIALIZADOR_ADS = getString(R.string.ads_initialize_test);
 
-        MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
+        //MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
         adView = (AdView) findViewById(R.id.adView);
         setAds(app.adsEnabled());
 

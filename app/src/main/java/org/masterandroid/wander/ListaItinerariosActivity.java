@@ -19,8 +19,10 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -98,12 +100,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         //inicializo la base de datos, si no existe la crea
         ConsultaBD.inicializaBD(this);
 
-        recyclerViewClientes = (RecyclerView) findViewById(R.id.reciclador);
-        recyclerViewClientes.setHasFixedSize(true);
 
-        // Usar un administrador para LinearLayout
-        lManager = new LinearLayoutManager(this);
-        recyclerViewClientes.setLayoutManager(lManager);
 
         //Inicializar los elementos
         listaitinerarios();
@@ -214,6 +211,13 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         //Obtenemos el cursor con todas las rutas del usuario
         Cursor c = ConsultaBD.listadoItinerarios(id);
 
+        recyclerViewClientes = (RecyclerView) findViewById(R.id.reciclador);
+        recyclerViewClientes.setHasFixedSize(true);
+
+        // Usar un administrador para LinearLayout
+        lManager = new LinearLayoutManager(this);
+        recyclerViewClientes.setLayoutManager(lManager);
+
         //creamos el adaptador
         adaptador = new AdaptadorItinerarios(this, c, this);
         //Esto seria para el caso de que no existireran rutas para este usuario
@@ -242,7 +246,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     public void onClick(AdaptadorItinerarios.ViewHolder holder, long id) {
         Intent intent = new Intent(this, ListaPuntosInteresActivity.class);
         intent.putExtra("id", id);
-        startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        startActivityForResult(intent, 1694,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
 
@@ -369,7 +373,20 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 break;
             case 1694:
                 if(resultCode == RESULT_OK){
+                   // listaitinerarios();
+                    View myView = findViewById(R.id.reciclador);
+                    ViewGroup parent = (ViewGroup) myView.getParent();
+                    parent.removeView(myView);
+
+                    android.support.v4.widget.NestedScrollView layout = findViewById(R.id.nsv);
+
+                    LayoutInflater inflater = LayoutInflater.from(this);
+                    RecyclerView nuevoLayout = (RecyclerView) inflater.inflate(R.layout.recycler, null, false);
+                    layout.addView(nuevoLayout);
                     listaitinerarios();
+
+
+
                 }
         }
     }
