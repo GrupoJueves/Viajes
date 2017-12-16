@@ -60,7 +60,7 @@
     <string name="registrar_correo">Registrar correo</string>
     <string name="nombre">Nombre</string>
     <string name="apellido">Apellido</string>
-    <string name="itinerarios">Itinerarios</string>
+    <string name="itinerarios">Mis Itinerarios</string>
     <string name="primer_dia_visita">Primer dia de visita</string>
     <string name="logo_subtitulo">¡Tu gestor de rutas!</string>
     <string name="cancelar">Cancelar</string>

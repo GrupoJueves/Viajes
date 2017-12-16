@@ -33,7 +33,7 @@ import java.io.FileNotFoundException;
 public class PerfilUsuarioActivity extends AppCompatActivity {
 
     private TextView correo, nombre, apellidos, telefono, username, localidad, pais, direccion;
-    private ImageView imageView;
+    private com.makeramen.roundedimageview.RoundedImageView imageView;
     private SharedPreferences pref;
     private Usuario usuario;
     private int id;

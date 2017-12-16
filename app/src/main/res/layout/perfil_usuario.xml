@@ -28,13 +28,21 @@
             android:layout_height="match_parent"
             android:layout_weight="1">
 
-            <ImageView
+            <com.makeramen.roundedimageview.RoundedImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/foto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
-                android:src="@drawable/ic_account_box"/>
+                android:src="@drawable/ic_account_box"
+                android:scaleType="fitCenter"
+                app:riv_corner_radius="6dip"
+                app:riv_border_width="3dip"
+                app:riv_border_color="@color/colorAccent"
+                app:riv_mutate_background="false"
+                app:riv_tile_mode="clamp"
+                app:riv_oval="false"/>
         </FrameLayout>
 
         <LinearLayout
@@ -48,7 +56,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/md_keylines"
+                android:layout_marginBottom="10dp"
                 android:layout_marginTop="@dimen/md_keylines"
                 android:text="Usuario"
                 android:textColor="@color/colorAccent"
@@ -59,9 +67,10 @@
                 android:id="@+id/username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/md_keylines"
+                android:layout_marginBottom="10dp"
                 android:layout_marginStart="8dp"
                 android:text="Username "
+                android:textStyle="bold"
                 android:textSize="@dimen/article_subheading" />
 
             <TextView
@@ -78,6 +87,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginBottom="18dp"
                 android:text="@string/apellido"
                 android:textSize="@dimen/article_subheading" />
 

@@ -27,8 +27,8 @@
             android:layout_height="0dp"
             android:layout_marginBottom="12dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="15dp"
-            android:text="la vuelta al mundo en 80 dias"
+            android:layout_marginTop="12dp"
+            android:text="la vg g p al mundo eb t d    tbbbba pias"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/fecha"
@@ -48,7 +48,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_launcher_round" />
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/referencia"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -58,7 +59,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ref1" />
+            android:src="@drawable/ref1"
+            android:scaleType="fitCenter"
+            app:riv_corner_radius="6dip"
+            app:riv_border_width="3dip"
+            app:riv_border_color="@color/colorAccent"
+            app:riv_mutate_background="false"
+            app:riv_tile_mode="clamp"
+            app:riv_oval="false" />
 
         <TextView
             android:id="@+id/fecha"

@@ -47,7 +47,7 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
     private TextView  nombre, apellidos, telefono, username, localidad, pais, direccion;
     private SharedPreferences pref;
     private Usuario usuario;
-    private ImageView imageView;
+    private com.makeramen.roundedimageview.RoundedImageView imageView;
     private Uri uriFoto;
     Uri mCropImageUri;
     private String uri2;
