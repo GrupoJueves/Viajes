@@ -133,7 +133,7 @@
 
         android:elevation="2dp"
         android:onClick="identificar"
-        android:text="Identificar"
+        android:text="@string/identificar"
         android:textColor="@android:color/white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/butt_cancelar"
@@ -148,7 +148,7 @@
         android:clickable="true"
         android:elevation="2dp"
         android:onClick="unico"
-        android:text="Cancelar"
+        android:text="@string/cancelar"
         android:textColor="@android:color/white"
         android:visibility="gone"
         app:layout_constraintLeft_toRightOf="@+id/butt_reg"

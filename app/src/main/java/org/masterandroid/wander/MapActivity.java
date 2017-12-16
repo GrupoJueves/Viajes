@@ -157,10 +157,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback,
 
     @Override
     public void onPoiClick(PointOfInterest poi) {
-        Toast.makeText(getApplicationContext(), "Clicked: " +
-                        poi.name + "\nPlace ID:" + poi.placeId +
-                        "\nLatitude:" + poi.latLng.latitude +
-                        " Longitude:" + poi.latLng.longitude,
+        Toast.makeText(getApplicationContext(), getString(R.string.seleccionado) + ":" +
+                        poi.name + "\n" + getString(R.string.id_lugar) + ":" + poi.placeId +
+                        "\n" + R.string.latitud + poi.latLng.latitude +
+                        R.string.longitud + poi.latLng.longitude,
                 Toast.LENGTH_SHORT).show();
     }
 

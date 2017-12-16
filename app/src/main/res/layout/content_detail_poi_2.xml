@@ -75,7 +75,7 @@
                         android:id="@+id/tituloPOI"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Titulo"
+                        android:text="@string/titulo"
                         android:textAlignment="center"
                         android:textColor="@color/colorAccent"
                         android:textSize="25sp"
@@ -96,7 +96,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/md_keylines"
                         android:layout_marginTop="@dimen/md_keylines"
-                        android:text="Localización"
+                        android:text="@string/localizacion"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/article_titles" />
 
@@ -164,7 +164,7 @@
                         android:onClick="pgWeb"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Web oficial del lugar"
+                        android:text="@string/web"
                         android:textSize="@dimen/article_subheading"
                         android:textColor="@color/enlaces"/>
 
@@ -178,7 +178,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:text="Categoria"
+                    android:text="@string/categoria"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="gone" />
@@ -190,7 +190,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:text="Precio"
+                    android:text="@string/precio"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:visibility="gone" />
@@ -207,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/md_keylines"
                         android:layout_marginTop="@dimen/md_keylines"
-                        android:text="Información"
+                        android:text="@string/informacion"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/article_titles" />
 
@@ -231,7 +231,7 @@
                         android:background="@drawable/ripplr2"
                         android:clickable="true"
                         android:onClick="pgWebWiki"
-                        android:text="Wikipedia"
+                        android:text="@string/wikipedia"
                         android:textSize="@dimen/article_subheading"
                         android:textColor="@color/enlaces" />
 
@@ -243,7 +243,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/md_keylines"
                     android:layout_marginTop="@dimen/md_keylines"
-                    android:text="Valoración Google"
+                    android:text="@string/valoracion_google"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/article_titles" />
 
@@ -265,7 +265,7 @@
                     android:id="@+id/latitud"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Latitud"
+                    android:text="@string/latitud"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:visibility="gone" />
@@ -274,7 +274,7 @@
                     android:id="@+id/longitud"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Longitud"
+                    android:text="@string/longitud"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     android:visibility="gone" />

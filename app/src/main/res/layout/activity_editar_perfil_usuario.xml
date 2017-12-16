@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="5dp"
-                    android:text="Nombre" />
+                    android:text="@string/usuario_nombre" />
             </LinearLayout>
 
             <LinearLayout
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="5dp"
-                    android:text="Apellidos" />
+                    android:text="@string/usuario_apellidos" />
             </LinearLayout>
 
             <LinearLayout
@@ -137,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="5dp"
-                    android:text="Telefono" />
+                    android:text="@string/usuario_telefono" />
             </LinearLayout>
 
             <LinearLayout
@@ -168,7 +168,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="5dp"
                     android:inputType="number"
-                    android:text="Edad" />
+                    android:text="@string/usuario_edad" />
             </LinearLayout>
 
             <LinearLayout
@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="5dp"
-                    android:text="Localización" />
+                    android:text="@string/usuario_localizacion" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

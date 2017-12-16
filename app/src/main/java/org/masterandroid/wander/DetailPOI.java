@@ -185,7 +185,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                     //Toast.makeText(getApplicationContext(), "Mostrar punto en mapa", Toast.LENGTH_SHORT).show();
                 } else if (id == R.id.nav_poi_visitado) {
                     if(ConsultaBD.changeCheckPoi((int)id_poi,true)){
-                        Toast.makeText(getApplicationContext(), "Marcado como visitado", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.marcar_como_visitado, Toast.LENGTH_SHORT).show();
                     }
                 }else if (id == R.id.nav_poi_eliminar) {
                    ConsultaBD.deletePoiRoute((int)id_poi);
@@ -290,7 +290,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         popDialog.setView(dialogView);
 
         // Button OK
-        popDialog.setTitle("Nueva valoración");
+        popDialog.setTitle(R.string.nueva_valoracion);
         popDialog.setPositiveButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -638,8 +638,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 uri_wiki = Uri.parse(url2);
 
             }else{
-                title.setText("No encontrado");
-                wikipedia.setText("No disponoble");
+                title.setText(R.string.no_encontrado);
+                wikipedia.setText(R.string.no_disponible);
             }
 
         }
@@ -709,7 +709,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 e.printStackTrace();
             }
         } else {
-            Toast.makeText(this, "InApp Billing service not available", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.servicio_no_disponible, Toast.LENGTH_LONG).show();
         }
     }
 

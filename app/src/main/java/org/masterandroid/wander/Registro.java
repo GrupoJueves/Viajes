@@ -72,11 +72,11 @@ public class Registro extends AppCompatActivity {
                     getWindow().setExitTransition(slide);
                 }else{
                     contraseña2.requestFocus();
-                    Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.contrasenas_no_coinciden, Toast.LENGTH_SHORT).show();
                 }
             }
         }else{
-            email.setError("e-mail no valido");
+            email.setError(getString(R.string.email_no_valido));
             email.requestFocus();
         }
 
@@ -90,7 +90,7 @@ public class Registro extends AppCompatActivity {
     public boolean checkEmpty(EditText input){
         if(TextUtils.isEmpty(input.getText().toString())){
             //input.setError(getString(R.string.campo_vacio_error));
-            Toast.makeText(this, "No ha escrito ninguna contraseña", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.no_hay_contraseña, Toast.LENGTH_SHORT).show();
             input.requestFocus();
             return true;
         }

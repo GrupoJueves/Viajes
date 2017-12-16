@@ -169,11 +169,11 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                     return true;
                 } else if (id == R.id.nav_reiniciar_anuncios) {
                     if (quitarAnunciosToken.equals("")) {
-                        Toast.makeText(getApplicationContext(), "No hay ninguna compra para reinciar", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.ninguna_compra_reiniciar, Toast.LENGTH_SHORT).show();
                     } else {
                         backToBuy(quitarAnunciosToken);
                         quitarAnunciosToken = "";
-                        Toast.makeText(getApplicationContext(), "Compra reiniciada", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), R.string.compra_reiniciada, Toast.LENGTH_SHORT).show();
                     }
                     return true;
                 }
@@ -362,7 +362,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                         String developerPayload = jo.getString("developerPayload");
                         String purchaseToken = jo.getString("purchaseToken");
                         if (sku.equals(ID_ARTICULO)) {
-                            Toast.makeText(this, "Compra completada", Toast.LENGTH_LONG).show();
+                            Toast.makeText(this, R.string.compra_completada, Toast.LENGTH_LONG).show();
                             setAds(false);
                         }
                     } catch (JSONException e) {

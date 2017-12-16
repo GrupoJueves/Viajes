@@ -130,7 +130,7 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
             options.inJustDecodeBounds = false;
             return BitmapFactory.decodeStream(contexto.getContentResolver() .openInputStream(Uri.parse(uri)), null, options);
         } catch (FileNotFoundException e) {
-            Toast.makeText(contexto, "Fichero/recurso no encontrado",
+            Toast.makeText(contexto, R.string.archivo_no_encontrado,
                     Toast.LENGTH_LONG).show(); e.printStackTrace();
             return null; }
     }
