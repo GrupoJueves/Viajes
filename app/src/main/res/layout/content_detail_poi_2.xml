@@ -83,6 +83,8 @@
                 </LinearLayout>
 
 
+
+
                 <LinearLayout
                     android:id="@+id/localizacion"
                     android:layout_width="match_parent"
@@ -105,7 +107,7 @@
 
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Direccion"
+                        android:text=""
                         android:textSize="16sp" />
 
 
@@ -114,9 +116,22 @@
 
                 <LinearLayout
                     android:id="@+id/info_telefonica"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:background="@drawable/ripplr2"
+                    android:clickable="true"
+                    android:onClick="llamadaTelefono"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/logo_telefono"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="14dp"
+                        android:src="@drawable/ic_call" />
 
                     <TextView
                         android:id="@+id/telefono"
@@ -125,10 +140,9 @@
                         android:layout_marginTop="10dp"
                         android:paddingLeft="8dp"
                         android:paddingRight="8dp"
-                        android:text="Telefono"
-                        android:background="@drawable/ripplr2"
-                        android:clickable="true"
-                        android:onClick="llamadaTelefono"
+                        android:text="+34 9655825"
+                        android:textColor="@color/telefono"
+
                         android:textSize="@dimen/article_subheading" />
 
                 </LinearLayout>
@@ -137,7 +151,8 @@
                     android:id="@+id/info_web"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/web"
@@ -191,7 +206,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/md_keylines"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="@dimen/md_keylines"
                         android:text="Información"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/article_titles" />

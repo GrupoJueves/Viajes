@@ -38,15 +38,7 @@ public class InicioSesionActivity extends AppCompatActivity {
         getWindow().setExitTransition(slide);
     }
 
-    public void mostrarContraseña(View v) {
-        EditText contraseña = (EditText) findViewById(R.id.contraseña);
-        CheckBox mostrar = (CheckBox) findViewById(R.id.mostrar_contraseña);
-        if (mostrar.isChecked()) {
-            contraseña.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
-        } else {
-            contraseña.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        }
-    }
+
 
     public void acceder (View view){
         if (checkEmpty(email)) return;

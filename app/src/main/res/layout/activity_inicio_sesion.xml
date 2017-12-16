@@ -58,6 +58,10 @@
         android:layout_marginTop="8dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
+        app:passwordToggleContentDescription="descripcion"
+        app:passwordToggleDrawable="@drawable/toogle_password"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorAccent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_email">
 
@@ -82,17 +86,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_contraseña" />
 
-    <CheckBox
-        android:id="@+id/mostrar_contraseña"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:onClick="mostrarContraseña"
-        android:text="@string/mostrar_contrasena"
-        android:textColor="@android:color/darker_gray"
-        android:textSize="12dp"
-        app:layout_constraintLeft_toRightOf="@+id/recordarme"
-        app:layout_constraintTop_toTopOf="@+id/recordarme" />
+
 
     <Button
         android:id="@+id/butt_acceder"

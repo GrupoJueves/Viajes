@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.masterandroid.wander.Registro">
+
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
     android:background="@color/background"
-    tools:context="org.masterandroid.wander.Registro">
+    >
 
     <ImageView
         android:id="@+id/logo"
@@ -46,7 +53,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/correo"
+            android:hint="E-mail"
             android:textColorHint="@color/colorAccent"
             android:imeOptions="actionNext"
             android:inputType="textEmailAddress"
@@ -60,6 +67,10 @@
         android:layout_marginTop="8dp"
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
+        app:passwordToggleContentDescription="descripcion"
+        app:passwordToggleDrawable="@drawable/toogle_password"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorAccent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/til_email">
 
@@ -68,7 +79,32 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/contrasena"
-            android:imeOptions="actionDone"
+            android:imeOptions="actionNext"
+            android:inputType="textPassword"
+            android:textColorHint="@color/colorAccent"
+            android:textSize="@dimen/article_subheading" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til_contraseña2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:minHeight="?android:attr/actionBarSize"
+        android:transitionGroup="true"
+        app:passwordToggleContentDescription="descripcion"
+        app:passwordToggleDrawable="@drawable/toogle_password"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorAccent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_contraseña">
+
+        <EditText
+            android:id="@+id/contraseña2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Repita contraseña"
+            android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:textColorHint="@color/colorAccent"
             android:textSize="@dimen/article_subheading" />
@@ -82,7 +118,7 @@
         android:minHeight="?android:attr/actionBarSize"
         android:transitionGroup="true"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_contraseña">
+        app:layout_constraintTop_toBottomOf="@+id/til_contraseña2">
 
         <EditText
             android:id="@+id/nombre"
@@ -137,3 +173,4 @@
         app:layout_constraintTop_toBottomOf="@+id/til_apellido" />
 
 </android.support.constraint.ConstraintLayout>
+</ScrollView>
