@@ -48,16 +48,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:onClick="galeria"
+                android:onClick="onSelectImageClick"
                 android:src="@drawable/ic_collections" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:onClick="tomarFoto"
-                android:src="@drawable/ic_photo_camera" />
+
 
             <ImageView
                 android:id="@+id/imageView3"

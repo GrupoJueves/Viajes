@@ -94,37 +94,37 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
         if(usuario != null){
 
-            if (usuario.getNombre().equals("") || usuario.getNombre() == null){
+            if (usuario.getNombre().equals("") || usuario.getNombre().equals("null")){
                 nombre.setVisibility(View.INVISIBLE);
             }else{
                 nombre.setText(usuario.getNombre());
             }
 
-            if (usuario.getApellidos().equals("")|| usuario.getApellidos() == null){
+            if (usuario.getApellidos().equals("")|| usuario.getApellidos().equals("null")){
                 apellidos.setVisibility(View.INVISIBLE);
             }else{
                 apellidos.setText(usuario.getApellidos());
             }
 
-            if (usuario.getUsername().equals("")|| usuario.getUsername() == null){
+            if (usuario.getUsername().equals("")|| usuario.getUsername().equals("null")){
                 username.setVisibility(View.INVISIBLE);
             }else{
                 username.setText(usuario.getUsername());
             }
 
-            if (usuario.getWeb().equals("")|| usuario.getWeb() == null){
+            if (usuario.getWeb().equals("")|| usuario.getWeb().equals("null")){
                 direccion.setVisibility(View.GONE);
             }else{
                 direccion.setText(usuario.getWeb());
             }
 
-            if (usuario.getLugar().equals("")|| usuario.getLugar() == null){
+            if (usuario.getLugar().equals("")|| usuario.getLugar().equals("null")){
                 localidad.setVisibility(View.GONE);
             }else{
                 localidad.setText(usuario.getLugar());
             }
 
-            if (usuario.getPais().equals("")|| usuario.getPais() == null){
+            if (usuario.getPais().equals("")|| usuario.getPais().equals("null")){
                 pais.setVisibility(View.GONE);
             }else{
                 pais.setText(usuario.getPais());

@@ -40,7 +40,7 @@ public class ConsultaBD {
         try{
             bdw.execSQL("INSERT INTO user (email,password,name,surname) VALUES ('"+email+"' , '"+password+"' , '"+name+"' , '"+surname+"')");
             int id = identificar(email,password);
-            bdw.execSQL("INSERT INTO user_data (user) VALUES ("+id+")");
+            bdw.execSQL("INSERT INTO user_data (user,photo) VALUES ("+id+", '')");
         }
         catch (Exception e){
             correcto = false;

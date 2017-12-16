@@ -1,17 +1,23 @@
 package org.masterandroid.wander;
 
+import android.*;
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +31,8 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.theartofdev.edmodo.cropper.CropImage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,6 +49,7 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
     private Usuario usuario;
     private ImageView imageView;
     private Uri uriFoto;
+    Uri mCropImageUri;
     private String uri2;
     private int id;
     final static int RESULTADO_GALERIA = 2;
@@ -143,41 +152,72 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
             return null; }
     }
 
+
     @Override
+    @SuppressLint("NewApi")
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == RESULTADO_GALERIA && resultCode == Activity.RESULT_OK) {
+       /* if (requestCode == RESULTADO_GALERIA && resultCode == Activity.RESULT_OK) {
             uri2 =  data.getDataString();
             ponerFoto(imageView, uri2);
         } else if (requestCode == RESULTADO_FOTO && resultCode == Activity.RESULT_OK &&  uriFoto!=null) {
             uri2 = uriFoto.toString();
             ponerFoto(imageView, uri2);
+        }*/
+
+        if (requestCode == CropImage.PICK_IMAGE_CHOOSER_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+            Uri imageUri = CropImage.getPickImageResultUri(this, data);
+
+
+            // For API >= 23 we need to check specifically that we have permissions to read external storage.
+            if (CropImage.isReadExternalStoragePermissionsRequired(this, imageUri)) {
+                // request permissions and handle the result in onRequestPermissionsResult()
+                mCropImageUri = imageUri;
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE);
+            } else {
+                // no permissions required or already grunted, can start crop image activity
+                startCropImageActivity(imageUri);
+            }
         }
+        // handle result of CropImageActivity
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                uri2 = result.getUri().toString();
+                ((ImageView) findViewById(R.id.foto)).setImageURI(result.getUri());
+                Toast.makeText(
+                        this, "Cropping successful, Sample: " + result.getSampleSize()+" URI2: "+uri2, Toast.LENGTH_LONG)
+                        .show();
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                Toast.makeText(this, "Cropping failed: " + result.getError(), Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 
     public void rellenarInfo(){
         usuario = ConsultaBD.infoUser(id);
         if(usuario != null){
-            if (!usuario.getNombre().equals("") && usuario.getNombre()!= null){
+            if (!usuario.getNombre().equals("") && !usuario.getNombre().equals("null")){
                 nombre.setText(usuario.getNombre());
             }
 
-            if (!usuario.getApellidos().equals("") && usuario.getApellidos()!= null){
+            if (!usuario.getApellidos().equals("") && !usuario.getApellidos().equals("null")){
                 apellidos.setText(usuario.getApellidos());
             }
 
-            if (!usuario.getUsername().equals("") && usuario.getUsername()!= null){
+            if (!usuario.getUsername().equals("") && !usuario.getUsername().equals("null")){
                 username.setText(usuario.getUsername());
             }
 
-            if (!usuario.getWeb().equals("") && usuario.getWeb()!= null){
+            if (!usuario.getWeb().equals("") && !usuario.getWeb().equals("null")){
                 direccion.setText(usuario.getWeb());
             }
 
-            if (!usuario.getLugar().equals("") && usuario.getLugar()!= null){
+            if (!usuario.getLugar().equals("") && !usuario.getLugar().equals("null")){
                 localidad.setText(usuario.getLugar());
             }
 
-            if (!usuario.getPais().equals("") && usuario.getPais()!= null){
+            if (!usuario.getPais().equals("") && !usuario.getPais().equals("null")){
                 pais.setText(usuario.getPais());
             }
 
@@ -217,6 +257,39 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                CropImage.startPickImageActivity(this);
+            } else {
+                Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
+            }
+        }
+        if (requestCode == CropImage.PICK_IMAGE_PERMISSIONS_REQUEST_CODE) {
+            if (mCropImageUri != null && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // required permissions granted, start crop image activity
+                startCropImageActivity(mCropImageUri);
+            } else {
+                Toast.makeText(this, "Cancelling, required permissions are not granted", Toast.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void startCropImageActivity(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setAspectRatio(1,1)
+                .start(this);
+    }
+
+    @SuppressLint("NewApi")
+    public void onSelectImageClick(View view) {
+        if (CropImage.isExplicitCameraPermissionRequired(this)) {
+            requestPermissions(new String[]{android.Manifest.permission.CAMERA}, CropImage.CAMERA_CAPTURE_PERMISSIONS_REQUEST_CODE);
+        } else {
+            CropImage.startPickImageActivity(this);
+        }
     }
 
 }
