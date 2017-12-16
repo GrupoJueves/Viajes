@@ -95,5 +95,6 @@
     <string name="quitar_anuncios">Quitar Anuncios</string>
     <string name="mostrar_en_mapa">Mostrar en mapa</string>
     <string name="poner_anuncios">Reiniciar Ads (Fase Desarrollo)</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

@@ -73,7 +73,7 @@
             android:theme="@style/Dialogo" />
         <activity
             android:name=".PickImage"
-            android:label="Seleccione Imagen"
+            android:label="Elija Imagen"
             android:theme="@style/Dialogo" />
         <activity
             android:name=".PerfilUsuarioActivity"
@@ -83,8 +83,13 @@
             android:name=".EditarPerfilUsuarioActivity"
             android:label="@string/title_activity_EditarPerfilUsuario"
             android:theme="@style/AppTheme" />
+
+
+
         <activity android:name=".AddComment" />
-        <activity android:name=".MapaRuta"></activity>
+        <activity android:name=".MapaRuta" />
+
+
     </application>
 
 </manifest>

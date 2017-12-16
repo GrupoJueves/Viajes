@@ -1,5 +1,6 @@
 package org.masterandroid.wander;
 
+import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -242,6 +243,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     }
 
     //accion de pulsar sobre un elemento de la lista
+    @SuppressLint("RestrictedApi")
     @Override
     public void onClick(AdaptadorItinerarios.ViewHolder holder, long id) {
         Intent intent = new Intent(this, ListaPuntosInteresActivity.class);

@@ -14,6 +14,8 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,25 +35,33 @@ import java.io.FileNotFoundException;
 
 public class EditarPerfilUsuarioActivity extends AppCompatActivity {
 
-    private EditText nombre, apellidos, telefono, edad, lugar;
-    private ImageView imageView;
-    private Uri uriFoto;
+
+    private TextView  nombre, apellidos, telefono, username, localidad, pais, direccion;
     private SharedPreferences pref;
     private Usuario usuario;
+    private ImageView imageView;
+    private Uri uriFoto;
+    private String uri2;
     private int id;
     final static int RESULTADO_GALERIA = 2;
     final static int RESULTADO_FOTO = 3;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editar_perfil_usuario);
+        setContentView(R.layout.contenedor_editar_perfil);
 
-        nombre = findViewById(R.id.nombreEdit);
-        apellidos = findViewById(R.id.apellidoEdit);
-        telefono = findViewById(R.id.telefonoEdit);
-        edad = findViewById(R.id.edadEdit);
-        lugar = findViewById(R.id.localizacionEdit);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        nombre = findViewById(R.id.nombre);
+        apellidos = findViewById(R.id.apellidos);
+        telefono = findViewById(R.id.telefono);
+        username = findViewById(R.id.username);
+        localidad = findViewById(R.id.poblacion);
+        pais = findViewById(R.id.pais);
+        direccion = findViewById(R.id.direccion);
         imageView = findViewById(R.id.foto);
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -59,14 +69,8 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
         if (id == -1) {
             this.finish();
         }
-        usuario = ConsultaBD.infoUser(id);
-        if(usuario != null){
-            nombre.setText(usuario.getNombre());
-            apellidos.setText(usuario.getApellidos());
-            telefono.setText(String.valueOf(usuario.getTelefono()));
-            edad.setText(String.valueOf(usuario.getEdad()));
-            lugar.setText(usuario.getLugar());
-        }
+
+        rellenarInfo();
     }
 
     @Override
@@ -87,7 +91,9 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
     }
 
     public void guardar(View view){
+        getInfo();
         ConsultaBD.updateUser(usuario, id);
+        setResult(RESULT_OK);
         finish();
     }
 
@@ -100,7 +106,9 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
         startActivityForResult(intent, RESULTADO_FOTO);
     }
 
-    public void eliminarFoto(View view) {
+    public void eliminarFoto(View view)
+    {
+        uri2 = "";
         ponerFoto(imageView, null);
     }
 
@@ -138,9 +146,77 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == RESULTADO_GALERIA && resultCode == Activity.RESULT_OK) {
-            ponerFoto(imageView, data.getDataString());
-        } else if (requestCode == RESULTADO_FOTO && resultCode == Activity.RESULT_OK && lugar!=null && uriFoto!=null) {
-            ponerFoto(imageView, uriFoto.toString());
+            uri2 =  data.getDataString();
+            ponerFoto(imageView, uri2);
+        } else if (requestCode == RESULTADO_FOTO && resultCode == Activity.RESULT_OK &&  uriFoto!=null) {
+            uri2 = uriFoto.toString();
+            ponerFoto(imageView, uri2);
         }
     }
+
+    public void rellenarInfo(){
+        usuario = ConsultaBD.infoUser(id);
+        if(usuario != null){
+            if (!usuario.getNombre().equals("") && usuario.getNombre()!= null){
+                nombre.setText(usuario.getNombre());
+            }
+
+            if (!usuario.getApellidos().equals("") && usuario.getApellidos()!= null){
+                apellidos.setText(usuario.getApellidos());
+            }
+
+            if (!usuario.getUsername().equals("") && usuario.getUsername()!= null){
+                username.setText(usuario.getUsername());
+            }
+
+            if (!usuario.getWeb().equals("") && usuario.getWeb()!= null){
+                direccion.setText(usuario.getWeb());
+            }
+
+            if (!usuario.getLugar().equals("") && usuario.getLugar()!= null){
+                localidad.setText(usuario.getLugar());
+            }
+
+            if (!usuario.getPais().equals("") && usuario.getPais()!= null){
+                pais.setText(usuario.getPais());
+            }
+
+            if (usuario.getTelefono()!=0){
+                telefono.setText(String.valueOf(usuario.getTelefono()));
+            }
+
+            //poner la foto
+            if(!usuario.getPhoto().equals("") && usuario.getPhoto()!= null){
+
+                ponerFoto(imageView,usuario.getPhoto());
+            }
+
+        }
+    }
+    private void getInfo(){
+        if (usuario==null){
+            usuario = new Usuario();
+        }
+
+        usuario.setNombre(""+nombre.getText());
+        usuario.setApellidos(""+apellidos.getText());
+        usuario.setLugar(""+localidad.getText());
+        usuario.setPais(""+pais.getText());
+        usuario.setUsername(""+username.getText());
+        usuario.setWeb(""+direccion.getText());
+        int tel = 0;
+        try {
+           tel = Integer.parseInt(telefono.getText().toString());
+        }catch (Exception e){
+            Log.e("error","parse "+telefono.getText().toString());
+        }
+        usuario.setTelefono(0+tel);
+
+        if(uri2!=null){
+            usuario.setPhoto(uri2);
+        }
+
+
+    }
+
 }

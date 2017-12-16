@@ -35,7 +35,7 @@ public class BaseDeDatos extends SQLiteOpenHelper {
                 " edad INTEGER, " +
                 "pais TEXT, " +
                 "username TEXT, " + //nombre de usuario, puede ser distinto del nombre real
-                "web TEXT, " + //pagina personal, si existe
+                "web TEXT, " + //como direccion
                 "referencia INTEGER, " + //Para poder poner imagenes de referencia como en el itinerario
                 "FOREIGN KEY(user) REFERENCES user(user_id) ON DELETE CASCADE )");
 

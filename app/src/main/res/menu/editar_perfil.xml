@@ -4,7 +4,7 @@
     <item
         android:id="@+id/accion_guardar"
         android:title="@string/guardar"
-        android:icon="@android:drawable/ic_input_add"
+        android:icon="@android:drawable/ic_menu_save"
         android:orderInCategory="30"
         app:showAsAction="ifRoom"/>
 </menu>
