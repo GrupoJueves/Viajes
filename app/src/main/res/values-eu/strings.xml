@@ -133,4 +133,6 @@
     <string name="pais">Herrialdea</string>
     <string name="contacto">Kontaktua</string>
     <string name="email">Emaila</string>
+
+    <string name="test_warning">KONTUZ\nApp hau proba akademikoa da. Ez dago guztiz inplementatuta</string>
 </resources>

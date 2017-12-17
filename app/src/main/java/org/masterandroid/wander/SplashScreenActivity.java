@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 /**
  * Created by gotz on 13/12/17.
@@ -28,6 +29,7 @@ public class SplashScreenActivity extends Activity {
         setContentView(R.layout.activity_splashscreen);
         context = this;
         ConsultaBD.inicializaBD(this);
+        Toast.makeText(this, R.string.test_warning, Toast.LENGTH_LONG).show();
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
