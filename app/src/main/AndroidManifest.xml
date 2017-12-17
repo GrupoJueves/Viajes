@@ -23,7 +23,7 @@
         <!-- Metadatos google maps -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDwLw1F9Exa2juI9b4AeEjGmZRM8e8Xm74" />
+            android:value="AIzaSyCST7uazqirS8tpcWKOa5-N9_tbY8uxw24" />
         <!--
             Apikey de release
             android:value="AIzaSyCST7uazqirS8tpcWKOa5-N9_tbY8uxw24" />
@@ -73,7 +73,7 @@
             android:theme="@style/Dialogo" />
         <activity
             android:name=".PickImage"
-            android:label="Seleccione Imagen"
+            android:label="Elija Imagen"
             android:theme="@style/Dialogo" />
         <activity
             android:name=".PerfilUsuarioActivity"
@@ -83,8 +83,14 @@
             android:name=".EditarPerfilUsuarioActivity"
             android:label="@string/title_activity_EditarPerfilUsuario"
             android:theme="@style/AppTheme" />
+
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat"/> <!-- optional (needed if default theme has no action bar) -->
+
         <activity android:name=".AddComment" />
-        <activity android:name=".MapaRuta"></activity>
+        <activity android:name=".MapaRuta" />
+
+
     </application>
 
 </manifest>

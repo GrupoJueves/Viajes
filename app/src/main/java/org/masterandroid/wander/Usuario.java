@@ -12,6 +12,7 @@ public class Usuario {
         edad = 0;
         telefono = 0;
         lugar = "";
+        photo="";
     }
 
     public Usuario(String correo, String nombre, String apellidos, int telefono, int edad, String lugar) {

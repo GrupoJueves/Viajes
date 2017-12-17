@@ -52,6 +52,7 @@
     <string name="iniciar_sesion">Start session</string>
     <string name="correo">Email</string>
     <string name="contrasena">Password</string>
+    <string name="repite_contrasena">Repeat password</string>
     <string name="recordarme">Remember</string>
     <string name="mostrar_contrasena">Show password</string>
     <string name="borrar">Delete</string>

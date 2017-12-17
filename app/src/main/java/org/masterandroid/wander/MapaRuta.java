@@ -163,7 +163,7 @@ public class MapaRuta extends FragmentActivity implements OnMapReadyCallback {
     }
 
     private void positionCamera(DirectionsRoute route, GoogleMap mMap) {
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(route.legs[overview].startLocation.lat, route.legs[overview].startLocation.lng), 12));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(route.legs[overview].startLocation.lat, route.legs[overview].startLocation.lng), 15));
     }
 
     private void addPolyline(DirectionsResult results, GoogleMap mMap) {
@@ -172,7 +172,7 @@ public class MapaRuta extends FragmentActivity implements OnMapReadyCallback {
     }
 
     private String getEndLocationTitle(DirectionsResult results){
-        return  "Time :"+ results.routes[overview].legs[overview].duration.humanReadable + " Distance :" + results.routes[overview].legs[overview].distance.humanReadable;
+        return  "Tiempo :"+ results.routes[overview].legs[overview].duration.humanReadable + " Distancia :" + results.routes[overview].legs[overview].distance.humanReadable;
     }
 
     private GeoApiContext getGeoContext() {

@@ -1,21 +1,30 @@
 package org.masterandroid.wander;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.FileNotFoundException;
 
 /**
  * Created by rodriii on 6/12/17.
@@ -23,37 +32,39 @@ import android.widget.Toast;
 
 public class PerfilUsuarioActivity extends AppCompatActivity {
 
-    private TextView correo, nombre, apellidos, telefono, edad, lugar;
+    private TextView correo, nombre, apellidos, telefono, username, localidad, pais, direccion;
+    private com.makeramen.roundedimageview.RoundedImageView imageView;
     private SharedPreferences pref;
     private Usuario usuario;
+    private int id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_perfil_usuario);
+        setContentView(R.layout.contenedor_perfil_usuario);
 
-        correo = findViewById(R.id.correoUsuario);
-        nombre = findViewById(R.id.nombreUsuario);
-        apellidos = findViewById(R.id.apellidoUsuario);
-        telefono = findViewById(R.id.telefonoUsuario);
-        edad = findViewById(R.id.edadUsuario);
-        lugar = findViewById(R.id.localizacionUsuario);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        correo = findViewById(R.id.e_mail);
+        nombre = findViewById(R.id.nombre);
+        apellidos = findViewById(R.id.apellido);
+        telefono = findViewById(R.id.telefono);
+        username = findViewById(R.id.username);
+        localidad = findViewById(R.id.poblacion);
+        pais = findViewById(R.id.pais);
+        direccion = findViewById(R.id.direcion);
+        imageView = findViewById(R.id.foto);
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
-        int id = pref.getInt("id", -1);
+        id = pref.getInt("id", -1);
 
         if (id == -1) {
             this.finish();
         }
-        usuario = ConsultaBD.infoUser(id);
-        if(usuario != null){
-            correo.setText(usuario.getCorreo());
-            nombre.setText(usuario.getNombre());
-            apellidos.setText(usuario.getApellidos());
-            telefono.setText(String.valueOf(usuario.getTelefono()));
-            edad.setText(String.valueOf(usuario.getEdad()));
-            lugar.setText(usuario.getLugar());
-        }
+
+        rellenarInfo();
     }
 
     @Override
@@ -75,6 +86,100 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
     public void lanzarEditar(View view){
         Intent i = new Intent(this, EditarPerfilUsuarioActivity.class);
-        startActivity(i);
+        startActivityForResult(i,1);
     }
+
+    public void rellenarInfo(){
+        usuario = ConsultaBD.infoUser(id);
+
+        if(usuario != null){
+
+            if (usuario.getNombre().equals("") || usuario.getNombre().equals("null")){
+                nombre.setVisibility(View.INVISIBLE);
+            }else{
+                nombre.setText(usuario.getNombre());
+            }
+
+            if (usuario.getApellidos().equals("")|| usuario.getApellidos().equals("null")){
+                apellidos.setVisibility(View.INVISIBLE);
+            }else{
+                apellidos.setText(usuario.getApellidos());
+            }
+
+            if (usuario.getUsername().equals("")|| usuario.getUsername().equals("null")){
+                username.setVisibility(View.INVISIBLE);
+            }else{
+                username.setText(usuario.getUsername());
+            }
+
+            if (usuario.getWeb().equals("")|| usuario.getWeb().equals("null")){
+                direccion.setVisibility(View.GONE);
+            }else{
+                direccion.setText(usuario.getWeb());
+            }
+
+            if (usuario.getLugar().equals("")|| usuario.getLugar().equals("null")){
+                localidad.setVisibility(View.GONE);
+            }else{
+                localidad.setText(usuario.getLugar());
+            }
+
+            if (usuario.getPais().equals("")|| usuario.getPais().equals("null")){
+                pais.setVisibility(View.GONE);
+            }else{
+                pais.setText(usuario.getPais());
+            }
+
+            if (usuario.getTelefono()==0 ){
+                telefono.setVisibility(View.GONE);
+            }else{
+                telefono.setText(String.valueOf(usuario.getTelefono()));
+            }
+
+           correo.setText(usuario.getCorreo()); //el correo siempre existe
+
+
+            //poner la foto
+            if(!usuario.getPhoto().equals("") && usuario.getPhoto()!= null){
+
+                ponerFoto(imageView,usuario.getPhoto());
+            }
+
+
+        }
+
+    }
+
+    protected void ponerFoto(ImageView imageView, String uri) {
+        if (uri != null) {
+            imageView.setImageBitmap(reduceBitmap(this, uri, 1024, 1024));
+        } else {
+            imageView.setImageBitmap(null);
+        }
+    }
+
+    public static Bitmap reduceBitmap(Context contexto, String uri, int maxAncho, int maxAlto) {
+        try {
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(contexto.getContentResolver()
+                    .openInputStream(Uri.parse(uri)), null, options);
+            options.inSampleSize = (int) Math.max(
+                    Math.ceil(options.outWidth / maxAncho),
+                    Math.ceil(options.outHeight / maxAlto));
+            options.inJustDecodeBounds = false;
+            return BitmapFactory.decodeStream(contexto.getContentResolver() .openInputStream(Uri.parse(uri)), null, options);
+        } catch (FileNotFoundException e) {
+            Toast.makeText(contexto, R.string.archivo_no_encontrado,
+                    Toast.LENGTH_LONG).show(); e.printStackTrace();
+            return null; }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == RESULT_OK){
+            rellenarInfo();
+        }
+    }
+
 }

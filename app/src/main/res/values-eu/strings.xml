@@ -47,6 +47,7 @@
     <string name="iniciar_sesion">Hasieratu sesioa</string>
     <string name="correo">Eposta</string>
     <string name="contrasena">Pasahitza</string>
+    <string name="repite_contrasena">Errepikatu pasahitza</string>
     <string name="recordarme">Gogorarazi</string>
     <string name="mostrar_contrasena">Erakutsi pasahitza</string>
     <string name="borrar">Ezabatu</string>

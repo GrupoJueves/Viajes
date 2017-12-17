@@ -99,7 +99,8 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
     //ViewHolder con los elementos a modificar
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView titulo, fecha;
-        ImageView check,  imageRef;
+        ImageView check;
+        com.makeramen.roundedimageview.RoundedImageView  imageRef;
         android.support.constraint.ConstraintLayout itemView;
 
         public ViewHolder(View vista) {
@@ -155,9 +156,7 @@ public class AdaptadorPuntosInteres extends RecyclerView.Adapter<AdaptadorPuntos
 
         int ref = 0+c.getInt(c.getColumnIndex("categoria"));
         int icono = iconos.iconoCategoria(ref);
-        bitmap1 = BitmapFactory.decodeResource(contexto.getResources(),icono);
-        circularBitmap1 = ImageConverter.getRoundedCornerBitmap(bitmap1, 40);
-        holder.imageRef.setImageBitmap(circularBitmap1);
+        holder.imageRef.setImageResource(icono);
         //holder.imageRef.setImageResource(icono);
     }
 

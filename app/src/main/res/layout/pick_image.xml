@@ -6,7 +6,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <ImageView
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ref1"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -17,9 +19,20 @@
         android:tag="1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ref1" />
+        android:focusable="true"
+        android:src="@drawable/ref1"
+        android:scaleType="fitCenter"
+        app:riv_corner_radius="6dip"
+        app:riv_border_width="3dip"
+        app:riv_border_color="@color/colorAccent"
+        app:riv_mutate_background="false"
+        app:riv_tile_mode="clamp"
+        app:riv_oval="false"/>
 
-    <ImageView
+
+
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ref2"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -33,9 +46,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ref1"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ref2" />
+        android:src="@drawable/ref2"
+        android:scaleType="fitCenter"
+        app:riv_corner_radius="6dip"
+        app:riv_border_width="3dip"
+        app:riv_border_color="@color/colorAccent"
+        app:riv_mutate_background="false"
+        app:riv_tile_mode="clamp"
+        app:riv_oval="false"/>
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ref3"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -46,9 +67,17 @@
         android:onClick="selecciona"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ref1"
-        app:srcCompat="@drawable/ref3" />
+        android:src="@drawable/ref3"
+        android:scaleType="fitCenter"
+        app:riv_corner_radius="6dip"
+        app:riv_border_width="3dip"
+        app:riv_border_color="@color/colorAccent"
+        app:riv_mutate_background="false"
+        app:riv_tile_mode="clamp"
+        app:riv_oval="false" />
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ref4"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -61,9 +90,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ref3"
         app:layout_constraintTop_toBottomOf="@+id/ref2"
-        app:srcCompat="@drawable/ref4" />
+        android:src="@drawable/ref4"
+        android:scaleType="fitCenter"
+        app:riv_corner_radius="6dip"
+        app:riv_border_width="3dip"
+        app:riv_border_color="@color/colorAccent"
+        app:riv_mutate_background="false"
+        app:riv_tile_mode="clamp"
+        app:riv_oval="false" />
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ref5"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -76,9 +113,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ref3"
-        app:srcCompat="@drawable/ref5" />
+        android:src="@drawable/ref5"
+        android:scaleType="fitCenter"
+        app:riv_corner_radius="6dip"
+        app:riv_border_width="3dip"
+        app:riv_border_color="@color/colorAccent"
+        app:riv_mutate_background="false"
+        app:riv_tile_mode="clamp"
+        app:riv_oval="false" />
 
-    <ImageView
+    <com.makeramen.roundedimageview.RoundedImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/ref6"
         android:layout_width="100dp"
         android:layout_height="100dp"
@@ -93,7 +138,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ref5"
         app:layout_constraintTop_toBottomOf="@+id/ref4"
-        app:srcCompat="@drawable/ref6" />
+        android:src="@drawable/ref6"
+        android:scaleType="fitCenter"
+        app:riv_corner_radius="6dip"
+        app:riv_border_width="3dip"
+        app:riv_border_color="@color/colorAccent"
+        app:riv_mutate_background="false"
+        app:riv_tile_mode="clamp"
+        app:riv_oval="false"/>
+
+
 
 
 </android.support.constraint.ConstraintLayout>

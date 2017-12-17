@@ -47,6 +47,7 @@
     <string name="iniciar_sesion">Iniciar sesión</string>
     <string name="correo">Correo</string>
     <string name="contrasena">Contraseña</string>
+    <string name="repite_contrasena">Repetir contraseña</string>
     <string name="recordarme">Recordarme</string>
     <string name="mostrar_contrasena">Mostrar contraseña</string>
     <string name="borrar">Borrar</string>
