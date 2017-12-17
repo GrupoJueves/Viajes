@@ -7,7 +7,7 @@
 
         <item
             android:id="@+id/user_menu"
-            android:title="Perfil de Usuario"
+            android:title="@string/perfil_de_usuario"
             android:icon="@android:drawable/ic_menu_edit"/>
     </group>
 

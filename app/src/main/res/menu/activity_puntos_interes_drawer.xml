@@ -7,15 +7,15 @@
         <item
             android:id="@+id/nav_itinerario_mapa"
             android:icon="@android:drawable/ic_menu_myplaces"
-            android:title="Ver itinerario en mapa" />
+            android:title="@string/ver_itinerario_en_mapa" />
         <item
             android:id="@+id/nav_visitado"
             android:icon="@android:drawable/ic_menu_view"
-            android:title="Marcar como visitado"/>
+            android:title="@string/marcar_como_visitado"/>
         <item
             android:id="@+id/nav_eliminar"
             android:icon="@android:drawable/ic_menu_delete"
-            android:title="Eliminar itinerario"/>
+            android:title="@string/eliminar_itinerario"/>
     </group>
 
     <item android:title="@string/preferencias">

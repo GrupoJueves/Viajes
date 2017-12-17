@@ -7,19 +7,19 @@
         <item
             android:id="@+id/nav_poi_mapa"
             android:icon="@android:drawable/ic_menu_myplaces"
-            android:title="Ver en mapa" />
+            android:title="@string/ver_en_mapa" />
         <item
             android:id="@+id/nav_poi_visitado"
             android:icon="@android:drawable/ic_menu_view"
-            android:title="Marcar como visitado"/>
+            android:title="@string/marcar_como_visitado"/>
         <item
             android:id="@+id/nav_poi_eliminar"
             android:icon="@android:drawable/ic_menu_delete"
-            android:title="Eliminar punto"/>
+            android:title="@string/eliminar_punto"/>
         <item
             android:id="@+id/nav_poi_comentario"
             android:icon="@android:drawable/stat_notify_chat"
-            android:title="Valorar el lugar"/>
+            android:title="@string/valorar_el_lugar"/>
 
     </group>
     <item android:title="@string/preferencias">

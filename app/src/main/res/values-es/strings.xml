@@ -57,7 +57,7 @@
     <string name="nombre">Nombre</string>
     <string name="apellido">Apellido</string>
     <string name="itinerarios">Itinerarios</string>
-    <string name="primer_dia_visita">Primer dia de visita</string>
+    <string name="primer_dia_visita">Primer día de visita</string>
     <string name="logo_subtitulo">¡Tu gestor de rutas!</string>
     <string name="cancelar">Cancelar</string>
     <string name="preferencias">Preferencias</string>
@@ -75,7 +75,7 @@
     <string name="sobre_nosotros">Sobre Nosotros</string>
     <string name="votanos">Votanos</string>
     <string name="comparte_la_app">Comparte la App</string>
-    <string name="politica_de_privacidad">Politica de Privacidad</string>
+    <string name="politica_de_privacidad">Política de Privacidad</string>
     <string name="rellena_campos">Rellena todos los campos</string>
     <string name="usuario_nombre">Nombre</string>
     <string name="usuario_apellidos">Apellidos</string>
@@ -108,7 +108,7 @@
     <string name="usuario_email">Email</string>
     <string name="telefono">Telefono</string>
     <string name="web">Web</string>
-    <string name="categoria">Categoria</string>
+    <string name="categoria">Categoría</string>
     <string name="precio">Precio</string>
     <string name="informacion">Informacion</string>
     <string name="enlace_wiki">Enlace wiki</string>
@@ -120,4 +120,17 @@
     <string name="seleccione_imagen">Seleccione una imagen</string>
     <string name="crear">Crear</string>
     <string name="identificar">Identificar</string>
+    <string name="ver_en_mapa">Ver en mapa</string>
+    <string name="eliminar_punto">Eliminar punto</string>
+    <string name="valorar_el_lugar">Valorar el lugar</string>
+    <string name="perfil_de_usuario">Perfil de Usuario</string>
+    <string name="ver_itinerario_en_mapa">Ver itinerario en mapa</string>
+    <string name="eliminar_itinerario">Eliminar itinerario</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="direccion">Dirección</string>
+    <string name="localidad">Localidad</string>
+    <string name="usuario">Usuario</string>
+    <string name="pais">País</string>
+    <string name="contacto">Contacto</string>
+    <string name="email">Email</string>
 </resources>

@@ -79,7 +79,7 @@
     <string name="confirmar">Confirm</string>
     <string name="sobre_nosotros">About us</string>
     <string name="votanos">Rate us</string>
-    <string name="comparte_la_app">Share the App</string>
+    <string name="comparte_la_app">Share the app</string>
     <string name="politica_de_privacidad">Privacy policy</string>
     <string name="rellena_campos">Fill all the fields</string>
     <string name="usuario_nombre">Name</string>
@@ -93,7 +93,7 @@
     <string name="escribe_tu_comentario">Write your commentary</string>
     <string name="ads_intersticial_id_test" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="compras">Purchases</string>
-    <string name="quitar_anuncios">Remvoe ads</string>
+    <string name="quitar_anuncios">Remove ads</string>
     <string name="mostrar_en_mapa">Show in map</string>
     <string name="poner_anuncios">Reload Ads (Development)</string>
     <string name="marcar_como_visitado">Mark as visited</string>
@@ -125,4 +125,17 @@
     <string name="seleccione_imagen">Choose an image</string>
     <string name="crear">Create</string>
     <string name="identificar">Identify</string>
+    <string name="ver_en_mapa">See on map</string>
+    <string name="eliminar_punto">Delete point</string>
+    <string name="valorar_el_lugar">Rate the place</string>
+    <string name="perfil_de_usuario">User profile</string>
+    <string name="ver_itinerario_en_mapa">See itinerary on map</string>
+    <string name="eliminar_itinerario">Delete itinerary</string>
+    <string name="nombre_de_usuario">Username</string>
+    <string name="direccion">Address</string>
+    <string name="localidad">Location</string>
+    <string name="usuario">User</string>
+    <string name="pais">Country</string>
+    <string name="contacto">Contact</string>
+    <string name="email">Email</string>
 </resources>

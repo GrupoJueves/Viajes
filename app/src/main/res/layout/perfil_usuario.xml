@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="@dimen/md_keylines"
-                android:text="Usuario"
+                android:text="@string/usuario"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/article_titles"
                 android:textStyle="bold" />
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:layout_marginStart="8dp"
-                android:text="Username "
+                android:text="@string/nombre_de_usuario"
                 android:textStyle="bold"
                 android:textSize="@dimen/article_subheading" />
 
@@ -105,7 +105,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="@dimen/md_keylines"
         android:layout_marginTop="@dimen/md_keylines"
-        android:text="Direccion"
+        android:text="@string/direccion"
         android:textStyle="bold"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/article_titles"
@@ -119,7 +119,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:text="direccion"
+        android:text="@string/direccion"
         android:textSize="@dimen/article_subheading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -143,7 +143,7 @@
         <TextView
             android:id="@+id/poblacion"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="Localida"
+            android:layout_height="wrap_content" android:text="@string/localidad"
             android:textSize="@dimen/article_subheading"/>
 
         <TextView
@@ -151,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
-            android:text="pais"
+            android:text="@string/pais"
             android:textSize="@dimen/article_subheading" />
 
 
@@ -167,7 +167,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="@dimen/md_keylines"
         android:layout_marginTop="@dimen/md_keylines"
-        android:text="Contacto"
+        android:text="@string/contacto"
         android:textStyle="bold"
         android:textColor="@color/colorAccent"
         android:textSize="@dimen/article_titles"
@@ -181,7 +181,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:text="email"
+        android:text="@string/email"
         android:textSize="@dimen/article_subheading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -202,7 +202,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/e_mail"
-            android:text="telefono" />
+            android:text="@string/telefono" />
 
 
 

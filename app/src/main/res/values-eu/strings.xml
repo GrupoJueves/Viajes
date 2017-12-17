@@ -120,4 +120,17 @@
     <string name="seleccione_imagen">Aukeratu irudia</string>
     <string name="crear">Sortu</string>
     <string name="identificar">Identifikatu</string>
+    <string name="ver_en_mapa">Ikusi mapan</string>
+    <string name="eliminar_punto">Ezabatu puntua</string>
+    <string name="valorar_el_lugar">Baloratu lekua</string>
+    <string name="perfil_de_usuario">Erabiltzaile profila</string>
+    <string name="ver_itinerario_en_mapa">Ikusi ibilbidea mapan</string>
+    <string name="eliminar_itinerario">Ezabatu ibilbidea</string>
+    <string name="nombre_de_usuario">Erabiltzaile izena</string>
+    <string name="direccion">Helbidea</string>
+    <string name="localidad">Herria</string>
+    <string name="usuario">Erabiltzailea</string>
+    <string name="pais">Herrialdea</string>
+    <string name="contacto">Kontaktua</string>
+    <string name="email">Emaila</string>
 </resources>

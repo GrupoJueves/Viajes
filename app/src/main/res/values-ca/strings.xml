@@ -120,4 +120,17 @@
     <string name="seleccione_imagen">Seleccioni una imatge</string>
     <string name="crear">Crear</string>
     <string name="identificar">Identificar</string>
+    <string name="ver_en_mapa">Veure en mapa</string>
+    <string name="eliminar_punto">Eliminar punt</string>
+    <string name="valorar_el_lugar">Valorar el lloc</string>
+    <string name="perfil_de_usuario">Perfil d\'usuari</string>
+    <string name="ver_itinerario_en_mapa">Veure itinerari</string>
+    <string name="eliminar_itinerario">Eliminar itinerari</string>
+    <string name="nombre_de_usuario">Nom d\'usuari</string>
+    <string name="direccion">Adreça</string>
+    <string name="localidad">Localitat</string>
+    <string name="usuario">Usuari</string>
+    <string name="pais">Pais</string>
+    <string name="contacto">Contacte</string>
+    <string name="email">Email</string>
 </resources>

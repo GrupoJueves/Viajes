@@ -31,7 +31,7 @@ public class InicioSesionActivity extends AppCompatActivity {
         if (getIntent().hasExtra("email")){
             Bundle extras = getIntent().getExtras();
             String email_s = extras.getString("email");
-            Toast.makeText(this, "Usuario creado. Inicie sesión con sus credenciales", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, R.string.usuario_creado_toast, Toast.LENGTH_LONG).show();
             email.setText(email_s);
         }
         Transition slide = TransitionInflater.from(this).inflateTransition(R.transition.transition_slide);
@@ -57,7 +57,7 @@ public class InicioSesionActivity extends AppCompatActivity {
             editor.commit();
             Intent intent = new Intent(this, ListaItinerariosActivity.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-            finish();
+            //finish();
         }
         else if (answer == -1){
             Snackbar.make(view, R.string.login_incorrecto, Snackbar.LENGTH_SHORT).show();
