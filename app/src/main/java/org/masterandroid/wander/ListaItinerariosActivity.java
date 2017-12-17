@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ import java.io.FileNotFoundException;
 
 public class ListaItinerariosActivity extends AppCompatActivity implements AdaptadorItinerarios.OnItemClickListener {
     private RecyclerView recyclerViewClientes;
+    private LinearLayout vacio;
     public AdaptadorItinerarios adaptador;
     private RecyclerView.LayoutManager lManager;
     private SharedPreferences pref;
@@ -222,6 +224,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         //Obtenemos el cursor con todas las rutas del usuario
         Cursor c = ConsultaBD.listadoItinerarios(id);
 
+        vacio = findViewById(R.id.vacio);
         recyclerViewClientes = (RecyclerView) findViewById(R.id.reciclador);
         recyclerViewClientes.setHasFixedSize(true);
 
@@ -234,10 +237,10 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         //Esto seria para el caso de que no existireran rutas para este usuario
         // emptyview seria lo que se mostraria en una lista vacia
         if (adaptador.getItemCount() == 0) {
-            //emptyview.setVisibility(View.VISIBLE);
+            vacio.setVisibility(View.VISIBLE);
             recyclerViewClientes.setVisibility(View.GONE);
         } else {
-            //emptyview.setVisibility(View.GONE);
+            vacio.setVisibility(View.GONE);
             recyclerViewClientes.setVisibility(View.VISIBLE);
         }
 
@@ -390,7 +393,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                     ViewGroup parent = (ViewGroup) myView.getParent();
                     parent.removeView(myView);
 
-                    android.support.v4.widget.NestedScrollView layout = findViewById(R.id.nsv);
+                    LinearLayout layout = findViewById(R.id.vista_contenedora);
 
                     LayoutInflater inflater = LayoutInflater.from(this);
                     RecyclerView nuevoLayout = (RecyclerView) inflater.inflate(R.layout.recycler, null, false);

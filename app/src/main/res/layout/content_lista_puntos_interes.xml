@@ -83,12 +83,78 @@
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/reciclador"
+            <LinearLayout
+                android:id="@+id/vista_contenedora"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background"
-                android:scrollbars="vertical" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="Puntos de interes en la ruta"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/article_titles"
+                    android:textColor="@color/colorAccent"/>
+
+                <LinearLayout
+                    android:id="@+id/vacio"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vacio3"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="50dp"
+                        android:textSize="@dimen/article_subheading"
+                        />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vacio4"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:textSize="@dimen/article_subheading"
+                        />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vacio5"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:textSize="@dimen/article_subheading"
+                        />
+
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/reciclador"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/background"
+                    android:scrollbars="vertical"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
         </android.support.v4.widget.NestedScrollView>
 
         <android.support.design.widget.FloatingActionButton

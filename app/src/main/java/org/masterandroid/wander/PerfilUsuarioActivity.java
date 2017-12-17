@@ -94,45 +94,53 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
         if(usuario != null){
 
+
             if (usuario.getNombre().equals("") || usuario.getNombre().equals("null")){
                 nombre.setVisibility(View.INVISIBLE);
             }else{
+                nombre.setVisibility(View.VISIBLE);
                 nombre.setText(usuario.getNombre());
             }
 
             if (usuario.getApellidos().equals("")|| usuario.getApellidos().equals("null")){
                 apellidos.setVisibility(View.INVISIBLE);
             }else{
+                apellidos.setVisibility(View.VISIBLE);
                 apellidos.setText(usuario.getApellidos());
             }
 
             if (usuario.getUsername().equals("")|| usuario.getUsername().equals("null")){
                 username.setVisibility(View.INVISIBLE);
             }else{
+                username.setVisibility(View.VISIBLE);
                 username.setText(usuario.getUsername());
             }
 
             if (usuario.getWeb().equals("")|| usuario.getWeb().equals("null")){
                 direccion.setVisibility(View.GONE);
             }else{
+                direccion.setVisibility(View.VISIBLE);
                 direccion.setText(usuario.getWeb());
             }
 
             if (usuario.getLugar().equals("")|| usuario.getLugar().equals("null")){
                 localidad.setVisibility(View.GONE);
             }else{
+                localidad.setVisibility(View.VISIBLE);
                 localidad.setText(usuario.getLugar());
             }
 
             if (usuario.getPais().equals("")|| usuario.getPais().equals("null")){
                 pais.setVisibility(View.GONE);
             }else{
+                pais.setVisibility(View.VISIBLE);
                 pais.setText(usuario.getPais());
             }
 
             if (usuario.getTelefono()==0 ){
                 telefono.setVisibility(View.GONE);
             }else{
+                telefono.setVisibility(View.VISIBLE);
                 telefono.setText(String.valueOf(usuario.getTelefono()));
             }
 
@@ -177,9 +185,8 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK){
-            rellenarInfo();
-        }
+        if(requestCode == 1 && resultCode==RESULT_OK)
+       rellenarInfo();
     }
 
 }

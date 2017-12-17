@@ -140,4 +140,10 @@
     <string name="email">Email</string>
 
     <string name="test_warning">WARNING\nThis app is an academic test. It is not fully implemented</string>
+    <string name="vacio1">En estos momentos no tienes ningun itinerario creado</string>
+    <string name="vacio2">Pulsa en el boton + y crea tus propios itinerarios</string>
+    <string name="vacio3">En estos momentos no tienes ningun punto de interes en la ruta</string>
+    <string name="vacio4">Pulsa en el boton + y escribe el lugar que quieras visualizar en el mapa, puedes pulsar sobre los lugares que te interesen para añadirlos al itinerario</string>
+    <string name="vacio5">Recuerda a mayor zoom más lugares disponibles</string>
+
 </resources>

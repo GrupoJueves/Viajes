@@ -76,6 +76,7 @@
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
+
         <android.support.v4.widget.NestedScrollView
             android:id="@+id/nsv"
             android:layout_width="match_parent"
@@ -85,12 +86,53 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/reciclador"
+
+            <LinearLayout
+                android:id="@+id/vista_contenedora"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/background"
-                android:scrollbars="vertical" />
+                android:orientation="vertical">
+                <LinearLayout
+                    android:id="@+id/vacio"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vacio1"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="50dp"
+                        android:textSize="@dimen/article_subheading"
+                        />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vacio2"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
+                        android:textSize="@dimen/article_subheading"
+                        />
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/reciclador"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
 
         </android.support.v4.widget.NestedScrollView>
 

@@ -24,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     private RecyclerView recyclerViewitinerario;
     public AdaptadorPuntosInteres adaptador;
     private RecyclerView.LayoutManager lManager;
+    private LinearLayout vacio;
 
     private ItemTouchHelper mItemTouchHelper;
 
@@ -214,6 +216,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         //Obtenemos el cursor con todos los puntos del usuario
         Cursor c = ConsultaBD.listadoPOIItinerario((int)id_ruta);
 
+        vacio = findViewById(R.id.vacio);
         recyclerViewitinerario = (RecyclerView) findViewById(R.id.reciclador);
         recyclerViewitinerario.setHasFixedSize(true);
 
@@ -227,11 +230,11 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         //Esto seria para el caso de que no existireran rutas para este usuario
         // emptyview seria lo que se mostraria en una lista vacia
         if (adaptador.getItemCount() == 0) {
-            //emptyview.setVisibility(View.VISIBLE);
+            vacio.setVisibility(View.VISIBLE);
             recyclerViewitinerario.setVisibility(View.GONE);
         } else {
 
-            //emptyview.setVisibility(View.GONE);
+            vacio.setVisibility(View.GONE);
             recyclerViewitinerario.setVisibility(View.VISIBLE);
         }
        /* //Implementamos la funcionalidad del longClick
@@ -326,7 +329,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                 ViewGroup parent = (ViewGroup) myView.getParent();
                 parent.removeView(myView);
 
-                android.support.v4.widget.NestedScrollView layout = findViewById(R.id.nsv);
+                LinearLayout layout = findViewById(R.id.vista_contenedora);
 
                 LayoutInflater inflater = LayoutInflater.from(this);
                 RecyclerView nuevoLayout = (RecyclerView) inflater.inflate(R.layout.recycler, null, false);
