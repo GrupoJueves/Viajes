@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -122,6 +124,7 @@ public class MapaRuta extends FragmentActivity implements OnMapReadyCallback {
             addPolyline(results, googleMap);
             positionCamera(results.routes[overview], googleMap);
            // addMarkersToMap(results, googleMap);
+           // rellenoInfo(results);
             Log.e("funciona","");
         }else{
             Log.e("sin resultado","");
@@ -175,7 +178,19 @@ public class MapaRuta extends FragmentActivity implements OnMapReadyCallback {
     }
 
     private String getEndLocationTitle(DirectionsResult results){
-        return  "Tiempo :"+ results.routes[overview].legs[overview].duration.humanReadable + " Distancia :" + results.routes[overview].legs[overview].distance.humanReadable;
+        return  "Tiempo :"+ results.routes[overview].legs[overview].duration.humanReadable + "\nDistancia :" + results.routes[1].legs[overview].distance.humanReadable;
+    }
+    private void rellenoInfo(DirectionsResult results){
+        TextView info = findViewById(R.id.datos_ruta);
+        String informacion = getEndLocationTitle(results);
+        android.support.v7.widget.CardView targeta = findViewById(R.id.targeta_ruta);
+
+        if (informacion.equals("")|| informacion.equals("null")){
+            targeta.setVisibility(View.GONE);
+        }else{
+            targeta.setVisibility(View.VISIBLE);
+            info.setText(informacion);
+        }
     }
 
     private GeoApiContext getGeoContext() {

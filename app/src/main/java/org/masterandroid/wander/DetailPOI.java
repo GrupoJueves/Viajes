@@ -1,12 +1,14 @@
 package org.masterandroid.wander;
 
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -54,6 +56,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -724,6 +727,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     public void pgWebWiki(View view) {
         startActivity(new Intent(Intent.ACTION_VIEW,uri_wiki));
     }
+
+
 
 
 }

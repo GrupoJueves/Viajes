@@ -541,8 +541,8 @@ public class ConsultaBD {
     //Obtener cursor con todos los comentarios de un poi
     public static Cursor listadoComentarios(int poi_id){
         SQLiteDatabase bdw = BaseDeDatos.getReadableDatabase();
-        return bdw.rawQuery("SELECT poi_comment_id AS _id, * FROM poi_comment, user " +
-                "WHERE user_id = user AND poi = "+poi_id, null);
+        return bdw.rawQuery("SELECT poi_comment_id AS _id, * FROM poi_comment A, user , user_data B " +
+                "WHERE user_id = A.user AND A.user = B.user AND poi = "+poi_id, null);
     }
 
     //Obtener el comentario de un usuario para un poi
