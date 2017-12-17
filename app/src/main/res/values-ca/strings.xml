@@ -134,10 +134,23 @@
     <string name="email">Email</string>
 
     <string name="test_warning">ATENCIÓ\nAquesta app és una prova acadèmica. No està completament implementada</string>
-    <string name="vacio1">En estos momentos no tienes ningun itinerario creado</string>
-    <string name="vacio2">Pulsa en el boton + y crea tus propios itinerarios</string>
-    <string name="vacio3">En estos momentos no tienes ningun punto de interes en la ruta</string>
-    <string name="vacio4">Pulsa en el boton + y escribe el lugar que quieras visualizar en el mapa, puedes pulsar sobre los lugares que te interesen para añadirlos al itinerario</string>
-    <string name="vacio5">Recuerda a mayor zoom más lugares disponibles</string>
+    <string name="vacio1">En aquests moments no tens ningun itinerari creat</string>
+    <string name="vacio2">Prem en el boton + i crea els teus propis itineraris</string>
+    <string name="vacio3">En aquests moments no tens ningun punt de interes en la ruta</string>
+    <string name="vacio4">Prem en el boton + i escriu el lloc que vulguis visualitzar en el mapa, pots prémer sobre els llocs que t\'interessin per afegir-los a l\'itinerari</string>
+    <string name="vacio5">Recorda a major zoom més llocs disponibles</string>
+
+    <string name="ap_pulsa_menu">Prem per obrir el menu</string>
+    <string name="ap_pulsa_crear_itinerario">Prem per crear un nou itinerari</string>
+    <string name="ap_desliza_marcar_itinerario">Llisca per marcar un itinerari com realitzat</string>
+    <string name="ap_desliza_eliminar_itinerario">Llisca per eliminar un itinerari</string>
+    <string name="ap_visualiza_itinerario_mapa">Visualitza tot l\'itinerari en el mapa des del menú</string>
+    <string name="ap_pulsa_crear_poi">Prem per afegir nous punts d\'interès en l\'itinerari</string>
+    <string name="ap_desliza_marcar_poi">Llisca per marcar un lloc com visitat</string>
+    <string name="ap_pulsado_posicion_poi">Mantingues premut sobre un lloc i canvia la seva posició en la ruta</string>
+    <string name="ap_desliza_eliminar_poi">Llisca per eliminar un lloc</string>
+    <string name="ap_desliza_imagen">Llisca per veure la imágen</string>
+    <string name="ap_pulsa_telefono">Prem sobre el telèfon per cridar</string>
+    <string name="ap_pulsa_enlace">Prem sobe els enllaços per obrir el navegador</string>
 
 </resources>

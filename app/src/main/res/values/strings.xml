@@ -140,10 +140,23 @@
     <string name="email">Email</string>
 
     <string name="test_warning">WARNING\nThis app is an academic test. It is not fully implemented</string>
-    <string name="vacio1">En estos momentos no tienes ningun itinerario creado</string>
-    <string name="vacio2">Pulsa en el boton + y crea tus propios itinerarios</string>
-    <string name="vacio3">En estos momentos no tienes ningun punto de interes en la ruta</string>
-    <string name="vacio4">Pulsa en el boton + y escribe el lugar que quieras visualizar en el mapa, puedes pulsar sobre los lugares que te interesen para añadirlos al itinerario</string>
-    <string name="vacio5">Recuerda a mayor zoom más lugares disponibles</string>
+    <string name="vacio1">There is no any itinerary created at this moment</string>
+    <string name="vacio2">Press + button and create your own itineraries</string>
+    <string name="vacio3">There is no any point of interest in the itinerary</string>
+    <string name="vacio4">Press + button and write down the place you want to see in the map. There, you can choose the places you want to add to the itinerary</string>
+    <string name="vacio5">Remember to zoom in to find more available places</string>
+
+    <string name="ap_pulsa_menu">Click to open the menu</string>
+    <string name="ap_pulsa_crear_itinerario">Click to create a new itinerary</string>
+    <string name="ap_desliza_marcar_itinerario">Slide to set an itinerary as done</string>
+    <string name="ap_desliza_eliminar_itinerario">Slide to delete an itinerary</string>
+    <string name="ap_visualiza_itinerario_mapa">See all the itinerary on the map from the menu</string>
+    <string name="ap_pulsa_crear_poi">Click to add new points of interest to the itinerary</string>
+    <string name="ap_desliza_marcar_poi">Slide to set point as visited</string>
+    <string name="ap_pulsado_posicion_poi">Keep pressed to change the position of a point</string>
+    <string name="ap_desliza_eliminar_poi">Slide to delete a point</string>
+    <string name="ap_desliza_imagen">Slide to see the image</string>
+    <string name="ap_pulsa_telefono">Click on phone to call there</string>
+    <string name="ap_pulsa_enlace">Click on link to open the browser</string>
 
 </resources>

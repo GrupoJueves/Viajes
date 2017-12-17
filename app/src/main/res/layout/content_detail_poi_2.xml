@@ -54,6 +54,7 @@
         </android.support.design.widget.AppBarLayout>
 
         <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -315,6 +316,73 @@
             app:srcCompat="@drawable/aprendizaje_detalles" />
 
         <TextView
+            android:id="@+id/ap_pulsa_menu"
+            android:layout_width="191dp"
+            android:layout_height="103dp"
+            android:text="@string/ap_pulsa_menu"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/appbar"
+            app:layout_anchorGravity="left|center"
+            tools:layout_editor_absoluteY="50dp" />
+
+        <TextView
+            android:id="@+id/ap_desliza_imagen"
+            android:layout_width="154dp"
+            android:layout_height="103dp"
+            android:text="@string/ap_desliza_imagen"
+            android:layout_marginRight="20dp"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/appbar"
+            app:layout_anchorGravity="right|center"
+            tools:layout_editor_absoluteY="50dp" />
+
+        <TextView
+            android:id="@+id/ap_pulsa_telefono"
+            android:layout_width="246dp"
+            android:layout_height="103dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="350dp"
+            android:text="@string/ap_pulsa_telefono"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/nestedScrollView"
+            app:layout_anchorGravity="right|top"
+            tools:layout_editor_absoluteX="108dp"
+            tools:layout_editor_absoluteY="50dp" />
+
+        <TextView
+            android:id="@+id/ap_pulsa_enlace"
+            android:layout_width="312dp"
+            android:layout_height="87dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="350dp"
+            android:text="@string/ap_pulsa_enlace"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/aprendizaje"
+            app:layout_anchorGravity="bottom|center"
+            tools:layout_editor_absoluteX="19dp"
+            tools:layout_editor_absoluteY="430dp" />
+
+        <TextView
             android:id="@+id/entendido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -323,7 +391,7 @@
             android:layout_marginRight="25dp"
             android:layout_marginTop="16dp"
             android:clickable="true"
-            android:onClick="ententdidoDetalles"
+            android:onClick="entendidoDetalles"
             android:text="@string/entendido"
             android:textColor="#b133a1"
             android:textSize="24sp"

@@ -140,4 +140,17 @@
     <string name="vacio4">Pulsa en el boton + y escribe el lugar que quieras visualizar en el mapa, puedes pulsar sobre los lugares que te interesen para añadirlos al itinerario</string>
     <string name="vacio5">Recuerda a mayor zoom más lugares disponibles</string>
 
+    <string name="ap_pulsa_menu">Pulsa para abrir el menu</string>
+    <string name="ap_pulsa_crear_itinerario">Pulsa para crear un nuevo itinerario</string>
+    <string name="ap_desliza_marcar_itinerario">Desliza para marcar un itinerario como realizado</string>
+    <string name="ap_desliza_eliminar_itinerario">Desliza para eliminar un itinerario</string>
+    <string name="ap_visualiza_itinerario_mapa">Visualiza todo el itinerario en el mapa desde el menú</string>
+    <string name="ap_pulsa_crear_poi">Pulsa para añadir nuevos puntos de interés en el itinerario</string>
+    <string name="ap_desliza_marcar_poi">Desliza para marcar un lugar como visitado</string>
+    <string name="ap_pulsado_posicion_poi">Mantén pulsado sobre un lugar y cambia su posición en la ruta</string>
+    <string name="ap_desliza_eliminar_poi">Desliza para eliminar un lugar</string>
+    <string name="ap_desliza_imagen">Desliza para ver la imágen</string>
+    <string name="ap_pulsa_telefono">Pulsa sobre el teléfono para llamar</string>
+    <string name="ap_pulsa_enlace">Pulsa sobe los enlaces para abrir el navegador</string>
+
 </resources>

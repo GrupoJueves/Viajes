@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -161,6 +162,69 @@
             app:srcCompat="@drawable/aprendizaje_itinerario" />
 
         <TextView
+            android:id="@+id/ap_pulsa_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="57dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/ap_pulsa_menu"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/app_bar"
+            app:layout_anchorGravity="left|center" />
+
+        <TextView
+            android:id="@+id/ap_pulsa_itinerario"
+            android:layout_width="170dp"
+            android:layout_height="82dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/ap_pulsa_crear_itinerario"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/app_bar"
+            app:layout_anchorGravity="bottom|center"
+            tools:layout_editor_absoluteX="68dp"
+            tools:layout_editor_absoluteY="129dp" />
+
+        <TextView
+            android:id="@+id/ap_desliza_marcar_itinerario"
+            android:layout_width="223dp"
+            android:layout_height="46dp"
+            android:layout_marginBottom="150dp"
+            android:layout_marginRight="100dp"
+            android:text="@string/ap_desliza_marcar_itinerario"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/nsv"
+            app:layout_anchorGravity="right|center" />
+
+        <TextView
+            android:id="@+id/ap_desliza_eliminar_itinerario"
+            android:layout_width="373dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/ap_desliza_eliminar_itinerario"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/nsv"
+            app:layout_anchorGravity="left|center" />
+
+        <TextView
             android:id="@+id/entendido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -169,7 +233,7 @@
             android:layout_marginRight="25dp"
             android:layout_marginTop="16dp"
             android:clickable="true"
-            android:onClick="ententdido"
+            android:onClick="entendido"
             android:text="@string/entendido"
             android:textColor="#b133a1"
             android:textSize="24sp"

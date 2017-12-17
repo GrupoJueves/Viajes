@@ -134,10 +134,23 @@
     <string name="email">Emaila</string>
 
     <string name="test_warning">KONTUZ\nApp hau proba akademikoa da. Ez dago guztiz inplementatuta</string>
-    <string name="vacio1">En estos momentos no tienes ningun itinerario creado</string>
-    <string name="vacio2">Pulsa en el boton + y crea tus propios itinerarios</string>
-    <string name="vacio3">En estos momentos no tienes ningun punto de interes en la ruta</string>
-    <string name="vacio4">Pulsa en el boton + y escribe el lugar que quieras visualizar en el mapa, puedes pulsar sobre los lugares que te interesen para añadirlos al itinerario</string>
-    <string name="vacio5">Recuerda a mayor zoom más lugares disponibles</string>
+    <string name="vacio1">Momentu hauetan ez daukazu ibilbiderik gordeta</string>
+    <string name="vacio2">Sakatu + botoian eta sor itzazu zure ibilbideak</string>
+    <string name="vacio3">Momentu hauetan ez daukazu interesgunerik ibilbidean gordeta</string>
+    <string name="vacio4">Sakatu + botoian eta idatzi ezazu mapan ikuskatu nahi duzun gunea, ondoren nahi dituzun interesgunean klikatu dezakezu ibilbideari gehitzeko</string>
+    <string name="vacio5">Gogorarazi zoom gehiagorekin interesgune gehiago ikusteko aukera duzula</string>
+
+    <string name="ap_pulsa_menu">Klikatu menua irekitzeko</string>
+    <string name="ap_pulsa_crear_itinerario">Klikatu ibilbide berri bat egiteko</string>
+    <string name="ap_desliza_marcar_itinerario">Irristatu ibilbide bat osatua bezala markatzeko</string>
+    <string name="ap_desliza_eliminar_itinerario">Irristatu ibilbide bat ezabatzeko</string>
+    <string name="ap_visualiza_itinerario_mapa">Menuaren bitartez ikuskatu ibilbide osoa mapan</string>
+    <string name="ap_pulsa_crear_poi">Klikatu puntu berriak gehitzeko ibilbideari</string>
+    <string name="ap_desliza_marcar_poi">Irristatu puntu bat bisitatua bezala markatzeko</string>
+    <string name="ap_pulsado_posicion_poi">Mantendu sakatuta puntu bat kokapena aldatzeko ibilbidean</string>
+    <string name="ap_desliza_eliminar_poi">Irristatu puntu bat ezabatzeko</string>
+    <string name="ap_desliza_imagen">Irristatu irudia ikusteko</string>
+    <string name="ap_pulsa_telefono">Klikatu telefonora deitzeko</string>
+    <string name="ap_pulsa_enlace">Klikatu estekan nabigatzailea irekitzeko</string>
 
 </resources>

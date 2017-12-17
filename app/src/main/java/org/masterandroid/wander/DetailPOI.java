@@ -743,6 +743,14 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         if (primerAcceso) {
             ImageView imagen = findViewById(R.id.aprendizaje);
             imagen.setVisibility(View.VISIBLE);
+            /*TextView explanation_1 = findViewById(R.id.ap_pulsa_menu);
+            explanation_1.setVisibility(View.VISIBLE);
+            TextView explanation_2 = findViewById(R.id.ap_desliza_imagen);
+            explanation_2.setVisibility(View.VISIBLE);
+            TextView explanation_3 = findViewById(R.id.ap_pulsa_telefono);
+            explanation_3.setVisibility(View.VISIBLE);
+            TextView explanation_4 = findViewById(R.id.ap_pulsa_enlace);
+            explanation_4.setVisibility(View.VISIBLE);*/
             TextView b_entendido = findViewById(R.id.entendido);
             b_entendido.setVisibility(View.VISIBLE);
 
@@ -751,9 +759,17 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         }
     }
 
-    public void ententdidoDetalles(View view){
+    public void entendidoDetalles(View view){
         ImageView imagen = findViewById(R.id.aprendizaje);
         imagen.setVisibility(View.GONE);
+        /*TextView explanation_1 = findViewById(R.id.ap_pulsa_menu);
+        explanation_1.setVisibility(View.GONE);
+        TextView explanation_2 = findViewById(R.id.ap_desliza_imagen);
+        explanation_2.setVisibility(View.GONE);
+        TextView explanation_3 = findViewById(R.id.ap_pulsa_telefono);
+        explanation_3.setVisibility(View.GONE);
+        TextView explanation_4 = findViewById(R.id.ap_pulsa_enlace);
+        explanation_4.setVisibility(View.GONE);*/
         TextView b_entendido = findViewById(R.id.entendido);
         b_entendido.setVisibility(View.GONE);
     }

@@ -126,6 +126,18 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
 
                 ImageView imagen = findViewById(R.id.aprendizaje);
                 imagen.setVisibility(View.GONE);
+
+                /*TextView explanation_1 = findViewById(R.id.ap_visualiza_itinerario_mapa);
+                explanation_1.setVisibility(View.GONE);
+                TextView explanation_2 = findViewById(R.id.ap_pulsa_crear_poi);
+                explanation_2.setVisibility(View.GONE);
+                TextView explanation_3 = findViewById(R.id.ap_desliza_marcar_poi);
+                explanation_3.setVisibility(View.GONE);
+                TextView explanation_4 = findViewById(R.id.ap_pulsado_posicion_poi);
+                explanation_4.setVisibility(View.GONE);
+                TextView explanation_5 = findViewById(R.id.ap_desliza_eliminar_poi);
+                explanation_5.setVisibility(View.GONE);*/
+
                 TextView b_entendido = findViewById(R.id.entendido);
                 b_entendido.setVisibility(View.GONE);
 
@@ -451,6 +463,18 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         if (primerAcceso) {
             ImageView imagen = findViewById(R.id.aprendizaje);
             imagen.setVisibility(View.VISIBLE);
+
+            /*TextView explanation_1 = findViewById(R.id.ap_visualiza_itinerario_mapa);
+            explanation_1.setVisibility(View.VISIBLE);
+            TextView explanation_2 = findViewById(R.id.ap_pulsa_crear_poi);
+            explanation_2.setVisibility(View.VISIBLE);
+            TextView explanation_3 = findViewById(R.id.ap_desliza_marcar_poi);
+            explanation_3.setVisibility(View.VISIBLE);
+            TextView explanation_4 = findViewById(R.id.ap_pulsado_posicion_poi);
+            explanation_4.setVisibility(View.VISIBLE);
+            TextView explanation_5 = findViewById(R.id.ap_desliza_eliminar_poi);
+            explanation_5.setVisibility(View.VISIBLE);*/
+
             TextView b_entendido = findViewById(R.id.entendido);
             b_entendido.setVisibility(View.VISIBLE);
 
@@ -458,9 +482,21 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
             e.putBoolean("abrePrimeraVezPois", false).commit();
         }
     }
-    public void ententdidoPois(View view){
+    public void entendidoPois(View view){
         ImageView imagen = findViewById(R.id.aprendizaje);
         imagen.setVisibility(View.GONE);
+
+        /*TextView explanation_1 = findViewById(R.id.ap_visualiza_itinerario_mapa);
+        explanation_1.setVisibility(View.GONE);
+        TextView explanation_2 = findViewById(R.id.ap_pulsa_crear_poi);
+        explanation_2.setVisibility(View.GONE);
+        TextView explanation_3 = findViewById(R.id.ap_desliza_marcar_poi);
+        explanation_3.setVisibility(View.GONE);
+        TextView explanation_4 = findViewById(R.id.ap_pulsado_posicion_poi);
+        explanation_4.setVisibility(View.GONE);
+        TextView explanation_5 = findViewById(R.id.ap_desliza_eliminar_poi);
+        explanation_5.setVisibility(View.GONE);*/
+
         TextView b_entendido = findViewById(R.id.entendido);
         b_entendido.setVisibility(View.GONE);
     }

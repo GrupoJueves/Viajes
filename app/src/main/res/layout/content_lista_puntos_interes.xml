@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -88,17 +89,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="8dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="Puntos de interes en la ruta"
-                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
                     android:textSize="@dimen/article_titles"
-                    android:textColor="@color/colorAccent"/>
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:id="@+id/vacio"
@@ -110,37 +112,34 @@
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/vacio3"
-                        android:textStyle="bold"
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="50dp"
+                        android:text="@string/vacio3"
                         android:textSize="@dimen/article_subheading"
-                        />
+                        android:textStyle="bold" />
 
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="20dp"
                         android:text="@string/vacio4"
-                        android:textStyle="bold"
-                        android:layout_marginEnd="16dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="20dp"
                         android:textSize="@dimen/article_subheading"
-                        />
+                        android:textStyle="bold" />
 
                     <TextView
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/vacio5"
-                        android:textStyle="bold"
                         android:layout_marginEnd="16dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="20dp"
+                        android:text="@string/vacio5"
                         android:textSize="@dimen/article_subheading"
-                        />
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -151,7 +150,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/background"
                     android:scrollbars="vertical"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
             </LinearLayout>
 
@@ -168,6 +167,7 @@
             app:layout_anchor="@+id/nsv"
             app:layout_anchorGravity="top|end"
             app:rippleColor="#616161" />
+
         <ImageView
             android:id="@+id/aprendizaje"
             android:layout_width="match_parent"
@@ -181,6 +181,87 @@
             app:srcCompat="@drawable/aprendizaje_pois" />
 
         <TextView
+            android:id="@+id/ap_visualiza_itinerario_mapa"
+            android:layout_width="144dp"
+            android:layout_height="71dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/ap_visualiza_itinerario_mapa"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/app_bar"
+            app:layout_anchorGravity="left|center" />
+
+        <TextView
+            android:id="@+id/ap_pulsa_crear_poi"
+            android:layout_width="223dp"
+            android:layout_height="71dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/ap_pulsa_crear_poi"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/app_bar"
+            app:layout_anchorGravity="bottom|center"
+            tools:layout_editor_absoluteX="41dp" />
+
+        <TextView
+            android:id="@+id/ap_desliza_marcar_poi"
+            android:layout_width="match_parent"
+            android:layout_height="69dp"
+            android:text="@string/ap_desliza_marcar_poi"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/aprendizaje"
+            app:layout_anchorGravity="left|center"
+            tools:layout_editor_absoluteX="41dp"
+            tools:layout_editor_absoluteY="265dp" />
+
+        <TextView
+            android:id="@+id/ap_pulsado_posicion_poi"
+            android:layout_width="221dp"
+            android:layout_height="203dp"
+            android:text="@string/ap_pulsado_posicion_poi"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginRight="50dp"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/nsv"
+            app:layout_anchorGravity="right|center"
+            tools:layout_editor_absoluteX="163dp"
+            tools:layout_editor_absoluteY="290dp" />
+
+        <TextView
+            android:id="@+id/ap_desliza_eliminar_poi"
+            android:layout_width="295dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="50dp"
+            android:text="@string/ap_desliza_eliminar_poi"
+            android:textAlignment="center"
+            android:textColor="@color/colorAccent"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp"
+            app:layout_anchor="@+id/aprendizaje"
+            app:layout_anchorGravity="bottom|center"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="445dp" />
+
+        <TextView
             android:id="@+id/entendido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -189,7 +270,7 @@
             android:layout_marginRight="25dp"
             android:layout_marginTop="16dp"
             android:clickable="true"
-            android:onClick="ententdidoPois"
+            android:onClick="entendidoPois"
             android:text="@string/entendido"
             android:textColor="#b133a1"
             android:textSize="24sp"
