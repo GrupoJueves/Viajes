@@ -6,7 +6,7 @@
         <item>@string/hibrido</item>
         <item>@string/tierra</item>
     </string-array>
-    <string-array name="tiposMapasValores">
+    <string-array name="tiposMapasValores" translatable="false">
         <item>0</item>
         <item>1</item>
         <item>2</item>
