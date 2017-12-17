@@ -146,6 +146,8 @@
     <string name="vacio4">Press + button and write down the place you want to see in the map. There, you can choose the places you want to add to the itinerary</string>
     <string name="vacio5">Remember to zoom in to find more available places</string>
 
+    <string name="locale">1</string>
+
     <string name="ap_pulsa_menu">Click to open the menu</string>
     <string name="ap_pulsa_crear_itinerario">Click to create a new itinerary</string>
     <string name="ap_desliza_marcar_itinerario">Slide to set an itinerary as done</string>

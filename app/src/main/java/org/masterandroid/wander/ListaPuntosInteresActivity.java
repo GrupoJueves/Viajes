@@ -477,6 +477,23 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
 
             TextView b_entendido = findViewById(R.id.entendido);
             b_entendido.setVisibility(View.VISIBLE);
+            switch (getString(R.string.locale)){
+                case "1":
+                    imagen.setImageResource(R.drawable.aprendizaje_pois);
+                    break;
+                case "2":
+                    imagen.setImageResource(R.drawable.aprendizaje_pois_es);
+                    break;
+                case "3":
+                    imagen.setImageResource(R.drawable.aprendizaje_pois_ca);
+                    break;
+                case "4":
+                    imagen.setImageResource(R.drawable.aprendizaje_pois_eu);
+                    break;
+                default:
+                    imagen.setImageResource(R.drawable.aprendizaje_pois);
+                    break;
+            }
 
             SharedPreferences.Editor e = sp.edit();
             e.putBoolean("abrePrimeraVezPois", false).commit();

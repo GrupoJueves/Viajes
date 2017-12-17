@@ -140,6 +140,8 @@
     <string name="vacio4">Sakatu + botoian eta idatzi ezazu mapan ikuskatu nahi duzun gunea, ondoren nahi dituzun interesgunean klikatu dezakezu ibilbideari gehitzeko</string>
     <string name="vacio5">Gogorarazi zoom gehiagorekin interesgune gehiago ikusteko aukera duzula</string>
 
+    <string name="locale">4</string>
+
     <string name="ap_pulsa_menu">Klikatu menua irekitzeko</string>
     <string name="ap_pulsa_crear_itinerario">Klikatu ibilbide berri bat egiteko</string>
     <string name="ap_desliza_marcar_itinerario">Irristatu ibilbide bat osatua bezala markatzeko</string>

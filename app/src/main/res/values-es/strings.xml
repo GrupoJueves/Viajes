@@ -140,6 +140,8 @@
     <string name="vacio4">Pulsa en el boton + y escribe el lugar que quieras visualizar en el mapa, puedes pulsar sobre los lugares que te interesen para añadirlos al itinerario</string>
     <string name="vacio5">Recuerda a mayor zoom más lugares disponibles</string>
 
+    <string name="locale">2</string>
+
     <string name="ap_pulsa_menu">Pulsa para abrir el menu</string>
     <string name="ap_pulsa_crear_itinerario">Pulsa para crear un nuevo itinerario</string>
     <string name="ap_desliza_marcar_itinerario">Desliza para marcar un itinerario como realizado</string>

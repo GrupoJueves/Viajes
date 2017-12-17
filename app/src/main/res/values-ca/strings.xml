@@ -140,16 +140,18 @@
     <string name="vacio4">Prem en el boton + i escriu el lloc que vulguis visualitzar en el mapa, pots prémer sobre els llocs que t\'interessin per afegir-los a l\'itinerari</string>
     <string name="vacio5">Recorda a major zoom més llocs disponibles</string>
 
+    <string name="locale">3</string>
+
     <string name="ap_pulsa_menu">Prem per obrir el menu</string>
     <string name="ap_pulsa_crear_itinerario">Prem per crear un nou itinerari</string>
-    <string name="ap_desliza_marcar_itinerario">Llisca per marcar un itinerari com realitzat</string>
-    <string name="ap_desliza_eliminar_itinerario">Llisca per eliminar un itinerari</string>
+    <string name="ap_desliza_marcar_itinerario">Desllisa per marcar un itinerari com realitzat</string>
+    <string name="ap_desliza_eliminar_itinerario">Desllisa per eliminar un itinerari</string>
     <string name="ap_visualiza_itinerario_mapa">Visualitza tot l\'itinerari en el mapa des del menú</string>
     <string name="ap_pulsa_crear_poi">Prem per afegir nous punts d\'interès en l\'itinerari</string>
-    <string name="ap_desliza_marcar_poi">Llisca per marcar un lloc com visitat</string>
-    <string name="ap_pulsado_posicion_poi">Mantingues premut sobre un lloc i canvia la seva posició en la ruta</string>
-    <string name="ap_desliza_eliminar_poi">Llisca per eliminar un lloc</string>
-    <string name="ap_desliza_imagen">Llisca per veure la imágen</string>
+    <string name="ap_desliza_marcar_poi">Desllisa per a marcar un lloc com vist</string>
+    <string name="ap_pulsado_posicion_poi">Mante pres sobre un punt i canvia la seva posició en la ruta</string>
+    <string name="ap_desliza_eliminar_poi">Desllisa per a eliminar un lloc</string>
+    <string name="ap_desliza_imagen">Desllisa per veure la imágen</string>
     <string name="ap_pulsa_telefono">Prem sobre el telèfon per cridar</string>
     <string name="ap_pulsa_enlace">Prem sobe els enllaços per obrir el navegador</string>
 

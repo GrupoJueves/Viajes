@@ -754,6 +754,24 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             TextView b_entendido = findViewById(R.id.entendido);
             b_entendido.setVisibility(View.VISIBLE);
 
+            switch (getString(R.string.locale)){
+                case "1":
+                    imagen.setImageResource(R.drawable.aprendizaje_detalles);
+                    break;
+                case "2":
+                    imagen.setImageResource(R.drawable.aprendizaje_detalles_es);
+                    break;
+                case "3":
+                    imagen.setImageResource(R.drawable.aprendizaje_detalles_ca);
+                    break;
+                case "4":
+                    imagen.setImageResource(R.drawable.aprendizaje_detalles_eu);
+                    break;
+                default:
+                    imagen.setImageResource(R.drawable.aprendizaje_detalles);
+                    break;
+            }
+
             SharedPreferences.Editor e = sp.edit();
             e.putBoolean("abrePrimeraVezDetalles", false).commit();
         }

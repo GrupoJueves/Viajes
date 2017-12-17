@@ -338,6 +338,23 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
             explanation_4.setVisibility(View.VISIBLE);*/
             TextView b_entendido = findViewById(R.id.entendido);
             b_entendido.setVisibility(View.VISIBLE);
+            switch (getString(R.string.locale)){
+                case "1":
+                    imagen.setImageResource(R.drawable.aprendizaje_itinerario);
+                    break;
+                case "2":
+                    imagen.setImageResource(R.drawable.aprendizaje_itinerario_es);
+                    break;
+                case "3":
+                    imagen.setImageResource(R.drawable.aprendizaje_itinerario_ca);
+                    break;
+                case "4":
+                    imagen.setImageResource(R.drawable.aprendizaje_itinerario_eu);
+                    break;
+                default:
+                    imagen.setImageResource(R.drawable.aprendizaje_itinerario);
+                    break;
+            }
 
             SharedPreferences.Editor e = sp.edit();
             e.putBoolean("abrePrimeraVez", false).commit();
