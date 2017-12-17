@@ -57,7 +57,7 @@ public class InicioSesionActivity extends AppCompatActivity {
             editor.commit();
             Intent intent = new Intent(this, ListaItinerariosActivity.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-            //finish();
+            finish();
         }
         else if (answer == -1){
             Snackbar.make(view, R.string.login_incorrecto, Snackbar.LENGTH_SHORT).show();
