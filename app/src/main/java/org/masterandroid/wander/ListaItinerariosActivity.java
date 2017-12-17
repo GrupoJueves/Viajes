@@ -176,7 +176,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                     return true;
                 } else if (id == R.id.user_menu) {
                     Intent i = new Intent(ListaItinerariosActivity.this, PerfilUsuarioActivity.class);
-                    startActivity(i);
+                    startActivityForResult(i,33);
                 } else if (id == R.id.nav_quitar_anuncios) {
                     comprarQuitarAds();
                     return true;
@@ -403,6 +403,10 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
 
                 }
+                break;
+            case 33:
+                ponerImagen();
+                break;
         }
     }
 

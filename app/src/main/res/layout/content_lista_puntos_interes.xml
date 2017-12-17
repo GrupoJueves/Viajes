@@ -168,6 +168,34 @@
             app:layout_anchor="@+id/nsv"
             app:layout_anchorGravity="top|end"
             app:rippleColor="#616161" />
+        <ImageView
+            android:id="@+id/aprendizaje"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:defaultFocusHighlightEnabled="false"
+            android:focusedByDefault="true"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:elevation="10dp"
+            app:srcCompat="@drawable/aprendizaje_pois" />
+
+        <TextView
+            android:id="@+id/entendido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="16dp"
+            android:clickable="true"
+            android:onClick="ententdidoPois"
+            android:text="@string/entendido"
+            android:textColor="#b133a1"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:elevation="12dp" />
     </android.support.design.widget.CoordinatorLayout>
 
     <com.google.android.gms.ads.AdView

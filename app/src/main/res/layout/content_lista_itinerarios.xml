@@ -158,7 +158,7 @@
             android:scaleType="fitXY"
             android:visibility="gone"
             app:elevation="10dp"
-            app:srcCompat="@drawable/aprendizaje" />
+            app:srcCompat="@drawable/aprendizaje_itinerario" />
 
         <TextView
             android:id="@+id/entendido"
@@ -169,10 +169,11 @@
             android:layout_marginRight="25dp"
             android:layout_marginTop="16dp"
             android:clickable="true"
-            android:onClick="entendido"
+            android:onClick="ententdido"
             android:text="@string/entendido"
             android:textColor="#b133a1"
             android:textSize="24sp"
+            android:textStyle="bold"
             android:visibility="gone"
             app:elevation="12dp" />
     </android.support.design.widget.CoordinatorLayout>

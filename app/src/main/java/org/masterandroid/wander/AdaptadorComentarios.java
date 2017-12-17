@@ -94,8 +94,8 @@ public class AdaptadorComentarios extends RecyclerView.Adapter<AdaptadorComentar
         //siguiente elemento del cursor
         c.moveToPosition(position);
         //distinguir si tiene username
-        String username = c.getString(c.getColumnIndex("username"));
-        if(!username.equals("") && username != null){
+        String username = ""+c.getString(c.getColumnIndex("username"));
+        if(!username.equals("") && !username.equals("null")){
             //Log.e("username","'"+username+"'");
             holder.usuario.setText(username);
         }else{

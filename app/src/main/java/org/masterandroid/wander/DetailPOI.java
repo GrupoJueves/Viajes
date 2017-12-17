@@ -29,6 +29,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -253,6 +254,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
 
         rellenarPOI();
         mostarComentarios();
+        abrePrimeraVez();
     }
 
     /*///////MENU///////
@@ -308,7 +310,12 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                         //necesito el id del usuario que pone el comentario
                         int usuario = usuario();
                         //ConsultaBD
-                        ConsultaBD.addComment(usuario,(int)id_poi,comentario,val,hoy);
+
+                        int id = ConsultaBD.getPoiId((int)id_poi);
+
+                        if(ConsultaBD.addComment(usuario,id,comentario,val,hoy)){
+                            Log.e("Comentario","añadido corectamente");
+                        }
                         //recargo el recilerview
                         mostarComentarios();
 
@@ -396,14 +403,16 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         int id = ConsultaBD.getPoiId((int)id_poi);
         Cursor c = ConsultaBD.listadoComentarios(id);
 
+        LinearLayout contenedor = findViewById(R.id.vistaComentarios);
+
         recyclerView.setLayoutManager(lManager);
         adaptador = new AdaptadorComentarios(this,c);
         if (adaptador.getItemCount() == 0) {
             //emptyview.setVisibility(View.VISIBLE);
-            recyclerView.setVisibility(View.GONE);
+            contenedor.setVisibility(View.GONE);
         } else {
             //emptyview.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
+            contenedor.setVisibility(View.VISIBLE);
         }
         recyclerView.setAdapter(adaptador);
     }
@@ -728,7 +737,26 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         startActivity(new Intent(Intent.ACTION_VIEW,uri_wiki));
     }
 
+    public void abrePrimeraVez(){
+        SharedPreferences sp = getSharedPreferences("mispreferencias", 0);
+        boolean primerAcceso = sp.getBoolean("abrePrimeraVezDetalles", true);
+        if (primerAcceso) {
+            ImageView imagen = findViewById(R.id.aprendizaje);
+            imagen.setVisibility(View.VISIBLE);
+            TextView b_entendido = findViewById(R.id.entendido);
+            b_entendido.setVisibility(View.VISIBLE);
 
+            SharedPreferences.Editor e = sp.edit();
+            e.putBoolean("abrePrimeraVezDetalles", false).commit();
+        }
+    }
+
+    public void ententdidoDetalles(View view){
+        ImageView imagen = findViewById(R.id.aprendizaje);
+        imagen.setVisibility(View.GONE);
+        TextView b_entendido = findViewById(R.id.entendido);
+        b_entendido.setVisibility(View.GONE);
+    }
 
 
 }

@@ -518,7 +518,7 @@ public class ConsultaBD {
         }
         catch (Exception e){
             correcto = false;
-            Log.e("error:", e.getMessage());
+            Log.e("error al añadir coment:", e.getMessage());
         }
         return correcto;
     }

@@ -111,6 +111,8 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         //cambio los valores del toolbar
         cambiarTitulo();
 
+        //imagen aprendizaje
+        abrePrimeraVez();
 
 
 
@@ -121,6 +123,12 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                ImageView imagen = findViewById(R.id.aprendizaje);
+                imagen.setVisibility(View.GONE);
+                TextView b_entendido = findViewById(R.id.entendido);
+                b_entendido.setVisibility(View.GONE);
+
                 Intent i = new Intent(ListaPuntosInteresActivity.this, SelectPOIGrafic.class);
                 i.putExtra("id", id_ruta);
                 startActivityForResult(i, RESULTADO_AÑADIR);
@@ -435,5 +443,25 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                 break;
         }
 
+    }
+
+    public void abrePrimeraVez(){
+        SharedPreferences sp = getSharedPreferences("mispreferencias", 0);
+        boolean primerAcceso = sp.getBoolean("abrePrimeraVezPois", true);
+        if (primerAcceso) {
+            ImageView imagen = findViewById(R.id.aprendizaje);
+            imagen.setVisibility(View.VISIBLE);
+            TextView b_entendido = findViewById(R.id.entendido);
+            b_entendido.setVisibility(View.VISIBLE);
+
+            SharedPreferences.Editor e = sp.edit();
+            e.putBoolean("abrePrimeraVezPois", false).commit();
+        }
+    }
+    public void ententdidoPois(View view){
+        ImageView imagen = findViewById(R.id.aprendizaje);
+        imagen.setVisibility(View.GONE);
+        TextView b_entendido = findViewById(R.id.entendido);
+        b_entendido.setVisibility(View.GONE);
     }
 }
