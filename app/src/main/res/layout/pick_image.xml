@@ -101,7 +101,7 @@
 
     <com.makeramen.roundedimageview.RoundedImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/ref5"
+        android:id="@+id/usuario"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginBottom="8dp"
@@ -136,7 +136,7 @@
         android:tag="6"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ref5"
+        app:layout_constraintStart_toEndOf="@+id/usuario"
         app:layout_constraintTop_toBottomOf="@+id/ref4"
         android:src="@drawable/ref6"
         android:scaleType="fitCenter"
@@ -146,7 +146,6 @@
         app:riv_mutate_background="false"
         app:riv_tile_mode="clamp"
         app:riv_oval="false"/>
-
 
 
 

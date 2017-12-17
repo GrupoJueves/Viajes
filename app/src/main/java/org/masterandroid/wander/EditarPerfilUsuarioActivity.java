@@ -184,11 +184,9 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 uri2 = result.getUri().toString();
                 ((ImageView) findViewById(R.id.foto)).setImageURI(result.getUri());
-                Toast.makeText(
-                        this, "Cropping successful, Sample: " + result.getSampleSize()+" URI2: "+uri2, Toast.LENGTH_LONG)
-                        .show();
+
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                Toast.makeText(this, "Cropping failed: " + result.getError(), Toast.LENGTH_LONG).show();
+
             }
         }
 

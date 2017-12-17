@@ -3,10 +3,13 @@ package org.masterandroid.wander;
 import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.RemoteException;
@@ -20,6 +23,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,11 +44,14 @@ import com.mxn.soul.flowingdrawer_core.FlowingDrawer;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+
 public class ListaItinerariosActivity extends AppCompatActivity implements AdaptadorItinerarios.OnItemClickListener {
     private RecyclerView recyclerViewClientes;
     public AdaptadorItinerarios adaptador;
     private RecyclerView.LayoutManager lManager;
     private SharedPreferences pref;
+    private int id;
 
     private String nombreItinerario = "";
     private FlowingDrawer mDrawer;
@@ -86,7 +93,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         quitarAnunciosToken = app.getQuitarAnunciosToken();
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
-        final int id = pref.getInt("id", -1);
+        id = pref.getInt("id", -1);
         //Log.e("id_user en prefe"," "+id);
         if (id == -1) {
             this.finish();
@@ -105,6 +112,9 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
         //Inicializar los elementos
         listaitinerarios();
+
+        //pongo la imagen del perfil
+        ponerImagen();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -402,6 +412,46 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 e.printStackTrace();
             }
         }
+    }
+
+    //pone la imagen del perfil en el toolbar
+    public void ponerImagen(){
+        String url = "";
+        url = ConsultaBD.getPhoto(id);
+        //poner la foto
+        if(!url.equals("") && url != null){
+            com.makeramen.roundedimageview.RoundedImageView imagen = findViewById(R.id.usuario);
+            imagen.setVisibility(View.VISIBLE);
+            //Log.e("url",""+url);
+            ponerFoto(imagen,url);
+
+        }
+
+    }
+
+    protected void ponerFoto(ImageView imageView, String uri) {
+        if (uri != null) {
+            imageView.setImageBitmap(reduceBitmap(this, uri, 1024, 1024));
+        } else {
+            imageView.setImageBitmap(null);
+        }
+    }
+
+    public static Bitmap reduceBitmap(Context contexto, String uri, int maxAncho, int maxAlto) {
+        try {
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeStream(contexto.getContentResolver()
+                    .openInputStream(Uri.parse(uri)), null, options);
+            options.inSampleSize = (int) Math.max(
+                    Math.ceil(options.outWidth / maxAncho),
+                    Math.ceil(options.outHeight / maxAlto));
+            options.inJustDecodeBounds = false;
+            return BitmapFactory.decodeStream(contexto.getContentResolver() .openInputStream(Uri.parse(uri)), null, options);
+        } catch (FileNotFoundException e) {
+            Toast.makeText(contexto, "Fichero/recurso no encontrado",
+                    Toast.LENGTH_LONG).show(); e.printStackTrace();
+            return null; }
     }
 
 

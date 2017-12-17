@@ -34,6 +34,29 @@
                     android:scaleType="fitCenter"
                     android:src="@drawable/ic_wander_paper_plane_heading" />
 
+                <com.makeramen.roundedimageview.RoundedImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/usuario"
+                    android:layout_width="115dp"
+                    android:layout_height="115dp"
+                    android:layout_gravity="bottom|start"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginStart="40dp"
+                    android:clickable="true"
+                    android:onClick="selecciona"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_account_box"
+                    android:tag="5"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ref3"
+                    app:riv_border_color="@color/colorAccent"
+                    app:riv_border_width="5dip"
+                    app:riv_corner_radius="6dip"
+                    app:riv_mutate_background="false"
+                    app:riv_oval="true"
+                    app:riv_tile_mode="clamp" />
+
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/detail_toolbar"
                     android:layout_width="match_parent"
@@ -48,6 +71,8 @@
                         android:textColor="#fff"
                         android:textSize="18sp" />
                 </android.support.v7.widget.Toolbar>
+
+
             </android.support.design.widget.CollapsingToolbarLayout>
         </android.support.design.widget.AppBarLayout>
 
@@ -59,12 +84,14 @@
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/reciclador"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/background"
                 android:scrollbars="vertical" />
+
         </android.support.v4.widget.NestedScrollView>
 
         <android.support.design.widget.FloatingActionButton

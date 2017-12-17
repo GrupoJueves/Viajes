@@ -77,6 +77,19 @@ public class ConsultaBD {
         return user;
     }
 
+    // Obtenemos la url de la imagen de perfil
+    public static String getPhoto(int id){
+        String url = "";
+        Cursor cursor = bdw.rawQuery("SELECT * FROM  user_data WHERE  user = "+id, null);
+
+        if (cursor.moveToNext()){
+            url = ""+cursor.getString(cursor.getColumnIndex("photo"));
+        }
+        cursor.close();
+
+        return url;
+    }
+
     //Actualizar un usuario
     public static boolean updateUser (Usuario usuario, int id){
         boolean correcto = true;

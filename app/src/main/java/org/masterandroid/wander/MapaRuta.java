@@ -58,6 +58,8 @@ public class MapaRuta extends FragmentActivity implements OnMapReadyCallback {
 
     private static final int overview = 0;
 
+    private boolean vacio = false;
+
     ////CONSTRUCTOR////
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -79,8 +81,7 @@ public class MapaRuta extends FragmentActivity implements OnMapReadyCallback {
         //si la ruta esta vaciano hago nada
         //en caso contrario centro el mapa en el ultimo poi
         if(c.getCount()==0){
-
-
+            vacio = true;
         }else{
             c.moveToFirst();
             latPoint = (0+c.getFloat(c.getColumnIndex("lat")));
@@ -102,9 +103,11 @@ public class MapaRuta extends FragmentActivity implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
 
         setupGoogleMapScreenSettings(googleMap);
+        if(!vacio){
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latPoint, lngPoint), 15));
         colocarMarcadores(googleMap);
         buscoRuta(googleMap);
+        }
 
 
     }
