@@ -156,31 +156,31 @@ public class AdaptadorItinerarios extends RecyclerView.Adapter<AdaptadorItinerar
         switch (valorref){
             case 1:
 
-                holder.imageRef.setImageResource(R.drawable.ref1);
+                holder.imageRef.setImageResource(R.drawable.ref1_1);
                 break;
             case 2:
 
-                holder.imageRef.setImageResource(R.drawable.ref2);
+                holder.imageRef.setImageResource(R.drawable.ref2_1);
                 break;
             case 3:
 
-                holder.imageRef.setImageResource(R.drawable.ref3);
+                holder.imageRef.setImageResource(R.drawable.ref3_1);
                 break;
             case 4:
 
-                holder.imageRef.setImageResource(R.drawable.ref4);
+                holder.imageRef.setImageResource(R.drawable.ref4_1);
                 break;
             case 5:
 
-                holder.imageRef.setImageResource(R.drawable.ref5);
+                holder.imageRef.setImageResource(R.drawable.ref5_1);
                 break;
             case 6:
 
-                holder.imageRef.setImageResource(R.drawable.ref6);
+                holder.imageRef.setImageResource(R.drawable.ref6_1);
                 break;
             default:
 
-                holder.imageRef.setImageResource(R.drawable.ref1);
+                holder.imageRef.setImageResource(R.drawable.ref1_1);
                 break;
         }
 

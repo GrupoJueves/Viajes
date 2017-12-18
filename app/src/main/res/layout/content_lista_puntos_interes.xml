@@ -97,7 +97,7 @@
                     android:layout_marginEnd="10dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="Puntos de interes en la ruta"
+                    android:text="@string/puntos_de_interes_en_la_ruta"
                     android:textColor="@color/colorAccent"
                     android:textSize="@dimen/article_titles"
                     android:textStyle="bold" />

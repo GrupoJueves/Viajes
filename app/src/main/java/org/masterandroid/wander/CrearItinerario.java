@@ -93,37 +93,37 @@ public class CrearItinerario extends AppCompatActivity implements  DatePickerDia
     public void mostrarImagen(){
         switch (ref){
             case 1:
-                imageRef.setImageResource(R.drawable.ref1);
+                imageRef.setImageResource(R.drawable.ref1_1);
                 imageref2.setVisibility(View.GONE);
                 imageRef.setVisibility(View.VISIBLE);
                 break;
             case 2:
-                imageRef.setImageResource(R.drawable.ref2);
+                imageRef.setImageResource(R.drawable.ref2_1);
                 imageref2.setVisibility(View.GONE);
                 imageRef.setVisibility(View.VISIBLE);
                 break;
             case 3:
-                imageRef.setImageResource(R.drawable.ref3);
+                imageRef.setImageResource(R.drawable.ref3_1);
                 imageref2.setVisibility(View.GONE);
                 imageRef.setVisibility(View.VISIBLE);
                 break;
             case 4:
-                imageRef.setImageResource(R.drawable.ref4);
+                imageRef.setImageResource(R.drawable.ref4_1);
                 imageref2.setVisibility(View.GONE);
                 imageRef.setVisibility(View.VISIBLE);
                 break;
             case 5:
-                imageRef.setImageResource(R.drawable.ref5);
+                imageRef.setImageResource(R.drawable.ref5_1);
                 imageref2.setVisibility(View.GONE);
                 imageRef.setVisibility(View.VISIBLE);
                 break;
             case 6:
-                imageRef.setImageResource(R.drawable.ref6);
+                imageRef.setImageResource(R.drawable.ref6_1);
                 imageref2.setVisibility(View.GONE);
                 imageRef.setVisibility(View.VISIBLE);
                 break;
             default:
-                imageRef.setImageResource(R.drawable.ref1);
+                imageRef.setImageResource(R.drawable.ref1_1);
                 imageref2.setVisibility(View.GONE);
                 imageRef.setVisibility(View.VISIBLE);
                 break;

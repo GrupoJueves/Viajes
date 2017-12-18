@@ -154,5 +154,6 @@
     <string name="ap_desliza_imagen">Irristatu irudia ikusteko</string>
     <string name="ap_pulsa_telefono">Klikatu telefonora deitzeko</string>
     <string name="ap_pulsa_enlace">Klikatu estekan nabigatzailea irekitzeko</string>
+    <string name="puntos_de_interes_en_la_ruta">Ibilbideko interesguneak</string>
 
 </resources>

@@ -154,5 +154,6 @@
     <string name="ap_desliza_imagen">Desllisa per veure la imágen</string>
     <string name="ap_pulsa_telefono">Prem sobre el telèfon per cridar</string>
     <string name="ap_pulsa_enlace">Prem sobe els enllaços per obrir el navegador</string>
+    <string name="puntos_de_interes_en_la_ruta">Punts d\'interes en l\'itinerari</string>
 
 </resources>

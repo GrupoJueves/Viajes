@@ -266,6 +266,9 @@ public class iconos {
             case 69:
                 retorno = R.drawable.park;
                 break;
+            case 81:
+                retorno = R.drawable.vr_park;
+                break;
 
 
 

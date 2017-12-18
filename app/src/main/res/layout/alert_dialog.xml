@@ -34,6 +34,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
+
         <EditText
             android:id="@+id/alertComentario"
             android:layout_width="match_parent"
@@ -44,6 +46,7 @@
             android:layout_marginTop="8dp"
             android:hint="@string/escribe_tu_comentario"
             android:textSize="18sp"
+            android:inputType="textCapSentences"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

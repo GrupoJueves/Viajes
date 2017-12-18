@@ -53,9 +53,9 @@ public class Registro extends AppCompatActivity {
                     ConsultaBD.inicializaBD(view.getContext());
                     if (ConsultaBD.emailUnico(email_s)){
                         if (ConsultaBD.newUser(email_s,contraseña_s,nombre_s,apellido_s)){
-                            Intent intent = new Intent(this, InicioSesionActivity.class);
+                            Intent intent = new Intent();
                             intent.putExtra("email", email.getText().toString());
-                            startActivity(intent);
+                            setResult(RESULT_OK,intent);
                             finish();
                         }
                         else{

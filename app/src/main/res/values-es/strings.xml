@@ -154,5 +154,6 @@
     <string name="ap_desliza_imagen">Desliza para ver la imágen</string>
     <string name="ap_pulsa_telefono">Pulsa sobre el teléfono para llamar</string>
     <string name="ap_pulsa_enlace">Pulsa sobe los enlaces para abrir el navegador</string>
+    <string name="puntos_de_interes_en_la_ruta">Puntos de interes en la ruta</string>
 
 </resources>

@@ -3,6 +3,7 @@ package org.masterandroid.wander;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +20,7 @@ import android.widget.Toast;
 public class InicioSesionActivity extends AppCompatActivity {
     private EditText email;
     private EditText contraseña;
+    private Handler mHandler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +30,7 @@ public class InicioSesionActivity extends AppCompatActivity {
         email = (EditText) findViewById(R.id.email);
         contraseña = (EditText) findViewById(R.id.contraseña);
 
-        if (getIntent().hasExtra("email")){
-            Bundle extras = getIntent().getExtras();
-            String email_s = extras.getString("email");
-            Toast.makeText(this, R.string.usuario_creado_toast, Toast.LENGTH_LONG).show();
-            email.setText(email_s);
-        }
+
         Transition slide = TransitionInflater.from(this).inflateTransition(R.transition.transition_slide);
         getWindow().setExitTransition(slide);
     }
@@ -57,7 +54,12 @@ public class InicioSesionActivity extends AppCompatActivity {
             editor.commit();
             Intent intent = new Intent(this, ListaItinerariosActivity.class);
             startActivity(intent, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
-            finish();
+            mHandler.postDelayed(new Runnable() {
+                public void run() {
+                    finish();
+                }
+            }, 5000);
+
         }
         else if (answer == -1){
             Snackbar.make(view, R.string.login_incorrecto, Snackbar.LENGTH_SHORT).show();
@@ -77,7 +79,7 @@ public class InicioSesionActivity extends AppCompatActivity {
     public void registrarUsuario (View view){
         Intent intent = new Intent(this, Registro.class);
         intent.putExtra("email", email.getText().toString());
-        startActivity(intent);
+        startActivityForResult(intent,42);
     }
 
     /*
@@ -98,4 +100,18 @@ public class InicioSesionActivity extends AppCompatActivity {
         }
         return false;
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 42 && resultCode == RESULT_OK){
+
+            String email_s = data.getExtras().getString("email");
+            Toast.makeText(this, R.string.usuario_creado_toast, Toast.LENGTH_LONG).show();
+            email.setText(email_s);
+        }
+
+    }
+
 }
