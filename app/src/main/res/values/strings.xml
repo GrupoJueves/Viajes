@@ -157,9 +157,11 @@
     <string name="ap_desliza_marcar_poi">Slide to set point as visited</string>
     <string name="ap_pulsado_posicion_poi">Keep pressed to change the position of a point</string>
     <string name="ap_desliza_eliminar_poi">Slide to delete a point</string>
+
     <string name="ap_desliza_imagen">Slide to see the image</string>
     <string name="ap_pulsa_telefono">Click on phone to call there</string>
     <string name="ap_pulsa_enlace">Click on link to open the browser</string>
+
     <string name="puntos_de_interes_en_la_ruta">Points of interest in the itinerary</string>
     <string name="fotos">Photos on Google+</string>
 

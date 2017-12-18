@@ -42,8 +42,6 @@
                     android:layout_gravity="bottom|start"
                     android:layout_marginBottom="15dp"
                     android:layout_marginStart="40dp"
-                    android:clickable="true"
-                    android:onClick="selecciona"
                     android:scaleType="fitCenter"
                     android:src="@drawable/ref2_1"
                     android:tag="5"
