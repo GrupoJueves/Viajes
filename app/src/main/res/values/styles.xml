@@ -28,10 +28,22 @@
 
     <style name="Dialogo" parent="Theme.AppCompat.Light.Dialog">
         <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorBackground">@color/drawer</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.RoundedCornerMaterialButton" parent="Widget.AppCompat.Button.Colored">
         <item name="android:background">@drawable/rounded_shape</item>
     </style>
+
+    <style name="cust_dialog" parent="@android:style/Theme.Holo.Dialog.NoActionBar">
+        <item name="android:background">@color/drawer</item>
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+
 
 </resources>

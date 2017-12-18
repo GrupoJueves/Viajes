@@ -188,15 +188,6 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 } else if (id == R.id.nav_quitar_anuncios) {
                     comprarQuitarAds();
                     return true;
-                } else if (id == R.id.nav_reiniciar_anuncios) {
-                    if (quitarAnunciosToken.equals("")) {
-                        Toast.makeText(getApplicationContext(), R.string.ninguna_compra_reiniciar, Toast.LENGTH_SHORT).show();
-                    } else {
-                        backToBuy(quitarAnunciosToken);
-                        quitarAnunciosToken = "";
-                        Toast.makeText(getApplicationContext(), R.string.compra_reiniciada, Toast.LENGTH_SHORT).show();
-                    }
-                    return true;
                 }
 
 

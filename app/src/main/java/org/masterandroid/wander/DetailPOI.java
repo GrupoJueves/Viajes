@@ -23,6 +23,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -289,7 +290,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
 
     public void ShowDialog()
     {
-        final AlertDialog.Builder popDialog = new AlertDialog.Builder(this);
+        ContextThemeWrapper ctw = new ContextThemeWrapper( this,R.style.cust_dialog);
+        final AlertDialog.Builder popDialog = new AlertDialog.Builder(ctw);
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.alert_dialog, null);
         popDialog.setView(dialogView);
@@ -434,7 +436,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             @Override
             protected void onPreExecute() {
                 // Display a temporary image to show while bitmap is loading.
-                imagePOI.setImageResource(R.drawable.ic_wander_paper_plane_heading);
+                imagePOI.setImageResource(R.drawable.transparente);
             }
 
             @Override
