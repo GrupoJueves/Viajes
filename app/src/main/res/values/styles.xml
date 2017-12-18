@@ -46,4 +46,15 @@
 
 
 
+    <style name="Theme_Dialog_custom" parent="android:Theme.Holo.Dialog">
+
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowFullscreen">true</item>
+
+
+    </style>
+
+
+
+
 </resources>

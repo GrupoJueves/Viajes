@@ -155,5 +155,6 @@
     <string name="ap_pulsa_telefono">Pulsa sobre el teléfono para llamar</string>
     <string name="ap_pulsa_enlace">Pulsa sobe los enlaces para abrir el navegador</string>
     <string name="puntos_de_interes_en_la_ruta">Puntos de interes en la ruta</string>
+    <string name="fotos">Fotos en Google+</string>
 
 </resources>

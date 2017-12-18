@@ -86,6 +86,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
     private int numero;
     private int user;
     private SharedPreferences pref;
+    private int fotos=0;
+    private String idPlace;
 
     private FlowingDrawer mDrawer;
 
@@ -350,6 +352,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
 
                             //obtengo la toda la info disponible del api places en la variable myPlace
                             ponerFoto(myPlace.getId());
+                            idPlace=myPlace.getId();
 
                             detalle.setText(myPlace.getAddress());//es la direccion
 
@@ -492,6 +495,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 PlacePhotoMetadataBuffer photoMetadataBuffer = result.getPhotoMetadata();
                 if (photoMetadataBuffer.getCount() > 0 && !isCancelled()) {
                     // Get the first bitmap and its attributions.
+                    fotos = photoMetadataBuffer.getCount();
                     PlacePhotoMetadata photo = photoMetadataBuffer.get(0);
                     CharSequence attribution = photo.getAttributions();
                     // Load a scaled bitmap for this photo.
@@ -792,6 +796,16 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         explanation_4.setVisibility(View.GONE);*/
         TextView b_entendido = findViewById(R.id.entendido);
         b_entendido.setVisibility(View.GONE);
+    }
+
+    public void verImagenes(View v){
+        if (fotos !=0) {
+            Intent i = new Intent(this, FotosGoogle.class);
+            i.putExtra("fotos", fotos);
+            i.putExtra("idPlace", idPlace);
+            startActivity(i);
+        }
+
     }
 
 
