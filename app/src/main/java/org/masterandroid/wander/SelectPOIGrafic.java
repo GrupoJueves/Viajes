@@ -232,6 +232,7 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
 
 
         ConsultaBD.newPOI(punto);
+
         int poi_id = ConsultaBD.getIdPOI(poi.placeId);
         if (poi_id != -1){
             if(ConsultaBD.addPoi((int)id,poi_id,false)){
@@ -355,19 +356,19 @@ public class SelectPOIGrafic extends FragmentActivity implements OnMapReadyCallb
 
 
                                 if(ConsultaBD.putCat(placeId,categoria)){
-                                    Log.e("Categoria añadida","");
+                                   // Log.e("Categoria añadida","");
                                 }else{
-                                    Log.e("Error al ","añadir categoria");
+                                   // Log.e("Error al ","añadir categoria");
                                 }
 
                                 if(ConsultaBD.putLocalidad(placeId,loc)){
-                                    Log.e("Localidad añadida","");
+                                   // Log.e("Localidad añadida","");
                                 }else{
-                                    Log.e("Error al ","añadir localidad");
+                                   // Log.e("Error al ","añadir localidad");
                                 }
 
                             } else {
-                                Log.e("", "Place not found");
+                               // Log.e("", "Place not found");
                             }
                             places.release();
                         }

@@ -1,5 +1,7 @@
 package org.masterandroid.wander;
 
+import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +49,8 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     public AdaptadorPuntosInteres adaptador;
     private RecyclerView.LayoutManager lManager;
     private LinearLayout vacio;
+
+    private ProgressBar cargando;
 
     private ItemTouchHelper mItemTouchHelper;
 
@@ -88,7 +93,14 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_puntos_interes);
+
+
+
+
+        //instanciomas aplication para publi y pagos
         app = (ApplicationClass) getApplication();
+
+
 
         //pagos
 
@@ -113,6 +125,9 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
 
         //imagen aprendizaje
         abrePrimeraVez();
+
+        //referenci el progresbar
+        cargando=findViewById(R.id.cargando);
 
 
 
@@ -145,6 +160,8 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                 i.putExtra("id", id_ruta);
                 startActivityForResult(i, RESULTADO_AÑADIR);
 
+                cargando.setVisibility(View.VISIBLE);
+
                 if(showInterticial) {
                     if (interstitialAd.isLoaded()) {
                         interstitialAd.show();
@@ -167,7 +184,8 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                     //apliar directions
                     Intent i = new Intent(ListaPuntosInteresActivity.this, MapaRuta.class);
                     i.putExtra("id", id_ruta);
-                    startActivity(i);
+                    startActivityForResult(i,2334);
+                    cargando.setVisibility(View.VISIBLE);
 
 
                 } else if (id == R.id.nav_visitado) {
@@ -175,18 +193,14 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
                     ConsultaBD.changeCheck((int)id_ruta,true);
                     setResult(RESULT_OK);
 
-                }else if (id == R.id.nav_eliminar) {
+                /*}else if (id == R.id.nav_eliminar) {
                     ConsultaBD.deleteRoute((int)id_ruta);
                     setResult(RESULT_OK);
-                    finish();
+
+                    finish();*/
 
                 } else if (id == R.id.nav_salir) {
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putInt("id", 0);
-                    editor.putBoolean("rememberMe", false);
-                    editor.commit();
-                    Intent intent2 = new Intent(ListaPuntosInteresActivity.this, InicioSesionActivity.class);
-                    startActivity(intent2);
+                   setResult(1983);
                     finish();
                 } else if (id == R.id.nav_rate_us) {
                     rateUsBtn();
@@ -214,7 +228,7 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         });
         mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
-        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -312,16 +326,18 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
     }
 
     //accion de pulsar sobre un elemento de la lista
+    @SuppressLint("RestrictedApi")
     @Override
     public void onClick(AdaptadorPuntosInteres.ViewHolder holder, long id) {
         Intent intent = new Intent(this, DetailPOI.class);
         intent.putExtra("id", id);
-        startActivityForResult(intent,RESULTADO_AÑADIR);
+        startActivityForResult(intent,RESULTADO_AÑADIR, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
     //Accion a realizar al volver del otra actividad
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        cargando.setVisibility(View.GONE);
         super.onActivityResult(requestCode,resultCode,data);
         switch (requestCode) {
             case INAPP_BILLING: {
@@ -345,6 +361,10 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
             }
             break;
             case RESULTADO_AÑADIR:
+                if(resultCode==1983){
+                    setResult(1983);
+                    finish();
+                }
                 View myView = findViewById(R.id.reciclador);
                 ViewGroup parent = (ViewGroup) myView.getParent();
                 parent.removeView(myView);
@@ -517,4 +537,14 @@ public class ListaPuntosInteresActivity extends AppCompatActivity implements Ada
         TextView b_entendido = findViewById(R.id.entendido);
         b_entendido.setVisibility(View.GONE);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawer.isMenuVisible()) {
+            mDrawer.closeMenu();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
 }

@@ -262,7 +262,11 @@ public class ConsultaBD {
         Cursor cursor = bdw.rawQuery("SELECT * FROM poi WHERE poi_id = " + id, null);
         if (cursor.moveToNext()){
             poi = new POI();
-            poi.setTitle(""+cursor.getString(cursor.getColumnIndex("title")));
+            String nombre = ""+cursor.getString(cursor.getColumnIndex("title"));
+            //Log.e("nombre",""+nombre);
+            //nombre=nombre.replace("''","'");
+            //Log.e("nombre",""+nombre);
+            poi.setTitle(nombre);
             poi.setIdentificador(""+cursor.getString(cursor.getColumnIndex("identificador")));
             poi.setImg(""+cursor.getString(cursor.getColumnIndex("img")));
             poi.setLat(0+cursor.getFloat(cursor.getColumnIndex("lat")));
@@ -280,8 +284,10 @@ public class ConsultaBD {
     //Añadir un POI de la api a la BD
     public static boolean newPOI (POI poi){
         boolean correcto = true;
+        String nombre = poi.getTitle();
+        nombre=nombre.replace("\'","\'\'");
         try {
-            bdw.execSQL("INSERT INTO poi (title, identificador, lon, lat, img) VALUES ('"+poi.getTitle()+"' , '"+poi.getIdentificador()+"' , "+poi.getLon()+" , "+poi.getLat()+" , '"+poi.getImg()+"')");
+            bdw.execSQL("INSERT INTO poi (title, identificador, lon, lat, img) VALUES ('"+nombre+"' , '"+poi.getIdentificador()+"' , "+poi.getLon()+" , "+poi.getLat()+" , '"+poi.getImg()+"')");
 
         }
         catch (Exception e){

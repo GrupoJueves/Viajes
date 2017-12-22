@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity implements AdaptadorItinerar
         ConsultaBD.inicializaBD(this);
 
         //referencio el reciclerview
-        recyclerViewClientes = (RecyclerView) findViewById(R.id.prueba);
-        recyclerViewClientes.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerViewClientes = (RecyclerView) findViewById(R.id.prueba);
+        //recyclerViewClientes.setLayoutManager(new LinearLayoutManager(this));
 
         //creo el recicler view
         listaitinerarios();

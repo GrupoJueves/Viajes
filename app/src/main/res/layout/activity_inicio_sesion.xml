@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="16dp">
+    android:id="@+id/fondo"
+    android:padding="16dp"
+    android:transitionGroup="false">
 
     <ImageView
         android:id="@+id/logo"
@@ -13,6 +15,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="8dp"
         android:src="@drawable/ic_wander_heading"
+        android:transitionName ="@string/transition_name_logo"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"

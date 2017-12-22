@@ -1,5 +1,6 @@
 package org.masterandroid.wander;
 
+import android.app.ActivityOptions;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -194,18 +195,17 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                     if(ConsultaBD.changeCheckPoi((int)id_poi,true)){
                         Toast.makeText(getApplicationContext(), R.string.marcar_como_visitado, Toast.LENGTH_SHORT).show();
                     }
-                }else if (id == R.id.nav_poi_eliminar) {
+                /*}else if (id == R.id.nav_poi_eliminar) {
                    ConsultaBD.deletePoiRoute((int)id_poi);
+
                    finish();
+                    overridePendingTransition(R.anim.salida, R.anim.fade);*/
+
                 }else if (id == R.id.nav_poi_comentario) {
                     ShowDialog();
                 } else if (id == R.id.nav_salir) {
-                    SharedPreferences.Editor editor = pref.edit();
-                    editor.putInt("id", 0);
-                    editor.putBoolean("rememberMe", false);
-                    editor.commit();
-                    Intent intent2 = new Intent(DetailPOI.this, InicioSesionActivity.class);
-                    startActivity(intent2);
+                    setResult(1983);
+
                     finish();
                 } else if (id == R.id.nav_rate_us) {
                     rateUsBtn();
@@ -231,7 +231,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         });
         mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
-        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -318,7 +318,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                         int id = ConsultaBD.getPoiId((int)id_poi);
 
                         if(ConsultaBD.addComment(usuario,id,comentario,val,hoy)){
-                            Log.e("Comentario","añadido corectamente");
+                           // Log.e("Comentario","añadido corectamente");
                         }
                         //recargo el recilerview
                         mostarComentarios();
@@ -358,6 +358,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
 
                             direccion = myPlace.getAddress().toString();//para la busqueda en wikipedia
                             nombre = myPlace.getName().toString();//para la busqueda en wikipedia
+                            nombre=nombre.replace("\"","");
+                            //Log.e("nom",nombre.toString());
 
                             if(myPlace.getPhoneNumber().equals("")){
                                 View vista = (View) telefono.getParent();
@@ -554,7 +556,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
         catch (Exception e){
 
             localidad = secdir[1];
-            Log.e("error:", e.getMessage());
+            //Log.e("error:", e.getMessage());
         }
 
         //separo la localidad obtenida en los espacios en blanco
@@ -572,11 +574,11 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             catch (Exception e){
 
                 nombreBusqueda = nombreBusqueda +"+"+secdir[i];
-                Log.e("error:", e.getMessage());
+               // Log.e("error:", e.getMessage());
             }
         }
 
-        //Toast.makeText(this,"la busqueda es: "+ nombreBusqueda, Toast.LENGTH_LONG).show();
+     // Log.e("la busqueda es",""+ nombreBusqueda);
         //Toast.makeText(this,"la localidad es: "+ localidad, Toast.LENGTH_LONG).show();
 
         new Link().execute();
@@ -600,7 +602,7 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             try {
                 // Connect to the google
                 URL url = new URL("https://www.google.es/search?q="+nombreBusqueda);
-                Document document = Jsoup.parse(url,4000);
+                Document document = Jsoup.parse(url,10000);
                 Elements links = document.select("cite._Rm");
 
 
@@ -640,6 +642,8 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
                 e.printStackTrace();
                 encontrado = false;
                 return null;
+            }catch (Exception e){
+
             }
             return null;
         }
@@ -803,9 +807,18 @@ public class DetailPOI extends AppCompatActivity implements GoogleApiClient.OnCo
             Intent i = new Intent(this, FotosGoogle.class);
             i.putExtra("fotos", fotos);
             i.putExtra("idPlace", idPlace);
-            startActivity(i);
+            startActivity(i, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawer.isMenuVisible()) {
+            mDrawer.closeMenu();
+        } else {
+            super.onBackPressed();
+        }
     }
 
 

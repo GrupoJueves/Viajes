@@ -67,7 +67,8 @@
             app:riv_border_color="@color/colorAccent"
             app:riv_mutate_background="false"
             app:riv_tile_mode="clamp"
-            app:riv_oval="true" />
+            app:riv_oval="true"
+            android:transitionName="@string/transition_name_icon"/>
 
         <TextView
             android:id="@+id/fecha"

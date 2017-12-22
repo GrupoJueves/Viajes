@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -79,7 +82,9 @@ public class InicioSesionActivity extends AppCompatActivity {
     public void registrarUsuario (View view){
         Intent intent = new Intent(this, Registro.class);
         intent.putExtra("email", email.getText().toString());
-        startActivityForResult(intent,42);
+        ActivityOptionsCompat options = ActivityOptionsCompat. makeSceneTransitionAnimation(InicioSesionActivity.this, new Pair<View, String>(findViewById(R.id.logo), getString(R.string.transition_name_logo)));
+       // startActivityForResult(intent,42);
+        ActivityCompat.startActivityForResult(InicioSesionActivity.this, intent,42, options .toBundle());
     }
 
     /*

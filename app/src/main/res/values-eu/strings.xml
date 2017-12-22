@@ -156,5 +156,9 @@
     <string name="ap_pulsa_enlace">Klikatu estekan nabigatzailea irekitzeko</string>
     <string name="puntos_de_interes_en_la_ruta">Ibilbideko interesguneak</string>
     <string name="fotos">Argazkiak Google+en</string>
+    <string name="transition_name_icon">transition:Icon</string>
+    <string name="transition_name_user">transition:USER</string>
+    <string name="transition_name_logo">transition:Logo</string>
+    <string name="comentarios">Comentarios</string>
 
 </resources>

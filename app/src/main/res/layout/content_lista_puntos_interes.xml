@@ -5,19 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical">
+    android:id="@+id/fondo"
+    android:orientation="vertical"
+    android:transitionGroup="false">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:transitionGroup="false">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:transitionGroup="false">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/toolbar_layout"
@@ -29,6 +33,7 @@
                 app:toolbarId="@+id/detail_toolbar">
 
                 <ImageView
+                    android:id="@+id/avion"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="12dp"
@@ -53,7 +58,8 @@
                     app:riv_corner_radius="6dip"
                     app:riv_mutate_background="false"
                     app:riv_oval="true"
-                    app:riv_tile_mode="clamp" />
+                    app:riv_tile_mode="clamp"
+                    android:transitionName="@string/transition_name_icon"/>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/detail_toolbar"
@@ -80,15 +86,19 @@
             android:layout_height="match_parent"
             android:background="@color/background"
             android:fillViewport="true"
+            android:transitionGroup="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
                 android:id="@+id/vista_contenedora"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:transitionGroup="false">
 
                 <TextView
+                    android:id="@+id/infpoi"
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
@@ -100,14 +110,17 @@
                     android:textSize="@dimen/article_titles"
                     android:textStyle="bold" />
 
+
+
                 <LinearLayout
                     android:id="@+id/vacio"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:transitionGroup="false">
 
                     <TextView
-
+                        android:id="@+id/vacio1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -118,6 +131,8 @@
                         android:textStyle="bold" />
 
                     <TextView
+
+                        android:id="@+id/vacio2"
 
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -130,6 +145,8 @@
 
                     <TextView
 
+                        android:id="@+id/vacio3"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
@@ -139,7 +156,10 @@
                         android:textSize="@dimen/article_subheading"
                         android:textStyle="bold" />
 
+
+
                 </LinearLayout>
+
 
 
                 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -275,6 +295,16 @@
             android:textStyle="bold"
             android:visibility="gone"
             app:elevation="12dp" />
+
+        <ProgressBar
+            android:id="@+id/cargando"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_marginTop="35dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:indeterminate="true"
+            android:visibility="gone"/>
     </android.support.design.widget.CoordinatorLayout>
 
     <com.google.android.gms.ads.AdView

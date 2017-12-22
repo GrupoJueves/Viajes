@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keeppackagenames org.jsoup.nodes
+-dontwarn org.joda.convert.**
+-dontwarn org.joda.time.**
+-keep class org.joda.time.** { *; }
+-keep interface org.joda.time.** { *;}
+-keep class com.google.maps.** { *; }
+-dontwarn com.google.maps.**
+-dontwarn okio.**
+-dontwarn org.slf4j.**

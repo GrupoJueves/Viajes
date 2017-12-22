@@ -94,13 +94,13 @@ public class AdaptadorVacio extends RecyclerView.Adapter<AdaptadorVacio.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
         //siguiente elemento del cursor
        // c.moveToPosition(position);
-        Log.e("position",""+position);
+        //Log.e("position",""+position);
 
 
         //Modifico los elementos de la vista
         // EJEMPLO  holder.Titulo.setText(c.getString(c.getColumnIndex("title")));
-        Log.e("width",""+holder.foto.getWidth());
-        Log.e("Height",""+holder.foto.getHeight());
+        //Log.e("width",""+holder.foto.getWidth());
+       // Log.e("Height",""+holder.foto.getHeight());
 
         ponerFoto(place_Id, position, holder.foto);
 

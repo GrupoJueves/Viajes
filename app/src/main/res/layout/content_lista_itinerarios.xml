@@ -4,20 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fondo"
     android:background="@color/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:transitionGroup="false">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:transitionGroup="false">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:transitionGroup="false">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/toolbar_layout"
@@ -26,9 +30,11 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="?android:attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:toolbarId="@+id/detail_toolbar">
+                app:toolbarId="@+id/detail_toolbar"
+                android:transitionGroup="false">
 
                 <ImageView
+                    android:id="@+id/avion"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="12dp"
@@ -82,6 +88,7 @@
             android:layout_height="match_parent"
             android:background="@color/background"
             android:fillViewport="true"
+            android:transitionGroup="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -90,12 +97,14 @@
                 android:id="@+id/vista_contenedora"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:transitionGroup="false">
                 <LinearLayout
                     android:id="@+id/vacio"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:transitionGroup="false">
 
                     <TextView
 

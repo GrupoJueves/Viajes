@@ -5,14 +5,16 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:transitionGroup="false"    >
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/detail_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:transitionGroup="false">
 
 
         <android.support.design.widget.AppBarLayout
@@ -20,7 +22,8 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
             android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:transitionGroup="false">
 
             <android.support.design.widget.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
@@ -31,7 +34,8 @@
                 app:contentScrim="?android:attr/colorPrimary"
                 app:expandedTitleMarginEnd="@dimen/article_keylines"
                 app:expandedTitleMarginStart="@dimen/md_keylines"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                android:transitionGroup="false">
 
                 <ImageView
                     android:id="@+id/imagePOI"
@@ -60,9 +64,11 @@
             android:id="@+id/nestedScrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:transitionGroup="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <LinearLayout
+                android:transitionGroup="false"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
@@ -126,7 +132,8 @@
                     android:orientation="horizontal"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    android:transitionGroup="false">
 
                     <ImageView
                         android:id="@+id/logo_telefono"
@@ -154,7 +161,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    android:transitionGroup="false">
 
                     <TextView
                         android:id="@+id/web"
@@ -292,7 +300,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/md_keylines"
                         android:layout_marginTop="@dimen/md_keylines"
-                        android:text="Comentarios"
+                        android:text="@string/comentarios"
                         android:textColor="@color/colorAccent"
                         android:textSize="@dimen/article_titles" />
 

@@ -3,6 +3,7 @@
     <!--No hace falta traducir-->
     <string name="ads_initialize_test" translatable="false">a-app-pub-3940256099942544~3347511713</string>
     <string name="ads_banner_id_test" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="ads_intersticial_id_test" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
 
     <string name="app_name" translatable="false">Wander</string>
     <string name="title_activity_prueba_itinerario">Itinerary test</string>
@@ -91,7 +92,7 @@
     <string name="guardar">save</string>
     <string name="comentario">Add commentary</string>
     <string name="escribe_tu_comentario">Write your commentary</string>
-    <string name="ads_intersticial_id_test" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
+
     <string name="compras">Purchases</string>
     <string name="quitar_anuncios">Remove ads</string>
     <string name="mostrar_en_mapa">Show in map</string>
@@ -164,5 +165,9 @@
 
     <string name="puntos_de_interes_en_la_ruta">Points of interest in the itinerary</string>
     <string name="fotos">Photos on Google+</string>
+    <string name="transition_name_icon">transition:Icon</string>
+    <string name="transition_name_user">transition:USER</string>
+    <string name="transition_name_logo">transition:Logo</string>
+    <string name="comentarios">Comements</string>
 
 </resources>

@@ -103,7 +103,10 @@ public class EditarPerfilUsuarioActivity extends AppCompatActivity {
         getInfo();
         ConsultaBD.updateUser(usuario, id);
         setResult(RESULT_OK);
-        finish();
+        EditarPerfilUsuarioActivity.this.overridePendingTransition(0,0);
+
+       onBackPressed();
+
     }
 
     public void tomarFoto(View view) {

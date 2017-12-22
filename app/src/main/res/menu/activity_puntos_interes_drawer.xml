@@ -12,10 +12,12 @@
             android:id="@+id/nav_visitado"
             android:icon="@android:drawable/ic_menu_view"
             android:title="@string/marcar_como_visitado"/>
-        <item
+       <!--
+       <item
             android:id="@+id/nav_eliminar"
             android:icon="@android:drawable/ic_menu_delete"
             android:title="@string/eliminar_itinerario"/>
+            -->
     </group>
 
     <item android:title="@string/preferencias">

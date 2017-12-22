@@ -104,14 +104,16 @@ public class iconos {
             case 30:
                 retorno = R.drawable.medico;
                 break;
-           /* case 31:
-                retorno = R.drawable.;
-                break;*/
+            case 31:
+                retorno = R.drawable.electricista;
+                break;
             case 33:
                 retorno = R.drawable.embajada;
                 break;
             case 34:
             case 38:
+                retorno = R.drawable.restaurante2;
+                break;
             case 79:
                 retorno = R.drawable.restaurante;
                 break;
@@ -247,10 +249,13 @@ public class iconos {
                 retorno = R.drawable.metro;
                 break;
             case 90:
-            case 92:
-            case 1030:
                 retorno = R.drawable.sinagoga;
                 break;
+            case 92:
+            case 1030:
+                retorno=R.drawable.metro;
+                break;
+
             case 91:
                 retorno = R.drawable.taxi;
                 break;
@@ -260,9 +265,7 @@ public class iconos {
             case 96:
                 retorno = R.drawable.zoo;
                 break;
-            case 31:
-                retorno = R.drawable.electricista;
-                break;
+
             case 69:
                 retorno = R.drawable.park;
                 break;

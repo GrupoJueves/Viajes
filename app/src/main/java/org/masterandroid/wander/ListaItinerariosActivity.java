@@ -16,6 +16,9 @@ import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -87,6 +90,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_itinerarios);
+
+
 
         abrePrimeraVez();
 
@@ -197,7 +202,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         });
         mDrawer = (FlowingDrawer) findViewById(R.id.drawerlayout);
         mDrawer.setTouchMode(ElasticDrawer.TOUCH_MODE_BEZEL);
-        toolbar.setNavigationIcon(R.drawable.ic_menu_black_24dp);
+        toolbar.setNavigationIcon(R.drawable.ic_menu_white_24dp);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,8 +210,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
             }
         });
 
-        Transition lista_enter = TransitionInflater.from(this).inflateTransition(R.transition.transition_explode);
-        getWindow().setEnterTransition(lista_enter);
+
 
         //Anuncios:
         ID_BLOQUE_ANUNCIOS_INTERSTICIAL = getString(R.string.ads_intersticial_id_test);
@@ -214,6 +218,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
         MobileAds.initialize(this, ID_INICIALIZADOR_ADS);
         adView = (AdView) findViewById(R.id.adView);
+        //setAds(true);
         setAds(app.adsEnabled());
     }
 
@@ -260,7 +265,8 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     public void onClick(AdaptadorItinerarios.ViewHolder holder, long id) {
         Intent intent = new Intent(this, ListaPuntosInteresActivity.class);
         intent.putExtra("id", id);
-        startActivityForResult(intent, 1694,ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
+        //ActivityOptionsCompat options = ActivityOptionsCompat. makeSceneTransitionAnimation(ListaItinerariosActivity.this, new Pair<View, String>(holder.imageRef, getString(R.string.transition_name_icon)));
+        startActivityForResult(intent,1694, ActivityOptions.makeSceneTransitionAnimation(this).toBundle());
     }
 
 
@@ -356,6 +362,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
         if (adsEnabled) {
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
+
             interstitialAd = new InterstitialAd(this);
             interstitialAd.setAdUnitId(ID_BLOQUE_ANUNCIOS_INTERSTICIAL);
             interstitialAd.loadAd(new AdRequest.Builder().build());
@@ -419,7 +426,19 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
                 }
                 break;
             case 1694:
-                if(resultCode == RESULT_OK){
+
+                if(resultCode==1983){
+
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putInt("id", 0);
+                    editor.putBoolean("rememberMe", false);
+                    editor.commit();
+                    Intent intent2 = new Intent(this, InicioSesionActivity.class);
+                    startActivity(intent2);
+                    finish();
+                }
+
+
                    // listaitinerarios();
                     View myView = findViewById(R.id.reciclador);
                     ViewGroup parent = (ViewGroup) myView.getParent();
@@ -434,7 +453,7 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
 
 
 
-                }
+
                 break;
             case 33:
                 ponerImagen();
@@ -457,13 +476,16 @@ public class ListaItinerariosActivity extends AppCompatActivity implements Adapt
     public void ponerImagen(){
         String url = "";
         url = ConsultaBD.getPhoto(id);
+        com.makeramen.roundedimageview.RoundedImageView imagen = findViewById(R.id.usuario);
         //poner la foto
         if(!url.equals("") && url != null){
-            com.makeramen.roundedimageview.RoundedImageView imagen = findViewById(R.id.usuario);
+
             imagen.setVisibility(View.VISIBLE);
             //Log.e("url",""+url);
             ponerFoto(imagen,url);
 
+        }else{
+            imagen.setVisibility(View.GONE);
         }
 
     }

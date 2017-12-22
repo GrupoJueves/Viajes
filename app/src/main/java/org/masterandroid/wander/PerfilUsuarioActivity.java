@@ -1,6 +1,8 @@
 package org.masterandroid.wander;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,6 +13,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -84,9 +89,11 @@ public class PerfilUsuarioActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("RestrictedApi")
     public void lanzarEditar(View view){
         Intent i = new Intent(this, EditarPerfilUsuarioActivity.class);
-        startActivityForResult(i,1);
+        ActivityOptionsCompat options = ActivityOptionsCompat. makeSceneTransitionAnimation(PerfilUsuarioActivity.this, new Pair<View, String>(findViewById(R.id.foto), getString(R.string.transition_name_user)));
+        ActivityCompat.startActivityForResult(PerfilUsuarioActivity.this,i,1, options.toBundle());
     }
 
     public void rellenarInfo(){

@@ -1,12 +1,13 @@
 <transitionSet
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:duration="400"
+    android:duration="1000"
     android:transitionOrdering="together">
     <slide
         android:slideEdge="left"
         android:interpolator="@android:interpolator/accelerate_decelerate">
         <targets>
             <target android:targetId="@id/reciclador" />
+            <target android:targetId="@id/usuario" />
             <target android:targetId="@id/vacio1" />
             <target android:targetId="@id/vacio2" />
             <target android:targetId="@id/vacio3" />

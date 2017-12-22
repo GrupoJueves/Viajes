@@ -1,16 +1,38 @@
-<transitionSet xmlns:android="http://schemas.android.com/apk/res/android">
-    <explode android:duration="300">
+<transitionSet xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionOrdering="together"
+    android:duration="600">
+    <explode>
         <targets>
             <target android:excludeId="@android:id/statusBarBackground" />
             <target android:excludeId="@android:id/navigationBarBackground" />
             <target android:excludeId="@id/app_bar" />
             <target android:excludeId="@id/detail_toolbar" />
+            <target android:excludeId="@id/fab"/>
+            <target android:excludeId="@id/fondo"/>
+            <target android:excludeId="@id/avion"/>
+            <target android:excludeId="@id/reciclador" />
+            <target android:excludeId="@id/vacio1" />
+            <target android:excludeId="@id/vacio2" />
+            <target android:excludeId="@id/vacio3" />
+            <target android:excludeId="@id/infpoi" />
+            <target android:excludeId="@id/ref" />
+            <target android:excludeId="@id/usuario" />
         </targets>
     </explode>
-    <fade android:duration="300">
+    <slide
+        android:slideEdge="left"
+        android:interpolator="@android:interpolator/accelerate_decelerate">
         <targets>
-            <target android:targetId="@id/app_bar" />
-            <target android:targetId="@id/detail_toolbar" />
+            <target android:targetId="@id/reciclador" />
+            <target android:targetId="@id/vacio1" />
+            <target android:targetId="@id/vacio2" />
+            <target android:targetId="@id/vacio3" />
+            <target android:targetId="@id/infpoi" />
+            <target android:targetId="@id/ref" />
+            <target android:targetId="@id/usuario" />
         </targets>
-    </fade>
+    </slide>
+
+
+
 </transitionSet>

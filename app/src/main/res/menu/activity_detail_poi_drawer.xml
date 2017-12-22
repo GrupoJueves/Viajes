@@ -12,10 +12,12 @@
             android:id="@+id/nav_poi_visitado"
             android:icon="@android:drawable/ic_menu_view"
             android:title="@string/marcar_como_visitado"/>
+        <!--
         <item
             android:id="@+id/nav_poi_eliminar"
             android:icon="@android:drawable/ic_menu_delete"
             android:title="@string/eliminar_punto"/>
+            -->
         <item
             android:id="@+id/nav_poi_comentario"
             android:icon="@android:drawable/stat_notify_chat"

@@ -101,7 +101,7 @@ public class FotosGoogle extends AppCompatActivity implements AdaptadorVacio.OnI
 
         Bitmap bitmap = ((BitmapDrawable)holder.foto.getDrawable()).getBitmap();
 
-        Log.e("medidas","pantalla width: "+width+" height: "+height+" bitmap width: "+bitmap.getWidth()+" height: "+bitmap.getHeight());
+        //Log.e("medidas","pantalla width: "+width+" height: "+height+" bitmap width: "+bitmap.getWidth()+" height: "+bitmap.getHeight());
         if(bitmap.getWidth()>bitmap.getHeight()){
 
             dHeigt=(int) width*bitmap.getHeight()/bitmap.getWidth();
@@ -114,7 +114,7 @@ public class FotosGoogle extends AppCompatActivity implements AdaptadorVacio.OnI
             dHeigt=height-150;
             dWidht=(height-150)*bitmap.getWidth()/bitmap.getHeight();
         }
-        Log.e("Final","width: "+dWidht+" height: "+dHeigt);
+        //Log.e("Final","width: "+dWidht+" height: "+dHeigt);
 
 
 

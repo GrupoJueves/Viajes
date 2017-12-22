@@ -156,5 +156,9 @@
     <string name="ap_pulsa_enlace">Pulsa sobe los enlaces para abrir el navegador</string>
     <string name="puntos_de_interes_en_la_ruta">Puntos de interes en la ruta</string>
     <string name="fotos">Fotos en Google+</string>
+    <string name="transition_name_icon">transition:Icon</string>
+    <string name="transition_name_user">transition:USER</string>
+    <string name="transition_name_logo">transition:Logo</string>
+    <string name="comentarios">Comentarios</string>
 
 </resources>

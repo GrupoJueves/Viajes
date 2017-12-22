@@ -30,7 +30,7 @@ public class POI {
     }
 
     public void setTitle(String title) {
-        title = title.replace("\'","\'\'");  //para evitar problemas con la base de datos
+       // title = title.replace("\'","\'\'");  //para evitar problemas con la base de datos, deberia haberlo puesto en el constructor
         this.title = title;
     }
 
@@ -39,7 +39,7 @@ public class POI {
     }
 
     public void setDescription(String description) {
-        description = description.replace("\'","\'\'");
+        //description = description.replace("\'","\'\'");
         this.description = description;
     }
 
@@ -48,7 +48,7 @@ public class POI {
     }
 
     public void setImg(String img) {
-        img = img.replace("\'","\'\'");
+       // img = img.replace("\'","\'\'");
         this.img = img;
     }
 
